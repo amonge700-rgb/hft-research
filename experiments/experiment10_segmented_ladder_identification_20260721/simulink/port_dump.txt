@@ -1,0 +1,28 @@
+hftlib_lib/Eight-winding
+coupled inductor
+with a structured
+inductance matrix.
+      Inport: []
+     Outport: []
+      Enable: []
+     Trigger: []
+       State: []
+       LConn: [476.0004 477.0005 478.0009 479.0005 480.0009 481.0004 482.0004 483.0004 484.0005 485.0009 486.0005 487.0009 488.0004 489.0004 490.0004 491.0005]
+       RConn: []
+    Ifaction: []
+       Reset: []
+
+hftlib_lib/Ideal voltage-driven
+electrical test port
+with measured input
+current.
+      Inport: []
+     Outport: []
+      Enable: []
+     Trigger: []
+       State: []
+       LConn: [492.0009 493.0005 494.0009]
+       RConn: 495.0004
+    Ifaction: []
+       Reset: []
+

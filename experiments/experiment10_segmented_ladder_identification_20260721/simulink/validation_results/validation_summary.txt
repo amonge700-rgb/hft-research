@@ -1,0 +1,7 @@
+PASS
+state_count=82
+frequency_count=161
+mean_fro_relative_error=2.015682874083e-09
+median_fro_relative_error=1.696245445300e-10
+max_fro_relative_error=2.009450970602e-08
+max_reciprocity_residual=4.656630073108e-10

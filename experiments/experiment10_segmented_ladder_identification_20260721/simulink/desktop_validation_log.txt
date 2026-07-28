@@ -1,0 +1,7 @@
+Saved Simscape model: D:\高频变压器\experiment10_segmented_ladder_identification_20260721\simulink\hft_segmented_ladder_simscape.slx
+L symmetry residual: 0.000e+00
+Minimum eigenvalue of L: 5.625e-08 H
+{错误使用 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('build_twoport_linearization_model', 'D:\高频变压器\experiment10_segmented_ladder_identification_20260721\simulink\build_twoport_linearization_model.m', 62)" style="font-weight:bold">build_twoport_linearization_model</a> (<a href="matlab: opentoline('D:\高频变压器\experiment10_segmented_ladder_identification_20260721\simulink\build_twoport_linearization_model.m',62,0)">第 62 行</a>)
+Unexpected voltage_test_port port layout.
+} 
+diary('port_dump.txt'); load_system('hftlib_lib'); bl=find_system('hftlib_lib','SearchDepth',2,'Type','Block'); for kk=1:numel(bl), disp(bl{kk}); ph=get_param(bl{kk},'PortHandles'); disp(ph); end; diary off

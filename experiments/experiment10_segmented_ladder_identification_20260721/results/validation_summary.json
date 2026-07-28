@@ -1,0 +1,28 @@
+{
+  "inductance_symmetry_error": 0.0,
+  "inductance_min_eigenvalue_h": 5.6249999999999925e-08,
+  "capacitance_min_eigenvalue_f": 1.1764798045848318e-11,
+  "max_relative_reciprocity_error": 3.891052778920869e-15,
+  "minimum_port_passivity_eigenvalue_s": 9.225963414598174e-09,
+  "internal_kcl_residual_a": 2.676650998657626e-16,
+  "kron_direct_port_current_error_a": 3.331391796911832e-16,
+  "frequency_min_hz": 10000.0,
+  "frequency_max_hz": 20000000.0,
+  "frequency_count": 260,
+  "fisher_eigenvalues": [
+    1.726923197190621e-05,
+    2.8979409046288582e-05,
+    6.407699949232646e-05,
+    0.02147825343817967
+  ],
+  "fisher_condition_number": 1243.7295111398553,
+  "jacobian_rank": 4,
+  "maximum_offdiagonal_sensitivity_correlation": 0.9955289047682074,
+  "section_sensitivity_norms": [
+    0.007594239019247839,
+    0.07271428202487232,
+    0.11633233239831348,
+    0.052060812909369314
+  ],
+  "baseline_total_cps_pf": 28.36
+}

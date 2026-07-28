@@ -1,0 +1,25 @@
+{
+  "sample_count": 4800,
+  "frequency_count": 260,
+  "jacobian_singular_values": [
+    0.14655488384266058,
+    0.008004934618952016,
+    0.005383258481898974,
+    0.004155644563223339
+  ],
+  "jacobian_condition_number": 35.26646266613929,
+  "group_definition": {
+    "group_1": [
+      "Cps1"
+    ],
+    "group_2": [
+      "Cps2",
+      "Cps3",
+      "Cps4"
+    ]
+  },
+  "overall_unit_location_accuracy_pct": 87.4375,
+  "overall_group_location_accuracy_pct": 93.72916666666666,
+  "overall_unit_amplitude_mae_pct": 30.506599608939705,
+  "overall_group_amplitude_mae_pct": 41.59628202737715
+}

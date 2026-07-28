@@ -1,0 +1,48 @@
+{
+  "seed": 20260716,
+  "config": {
+    "base_train": 320,
+    "base_val": 64,
+    "base_test_interp": 64,
+    "base_test_shift": 64,
+    "repeats": 4,
+    "n_frequency": 64,
+    "f_low_hz": 80000.0,
+    "f_high_hz": 10000000.0,
+    "batch_size": 128,
+    "max_epochs": 160,
+    "patience": 28,
+    "learning_rate": 0.002,
+    "weight_decay": 0.0002,
+    "lambda_physics": 0.01,
+    "lambda_residual": 0.0002,
+    "num_workers": 0
+  },
+  "cuda": {
+    "device": "NVIDIA GeForce RTX 5070",
+    "torch": "2.11.0+cu128",
+    "cuda_runtime": "12.8",
+    "capability": [
+      12,
+      0
+    ],
+    "amp": "float16"
+  },
+  "dataset": {
+    "independent_states": 512,
+    "records": 2048,
+    "frequency_tokens": 64,
+    "split_by_state": true
+  },
+  "runtime_seconds": {
+    "generation_or_load": 0.01918149999983143,
+    "mlp_residual": 2.504753000001074,
+    "spectral_perceiver": 4.82384070000262
+  },
+  "boundaries": [
+    "Synthetic richer frequency-domain forward model; not SPICE, FEM, or hardware truth.",
+    "The network predicts log residuals around a fixed compact physics inverse.",
+    "All repeats of one physical state remain in the same split.",
+    "The shifted test split uses nuisance ranges outside the training domain."
+  ]
+}

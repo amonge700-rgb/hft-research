@@ -1,0 +1,12 @@
+PASS
+Model: hft_segmented_ladder_simscape.slx
+MATLAB release: R2021b
+Desktop model update: PASS (MODEL_COMPILE_PASS)
+Simulation start and completion: PASS (SIM_STATUS=stopped after StopTime)
+Date: 2026-07-28
+
+Resolved during compilation:
+1. Persisted R, structured-L, Cs, Cg, and Cps parameters in ModelWorkspace.
+2. Rebuilt the model to refresh its link to the regenerated hftlib_lib block.
+3. Used L = diag(Lleak) + Lcommon*a*a' to represent the exact baseline
+   inductance matrix without exposing 64 independent symbolic parameters.

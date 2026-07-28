@@ -1,0 +1,58 @@
+component coupled_inductor_matrix8
+% Eight-winding coupled inductor with a structured inductance matrix.
+% Each winding is a two-terminal electrical branch. The constitutive law is
+%
+%   v = diag(R) * i + (diag(Lleak)+Lcommon*a*a') * der(i)
+%
+% This is exactly the diagonal-leakage plus rank-one common-flux matrix used
+% by the Experiment-10 baseline. Keeping the matrix structured prevents
+% symbolic explosion in the R2021b Simscape compiler.
+
+nodes
+    p1 = foundation.electrical.electrical;
+    n1 = foundation.electrical.electrical;
+    p2 = foundation.electrical.electrical;
+    n2 = foundation.electrical.electrical;
+    p3 = foundation.electrical.electrical;
+    n3 = foundation.electrical.electrical;
+    p4 = foundation.electrical.electrical;
+    n4 = foundation.electrical.electrical;
+    p5 = foundation.electrical.electrical;
+    n5 = foundation.electrical.electrical;
+    p6 = foundation.electrical.electrical;
+    n6 = foundation.electrical.electrical;
+    p7 = foundation.electrical.electrical;
+    n7 = foundation.electrical.electrical;
+    p8 = foundation.electrical.electrical;
+    n8 = foundation.electrical.electrical;
+end
+
+parameters
+    R = { ones(8,1), 'Ohm' };
+    Lleak = { ones(8,1), 'H' };
+    a = { ones(8,1), '1' };
+    Lcommon = { 1, 'H' };
+end
+
+variables
+    i = { zeros(8,1), 'A' };
+end
+
+branches
+    i(1) : p1.i -> n1.i;
+    i(2) : p2.i -> n2.i;
+    i(3) : p3.i -> n3.i;
+    i(4) : p4.i -> n4.i;
+    i(5) : p5.i -> n5.i;
+    i(6) : p6.i -> n6.i;
+    i(7) : p7.i -> n7.i;
+    i(8) : p8.i -> n8.i;
+end
+
+equations
+    [ p1.v-n1.v; p2.v-n2.v; p3.v-n3.v; p4.v-n4.v; ...
+      p5.v-n5.v; p6.v-n6.v; p7.v-n7.v; p8.v-n8.v ] ...
+        == R.*i + Lleak.*i.der + a*Lcommon*(a.'*i.der);
+end
+
+end

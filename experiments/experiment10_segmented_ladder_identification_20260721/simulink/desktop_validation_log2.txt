@@ -1,0 +1,10 @@
+Saved Simscape model: D:\高频变压器\experiment10_segmented_ladder_identification_20260721\simulink\hft_segmented_ladder_simscape.slx
+L symmetry residual: 0.000e+00
+Minimum eigenvalue of L: 5.625e-08 H
+TWO_PORT_MODEL_SAVED=D:\高频变压器\experiment10_segmented_ladder_identification_20260721\simulink\hft_segmented_ladder_twoport.slx
+LINEARIZATION_START
+LINEARIZATION_STATE_COUNT=82
+VALIDATION_MEAN_REL_ERROR=2.000000e+00
+VALIDATION_MAX_REL_ERROR=2.000000e+00
+TWO_PORT_VALIDATION_PASS
+VALIDATION_DESKTOP_DONE

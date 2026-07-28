@@ -1,0 +1,48 @@
+# MATLAB / Simulink generated files
+*.asv
+*.autosave
+*.slxc
+slprj/
+codegen/
+simulink_cache/
+
+# Python caches and local environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.matplotlib/
+.venv/
+venv/
+
+# LaTeX build products
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+
+# Large training checkpoints and bulk datasets
+*.pt
+*.pth
+*.ckpt
+*.npz
+*.h5
+*.hdf5
+
+# Temporary and OS files
+tmp/
+temp/
+*.tmp
+Thumbs.db
+.DS_Store
+
+# Local application metadata
+.codex/
+.agents/

@@ -1,0 +1,12 @@
+Generating Simulink library 'hftlib_lib' in the current directory 'D:\高频变压器\experiment10_segmented_ladder_identification_20260721\simulink' ...
+Built custom Simscape library: D:\高频变压器\experiment10_segmented_ladder_identification_20260721\simulink\hftlib_lib.slx
+Saved Simscape model: D:\高频变压器\experiment10_segmented_ladder_identification_20260721\simulink\hft_segmented_ladder_simscape.slx
+L symmetry residual: 0.000e+00
+Minimum eigenvalue of L: 5.625e-08 H
+TWO_PORT_MODEL_SAVED=D:\高频变压器\experiment10_segmented_ladder_identification_20260721\simulink\hft_segmented_ladder_twoport.slx
+LINEARIZATION_START
+LINEARIZATION_STATE_COUNT=82
+VALIDATION_MEAN_REL_ERROR=2.015683e-09
+VALIDATION_MAX_REL_ERROR=2.009451e-08
+TWO_PORT_VALIDATION_PASS
+FINAL_VALIDATION_DONE
