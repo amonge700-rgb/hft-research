@@ -1,0 +1,11 @@
+{
+  "minimum_inductance_eigenvalue_h": 7.199444565842487e-09,
+  "minimum_capacitance_eigenvalue_f": 6.092638700777003e-13,
+  "inductance_symmetry_residual": 0.0,
+  "capacitance_symmetry_residual": 0.0,
+  "reference_runtime_seconds": 0.09083480000026611,
+  "information_feature_runtime_seconds": 0.6355773999998746,
+  "reference_matrix_dimension": 48,
+  "reference_reciprocity_residual": 3.845476655296926e-14,
+  "experiment_scope": "Synthetic passive constant-parameter reference; no FEM or hardware calibration."
+}

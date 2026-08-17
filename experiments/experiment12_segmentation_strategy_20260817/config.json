@@ -1,0 +1,16 @@
+{
+  "experiment_id": "EXP-012",
+  "seed": 20260817,
+  "fine_sections_per_winding": 24,
+  "coarse_sections_per_winding": [2, 4, 6, 8, 12],
+  "frequency_min_hz": 1000.0,
+  "frequency_max_hz": 10000000.0,
+  "frequency_points": 321,
+  "information_frequency_points": 61,
+  "turns_ratio": 4.0,
+  "physical_layer_sizes": [4, 7, 5, 8],
+  "port_error_target_percent": 0.2,
+  "internal_peak_error_target_percent": 0.1,
+  "resonance_error_target_percent": 0.01,
+  "adjacent_voltage_stress_error_target_percent": 1.0
+}
