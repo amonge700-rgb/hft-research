@@ -1,0 +1,1270 @@
+\documentclass[UTF8,a4paper,12pt]{ctexart}
+
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{siunitx}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{tabularx}
+
+\geometry{left=2.35cm,right=2.35cm,top=2.4cm,bottom=2.4cm}
+\graphicspath{{figures/}{../数据/}{../../experiment9_ai_residual_pilot_20260716/figures/}}
+\captionsetup{font=small,labelfont=bf}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.35em}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  citecolor=blue!50!black,
+  urlcolor=blue!50!black
+}
+\sisetup{detect-all=true}
+
+\title{\textbf{高频变压器运行激励下的多端口在线辨识与物理引导残差学习实验报告}}
+\author{研究主线：文献模型复现--PWM频响重构--有载多端口辨识--AI残差修正}
+\date{2026年7月17日}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+本报告以两篇高频变压器寄生参数文献为物理锚点，系统记录九组逐级推进的模型级实验。实验一至四完成 Liu 2017 三电容 IC/TC 方法复现、离线特征频率的时域在线化、Liu 2016 宽频机理模型接地复现，以及 PWM/PRBS 双频带在线重构。实验五通过已知 $C_{ps}$ 扰动，建立“频响特征--绕组间电容--跨绕组位移电流”的初步工程闭环。实验六将开路 TC 条件推进到双有源端口运行状态，利用多个线性独立运行窗口同步重构两端口导纳矩阵，并从 $Y_{12}$ 联合估计 $L_s$ 与 $C_{ps}$；同模数值基线误差为 $0.047\%$，而固定漏感与错误单端口方法的误差分别达到 $61.4\%$ 和 $85.6\%$。实验七通过频变铜阻、漏感色散、附加模态及测量链路误差构造独立前向模型失配，得到约 $5.091\%$ 的系统残差。实验八进一步验证显式开关状态、死区、有限边沿和多工况下的辨识可行性，并说明 $C_{ps}$ 只能直接闭合跨绕组位移电流，不能单独代表系统总共模电流。实验九构造 512 个独立物理状态和 2048 条频谱记录，使用 RTX 5070 CUDA 训练物理锚定残差模型；插值测试中，$C_{ps}$ MAE 由纯物理反演的 $3.584\%$ 降至 MLP 的 $1.018\%$ 和 Spectral Perceiver 的 $1.253\%$，初步证明“物理反演+AI残差修正”路线可行。所有结论仍属于仿真和模型级证据，不能外推为样机精度、系统总共模电流或绝缘老化诊断结论。
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+\section{报告定位与更新方式}
+
+本报告既是实验档案，也是后续学习和复现所使用的技术讲义。九组实验不是九条互不相关的路线，而是依次回答下列问题：文献公式是否正确复现、离线扫频能否在线化、端口特征是否具有工程含义、有载状态下参数能否分离、简化物理模型是否存在结构残差，以及 AI 是否能在不推翻物理模型的前提下修正残差。阅读时应始终沿着
+\begin{equation}
+\text{结构/参数}\rightarrow Y(j\omega)\rightarrow
+\text{端口波形}\rightarrow\hat Y(j\omega)
+\rightarrow\hat{\boldsymbol\theta}^{\mathrm{phy}}
+\rightarrow\hat{\boldsymbol\theta}^{\mathrm{AI}}
+\rightarrow\text{工程量}
+\end{equation}
+这条链路判断每个实验位于哪一环。
+
+每个实验均保留：
+
+\begin{enumerate}
+  \item 实验所对应的文献方法；
+  \item 使用的参数、公式与数据来源；
+  \item MATLAB/Python 脚本路径；
+  \item 主要结果表和图；
+  \item 对下一步研究主线的影响。
+\end{enumerate}
+
+当前版本收录九个实验。表~\ref{tab:experiment-map} 给出最简洁的阅读地图；若只想先掌握主线，建议优先学习实验一、五、六、七和九，再回看实验二至四与实验八的工程细节。
+
+\begin{table}[H]
+\centering
+\caption{九组实验的核心问题与逻辑位置}
+\label{tab:experiment-map}
+\small
+\begin{tabularx}{\textwidth}{p{0.10\textwidth}p{0.27\textwidth}X}
+\toprule
+实验 & 只回答一个问题 & 在总路线中的作用 \\
+\midrule
+一 & 文献三电容公式和实现是否正确？ & 建立 Liu 2017 模型、公式和样机参数锚点。\\
+二 & 离线 TC 特征能否从时域激励中恢复？ & 建立 PWM/脉冲在线频响重构流程。\\
+三 & 简化三电容背后的结构与接地效应能否解释？ & 用 Liu 2016 四端子宽频模型补充结构来源。\\
+四 & 宽频机理模型的双频带特征能否在线恢复？ & 证明激励频谱覆盖和双时间窗设计的重要性。\\
+五 & 在线辨识出的 $C_{ps}$ 有何可测工程意义？ & 建立 $C_{ps}$ 到跨绕组位移电流的模型级闭环。\\
+六 & 有载双端口运行时还能否分离 $C_{ps}$？ & 建立多运行窗口 $Y$ 矩阵重构与 $L_s,C_{ps}$ 联合估计。\\
+七 & 同模高精度是否掩盖了真实模型失配？ & 构造可解释的物理残差，界定后续 AI 任务。\\
+八 & 显式开关状态和多工况下框架是否立即失效？ & 验证死区、有限边沿、温度、负载和接地扰动下的先导可行性。\\
+九 & AI 能否在物理锚点上降低系统残差？ & 用 CUDA 训练残差模型，验证路线并暴露跨域泛化问题。\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{统一符号、模型层级与技术基础}
+
+\subsection{主要符号}
+
+\begin{table}[H]
+\centering
+\caption{全文反复使用的主要符号}
+\begin{tabularx}{\textwidth}{p{0.17\textwidth}p{0.26\textwidth}X}
+\toprule
+符号 & 名称 & 本报告中的含义 \\
+\midrule
+$C_p,C_s$ & 原、副边自电容 & 绕组内部及端口等效到参考端的自电容。\\
+$C_{ps}$ & 绕组间等效电容 & 跨隔离屏障的原副边电容耦合通道，是当前首要辨识参数。\\
+$C_{pg},C_{sg}$ & 原、副边对地电容 & 绕组到磁芯、屏蔽、散热器或参考地的等效电容。\\
+$L_m,R_m$ & 励磁支路参数 & 表示主磁路储能与磁芯等效损耗。\\
+$L_s,R_s$ & 漏感和串联电阻 & 表示漏磁储能与绕组交流损耗；高频下可能随频率变化。\\
+$n$ & 变比 & 本报告公式遵循所引用文献的端口折算方向。\\
+$Y_{ij}$ & 两端口导纳元素 & $Y_{11},Y_{22}$ 为驱动点导纳，$Y_{12},Y_{21}$ 为互导纳。\\
+$f_1,f_u,f_{\mathrm{zero}}$ & 特征频率 & 分别对应低频开路谐振、传递函数极点和传递零点。\\
+$\hat{\theta}^{\mathrm{phy}}$ & 物理反演值 & 由简化两端口模型和复频响最小二乘得到的参数估计。\\
+$\Delta\log\theta$ & 对数残差 & 真实参数与物理估计之间的乘性修正量。\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{三种模型层级不能混淆}
+
+全文使用三种复杂度不同的模型。第一层是 Liu 2017 三电容终端模型，适合推导特征频率和解释端口测量；第二层是包含频变阻抗、对地电容、附加模态和通道误差的宽频前向模型，用于压力测试简化反演；第三层是开关状态 DAB 先导模型，用显式桥臂状态、死区和有限边沿生成运行波形。它们分别回答“公式是否成立”“模型失配有多大”和“运行波形下能否工作”，均不是有限元或逐器件 SPICE 真值。
+
+为了防止同模生成与同模反演产生虚假的高精度，报告采用下列证据等级：
+\begin{enumerate}
+  \item \textbf{自洽验证：}前向模型与反演模型相同，只验证代码、观测和数值算法；
+  \item \textbf{失配验证：}前向模型比反演模型复杂，用于量化结构残差；
+  \item \textbf{跨求解器验证：}后续需用 SPICE、PLECS、FEM 或其他独立模型；
+  \item \textbf{样机验证：}最终需由 VNA/阻抗测量和直接电流测量给出工程真值。
+\end{enumerate}
+
+\subsection{两端口定义与开路、有载条件}
+
+统一采用
+\begin{equation}
+\mathbf I=\mathbf Y\mathbf V,\qquad
+\begin{bmatrix}I_1\\I_2\end{bmatrix}
+=
+\begin{bmatrix}Y_{11}&Y_{12}\\Y_{21}&Y_{22}\end{bmatrix}
+\begin{bmatrix}V_1\\V_2\end{bmatrix}.
+\label{eq:two-port-basic}
+\end{equation}
+副边开路时 $I_2=0$，因此
+\begin{equation}
+H_v=\frac{V_2}{V_1}\bigg|_{I_2=0}=-\frac{Y_{21}}{Y_{22}},\qquad
+Y_{\mathrm{in,oc}}=Y_{11}-\frac{Y_{12}Y_{21}}{Y_{22}}.
+\end{equation}
+有载时 $I_2\neq0$，此时
+\begin{equation}
+\frac{I_1}{V_1}=Y_{11}+Y_{12}\frac{V_2}{V_1},
+\end{equation}
+所以单个运行窗口中的 $I_1/V_1$ 是负载和桥臂共同作用下的表观导纳，不能直接当成变压器固有的 $Y_{11}$。这一区别是实验六成立的理论起点。
+
+\subsection{从时域波形到频率响应}
+
+对第 $r$ 个重复时间窗，记离散傅里叶变换为 $V^{(r)}(j\omega_k)$ 和 $I^{(r)}(j\omega_k)$。单输入情况下采用互谱平均
+\begin{equation}
+\hat H(j\omega_k)=
+\frac{\sum_r Y^{(r)}(j\omega_k)X^{(r)*}(j\omega_k)}
+{\sum_r|X^{(r)}(j\omega_k)|^2+\varepsilon},
+\end{equation}
+而不是直接对每个窗口作 $Y/X$ 后平均。互谱形式能降低分母噪声导致的爆炸，但不能弥补目标频带缺少激励能量。频率分辨率和奈奎斯特频率分别为
+\begin{equation}
+\Delta f=\frac{f_s}{N}=\frac{1}{T_{\mathrm{record}}},\qquad
+f_{\mathrm{Nyq}}=\frac{f_s}{2}.
+\end{equation}
+因此低频特征主要需要更长记录时间，高频特征主要需要更高采样率、足够快的边沿和可信测量带宽。FFT 还要求处理周期稳态、窗函数、泄漏和整数周期记录；实验八展示了忽略稳态会制造超过 $60\%$ 的伪参数误差。
+
+\subsection{多运行窗口重构与数值可观测性}
+
+在同一频点把 $R$ 个运行窗口横向堆叠：
+\begin{equation}
+\mathbf I_k=
+\begin{bmatrix}\mathbf i_k^{(1)}&\cdots&\mathbf i_k^{(R)}\end{bmatrix},\qquad
+\mathbf V_k=
+\begin{bmatrix}\mathbf v_k^{(1)}&\cdots&\mathbf v_k^{(R)}\end{bmatrix}.
+\end{equation}
+带岭正则的复数最小二乘解为
+\begin{equation}
+\hat{\mathbf Y}_k=\mathbf I_k\mathbf V_k^{H}
+\left(\mathbf V_k\mathbf V_k^{H}+\lambda_k\mathbf I_2\right)^{-1}.
+\label{eq:y-reconstruction}
+\end{equation}
+要求 $\mathrm{rank}(\mathbf V_k)=2$，并且最小奇异值不能过小。数值质量通过
+\begin{equation}
+\kappa(\mathbf V_k)=\frac{\sigma_{\max}(\mathbf V_k)}{\sigma_{\min}(\mathbf V_k)}
+\end{equation}
+评价。多个运行窗口的价值不是简单重复平均，而是改变相移、幅值比和占空比，使两个端口的激励方向线性独立。
+
+\subsection{误差指标与参数边界}
+
+全文主要使用相对误差和平均绝对百分比误差：
+\begin{equation}
+e_i=100\%\frac{\hat\theta_i-\theta_i}{\theta_i},\qquad
+\mathrm{MAE}_{\%}=\frac{1}{N}\sum_{i=1}^{N}|e_i|.
+\end{equation}
+“误差很小”只有在真值来源、数据划分和模型边界明确时才有意义。同模实验的亚百分比误差只能证明数值流程自洽；合成数据的标签数值虽精确，却仍可能存在模型域偏差。
+
+\section{文献锚点与模型来源}
+
+当前工作采用的主要文献锚点为：
+
+\begin{quote}
+Chen Liu, Lei Qi, Xiang Cui, and Xiaoguang Wei, ``Experimental Extraction of Parasitic Capacitances for High-Frequency Transformers,'' IEEE Transactions on Power Electronics, vol. 32, no. 6, pp. 4157--4166, 2017.
+\end{quote}
+
+为补充结构与参数来源，本报告还引入同一研究团队的宽频机理模型论文：
+
+\begin{quote}
+Chen Liu, Lei Qi, Xing Huang, Yongqiang Zhang, Xiang Cui, and Xiaoguang Wei, ``Wideband Mechanism Model and Parameter Extracting for High-Power High-Voltage High-Frequency Transformers,'' IEEE Transactions on Power Electronics, vol. 31, no. 5, pp. 3444--3455, 2016.
+\end{quote}
+
+该论文关注高频变压器三电容等效模型的寄生电容提取。传统 IC 方法利用开路/短路阻抗特性的谐振频率提取电容；论文进一步引入电压传递特性的零点频率 $f_{\mathrm{zero}}$，用于补充绕组间互电容 $C_{ps}$ 的信息。这个思路与我们后续的在线化目标高度一致：
+
+\begin{center}
+离线扫频测量 $Z_{\mathrm{oc}}$、$Z_{\mathrm{sc}}$、$H_v$
+$\rightarrow$
+提取特征频率
+$\rightarrow$
+反演寄生电容。
+\end{center}
+
+我们的在线化问题是把第一步替换为：
+
+\begin{center}
+运行陡脉冲/PWM 时域波形
+$\rightarrow$
+频域重构 $Z_{\mathrm{oc}}$ 与 $H_v$
+$\rightarrow$
+提取相同的文献特征频率。
+\end{center}
+
+\section{实验一：论文寄生电容提取复现}
+
+\subsection{实验目的}
+
+这个实验的目的不是提出新方法，而是先确认我们对论文模型和公式的理解是正确的。此前我们曾用自定义端口等效模型做过辨识实验，但那类实验缺少明确文献样机锚点。因此本实验直接使用 Liu 2017 prototype 1 的表格参数，验证：
+
+\begin{enumerate}
+  \item 论文三电容导纳矩阵是否能生成对应的 $Z_{\mathrm{oc}}$、$Z_{\mathrm{sc}}$、$H_v$ 特征；
+  \item 论文 IC/TC 解析公式是否能复现表 IV 的 $C_p$、$C_s$、$C_{ps}$；
+  \item 如果只做黑箱特征频率拟合，是否会出现非唯一或弱可辨识问题。
+\end{enumerate}
+
+\subsection{使用的论文数据}
+
+使用 prototype 1 的论文参数：
+
+\begin{table}[H]
+\centering
+\caption{Liu 2017 prototype 1 使用数据}
+\begin{tabular}{lll}
+\toprule
+项目 & 数值 & 来源 \\
+\midrule
+变比 & LV:HV = 1:4 & 论文表 II \\
+励磁电感 $L_m$ & \SI{94.5}{mH} & 论文表 II，折算到低压侧 \\
+漏感 $L_s$ & \SI{96.0}{\micro H} & 论文表 II，折算到高压侧 \\
+$f_1$ & \SI{8.5}{kHz} & 论文表 III \\
+$f_2/f_u$ & \SI{1.04}{MHz} & 论文表 III \\
+$f_3$ & \SI{11}{MHz} & 论文表 III \\
+$f_{\mathrm{zero}}$ & \SI{6.1}{MHz} & 论文表 III \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+论文表 IV 给出的电容结果为：
+
+\begin{table}[H]
+\centering
+\caption{论文表 IV 中 prototype 1 寄生电容结果}
+\begin{tabular}{lccc}
+\toprule
+方法 & $C_p$ (pF) & $C_s$ (pF) & $C_{ps}$ (pF) \\
+\midrule
+IC 方法 & 6.37 & 215.43 & 28.52 \\
+TC 方法 & 5.31 & 215.59 & 28.36 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{模型与公式}
+
+论文采用二绕组高频变压器三电容模型。磁性部分与电容部分并联后，外部端口导纳矩阵可写成：
+
+\begin{equation}
+Y =
+\begin{bmatrix}
+n^2 y_l + y_m + j\omega(C_p+C_{ps}) & -n y_l - j\omega C_{ps} \\
+-n y_l - j\omega C_{ps} & y_l + j\omega(C_s+C_{ps})
+\end{bmatrix},
+\end{equation}
+
+其中
+
+\begin{equation}
+y_l = \frac{1}{R_s+j\omega L_s}, \qquad
+y_m = \frac{1}{R_m}+\frac{1}{j\omega L_m}.
+\end{equation}
+
+由端口导纳矩阵得到：
+
+\begin{equation}
+Z_{\mathrm{oc}} =
+\frac{1}{Y_{11}-Y_{12}Y_{21}/Y_{22}}, \qquad
+Z_{\mathrm{sc}} = \frac{1}{Y_{11}}, \qquad
+H_v = -\frac{Y_{21}}{Y_{22}}.
+\end{equation}
+
+TC 方法使用三个特征频率 $f_1$、$f_u$、$f_{\mathrm{zero}}$ 反推电容。令
+
+\begin{equation}
+A = \frac{1}{(2\pi f_1)^2L_m}, \quad
+B = \frac{1}{(2\pi f_u)^2L_s}, \quad
+C_{ps} = \frac{n}{(2\pi f_{\mathrm{zero}})^2L_s},
+\end{equation}
+
+则
+
+\begin{equation}
+C_s = B-C_{ps},
+\end{equation}
+
+\begin{equation}
+C_p = A-n^2C_s-(n-1)^2C_{ps}.
+\end{equation}
+
+注意最后一个式子包含多个大项相减，这会导致 $C_p$ 对 $f_1$ 的误差特别敏感。
+
+\subsection{特征频率为什么能提供电容信息}
+
+当频率接近特定谐振点时，电感储能与电容储能在端口响应中相互抵消，使阻抗出现峰谷或传递函数出现极点、零点。TC 零点对应漏感支路与跨绕组电容支路的特定平衡，因此 $f_{\mathrm{zero}}$ 对 $C_{ps}$ 具有直接解析关系。对
+\begin{equation}
+C_{ps}=\frac{n}{L_s(2\pi f_{\mathrm{zero}})^2}
+\end{equation}
+作小扰动，可得一阶相对误差传播
+\begin{equation}
+\frac{\Delta C_{ps}}{C_{ps}}
+\approx
+-\frac{\Delta L_s}{L_s}
+-2\frac{\Delta f_{\mathrm{zero}}}{f_{\mathrm{zero}}}.
+\label{eq:cps-error-propagation}
+\end{equation}
+这解释了两件事：第一，零点频率误差会以约两倍比例传递到 $C_{ps}$；第二，即使零点定位准确，错误固定 $L_s$ 仍会造成伪 $C_{ps}$ 漂移。实验六正是针对第二个问题设计。
+
+$C_p$ 的情况更差，因为它由 $A,n^2C_s,(n-1)^2C_{ps}$ 多个较大项相减得到。若最终 $C_p$ 远小于这些中间项，则绝对误差虽小，相对于 $C_p$ 的百分比误差仍会很大。因此曲线拟合误差小、特征频率接近，并不自动等价于所有物理参数均可辨识。
+
+\subsection{复现结果}
+
+\begin{table}[H]
+\centering
+\caption{论文寄生电容提取复现实验结果}
+\scriptsize
+\begin{tabular}{lrrrrrr}
+\toprule
+方法 & $C_p$ & $C_s$ & $C_{ps}$ & $C_p$误差 & $C_s$误差 & $C_{ps}$误差 \\
+ & (pF) & (pF) & (pF) & (\%) & (\%) & (\%) \\
+\midrule
+论文 IC 表值 & 6.370 & 215.430 & 28.520 & 0 & 0 & 0 \\
+黑箱拟合 IC 特征 & 7.901 & 215.876 & 28.811 & 24.03 & 0.207 & 1.021 \\
+论文 TC 表值 & 5.310 & 215.590 & 28.360 & 0 & 0 & 0 \\
+黑箱拟合 TC 特征 & 8.000 & 216.321 & 28.365 & 50.66 & 0.339 & 0.019 \\
+公式反推 IC 特征 & 6.374 & 215.434 & 28.517 & 0.058 & 0.002 & -0.012 \\
+公式反推 TC 特征 & 5.307 & 215.587 & 28.364 & -0.059 & -0.002 & 0.015 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+结果说明：公式法可以把论文表 IV 的电容结果复现到约 $0.1\%$ 以内；但如果只用特征频率做黑箱最小二乘拟合，$C_p$ 会漂移到约 $8$ pF，说明特征频率拟合本身存在弱可辨识或非唯一问题。后续在线辨识不能只做黑箱曲线拟合，必须保留文献解析公式、参数范围或物理约束。
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth]{paper_capacitance_prototype1_curves.png}
+\caption{基于论文 TC 电容表值与拟合结果生成的 $Z_{\mathrm{oc}}$、$Z_{\mathrm{sc}}$、$H_v$ 曲线。可以看到 $f_1$、$f_u$ 与 $f_{\mathrm{zero}}$ 等特征频率与论文表 III 对应。}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.86\textwidth]{paper_capacitance_fit_comparison.png}
+\caption{论文表值、黑箱拟合与公式反推所得电容对比。黑箱拟合能贴合频率点，但 $C_p$ 明显漂移。}
+\end{figure}
+
+\subsection{实验一结论}
+
+本实验确认了三件事：
+
+\begin{enumerate}
+  \item Liu 2017 的三电容导纳矩阵和 IC/TC 特征频率方法可以被复现；
+  \item 论文 TC 方法是后续在线化实验的合理文献锚点；
+  \item 单纯拟合特征点不是可靠的参数辨识方法，尤其对小电容 $C_p$ 存在明显弱可辨识问题。
+\end{enumerate}
+
+\section{实验二：论文 TC 方法在线化初步尝试}
+
+\subsection{实验目的}
+
+实验二在实验一的文献模型基础上，将离线 TC 方法改造为在线重构流程。具体目标为：
+
+\begin{center}
+时域激励 $v_1(t)$
+$\rightarrow$
+测量/仿真 $i_1(t)$ 与 $v_2(t)$
+$\rightarrow$
+FFT 重构 $Z_{\mathrm{oc}}$ 与 $H_v$
+$\rightarrow$
+提取 $f_1$、$f_u$、$f_{\mathrm{zero}}$
+$\rightarrow$
+用论文 TC 公式反演 $C_p$、$C_s$、$C_{ps}$。
+\end{center}
+
+这里的关键问题是：运行中的自然激励或可控 PWM 是否能提供足够频谱能量，使论文离线特征频率可在线恢复。
+
+\subsection{在线重构方法}
+
+在副边开路条件下，使用输入电压 $v_1(t)$、输入电流 $i_1(t)$ 和输出电压 $v_2(t)$。频域中有：
+
+\begin{equation}
+Y_{\mathrm{in,oc}}(j\omega) \approx \frac{I_1(j\omega)}{V_1(j\omega)}, \qquad
+Z_{\mathrm{oc}}(j\omega) \approx \frac{1}{Y_{\mathrm{in,oc}}(j\omega)},
+\end{equation}
+
+\begin{equation}
+H_v(j\omega) \approx \frac{V_2(j\omega)}{V_1(j\omega)}.
+\end{equation}
+
+为增强抗噪性，脚本中使用多次激励的互谱平均：
+
+\begin{equation}
+\hat{Y}_{\mathrm{in,oc}}(j\omega) =
+\frac{\sum_k I_{1,k}(j\omega)V_{1,k}^{*}(j\omega)}
+{\sum_k |V_{1,k}(j\omega)|^2},
+\end{equation}
+
+\begin{equation}
+\hat{H}_{v}(j\omega) =
+\frac{\sum_k V_{2,k}(j\omega)V_{1,k}^{*}(j\omega)}
+{\sum_k |V_{1,k}(j\omega)|^2}.
+\end{equation}
+
+实验比较四种在线激励：
+
+\begin{enumerate}
+  \item 单个陡脉冲；
+  \item 随机 PRBS 边沿；
+  \item 针对 $f_1$、$f_u$、$f_{\mathrm{zero}}$ 加强的定点二值 PWM；
+  \item 扫频二值 PWM。
+\end{enumerate}
+
+\subsection{特征频率提取结果}
+
+\begin{table}[H]
+\centering
+\caption{在线重构得到的 TC 特征频率}
+\scriptsize
+\begin{tabular}{lrrrrrr}
+\toprule
+方法 & $f_1$ & $f_u$ & $f_{\mathrm{zero}}$ & $f_1$误差 & $f_u$误差 & $f_{\mathrm{zero}}$误差 \\
+ & (Hz) & (Hz) & (Hz) & (\%) & (\%) & (\%) \\
+\midrule
+论文 TC 基准 & 8500 & 1040000 & 6100000 & 0 & 0 & 0 \\
+单个陡脉冲 & 8615 & 1040749 & 3003642 & 1.35 & 0.07 & -50.76 \\
+随机 PRBS 边沿 & 22119 & 1040749 & 6491353 & 160.23 & 0.07 & 6.42 \\
+定点二值 PWM & 8198 & 1040749 & 6092607 & -3.55 & 0.07 & -0.12 \\
+扫频二值 PWM & 8563 & 1040749 & 5388399 & 0.75 & 0.07 & -11.67 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+从特征频率看，$f_u$ 最容易恢复，几种激励均能稳定定位到约 \SI{1.04}{MHz}。$f_{\mathrm{zero}}$ 对激励频谱更敏感：单个陡脉冲将其误判到约 \SI{3.0}{MHz}，而定点二值 PWM 可以将误差降到 $-0.12\%$。低频 $f_1$ 的恢复同样困难，PRBS 高频能量较丰富但低频谐振严重漂移。
+
+\subsection{电容反演结果}
+
+\begin{table}[H]
+\centering
+\caption{在线 TC 特征频率反演电容结果}
+\scriptsize
+\begin{tabular}{lrrrrrr}
+\toprule
+方法 & $C_p$ & $C_s$ & $C_{ps}$ & $C_p$误差 & $C_s$误差 & $C_{ps}$误差 \\
+ & (pF) & (pF) & (pF) & (\%) & (\%) & (\%) \\
+\midrule
+论文 TC 基准 & 5.31 & 215.59 & 28.36 & 0 & 0 & 0 \\
+单个陡脉冲 & 533.29 & 126.61 & 116.99 & 9943.13 & -41.27 & 312.50 \\
+随机 PRBS 边沿 & -3174.41 & 218.55 & 25.05 & -59881.79 & 1.37 & -11.68 \\
+定点二值 PWM & 289.53 & 215.17 & 28.43 & 5352.47 & -0.20 & 0.26 \\
+扫频二值 PWM & 12.03 & 207.25 & 36.35 & 126.63 & -3.87 & 28.18 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+结果显示，定点二值 PWM 可以很好恢复 $f_{\mathrm{zero}}$，因此 $C_{ps}$ 误差仅约 $0.26\%$；但同一激励下 $f_1$ 有约 $-3.55\%$ 偏差，导致 $C_p$ 严重发散。这并非单纯数值问题，而是 TC 公式结构导致的可辨识性问题。由于
+
+\begin{equation}
+C_p = A-n^2C_s-(n-1)^2C_{ps},
+\end{equation}
+
+$C_p$ 是多个较大项相减后的结果，小的 $f_1$ 误差会被显著放大。因此，在线化 TC 方法对 $C_{ps}$ 较有希望，但对 $C_p$ 需要更强低频信息和约束。
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth]{paper_tc_online_reconstructed_curves.png}
+\caption{不同在线激励下重构的 $Z_{\mathrm{oc}}$ 与 $H_v$。$H_v$ 的 \SI{1.04}{MHz} 峰较容易恢复，而 \SI{6.1}{MHz} 零点和 \SI{8.5}{kHz} 低频谐振对激励方式更敏感。}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\textwidth]{paper_tc_online_excitation_spectra.png}
+\caption{不同在线激励的输入频谱能量分布。PRBS 覆盖较宽频段，但低频 $f_1$ 信息不稳定；定点二值 PWM 对目标频率附近更有利。}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.88\textwidth]{paper_tc_online_capacitance_error.png}
+\caption{在线 TC 方法反演电容误差。$C_{ps}$ 在定点二值 PWM 下表现较好，$C_p$ 对 $f_1$ 误差高度敏感。}
+\end{figure}
+
+\subsection{实验二结论}
+
+实验二给出了比“能不能在线辨识”更具体的结论：
+
+\begin{enumerate}
+  \item 单个陡脉冲不能稳定恢复 $f_{\mathrm{zero}}$，因此不适合直接用于 TC 电容反演；
+  \item PRBS 可以覆盖较宽高频频段，但低频 $f_1$ 容易漂移，导致 $C_p$ 不可用；
+  \item 定点二值 PWM 能够很好恢复 $f_{\mathrm{zero}}$，使 $C_{ps}$ 反演具有较高精度；
+  \item $C_p$ 的在线反演是当前最薄弱环节，需要低频长时间窗、小扰动扫频、先验约束或分频段融合。
+\end{enumerate}
+
+\section{实验三：宽频机理模型接地条件复现}
+
+\subsection{实验目的}
+
+实验三回答一个更基础的问题：前两组实验虽然已经锚定 Liu 2017 的寄生电容提取公式，但其模型仍偏向三电容终端等效。为了后续继续做在线 PWM 辨识，需要一个更有结构来源的目标对象。因此，本实验使用同一团队 2016 年宽频机理模型论文中的表格参数，重建一个四端子端口模型，并检查它是否能够复现论文 Table IV 中不同接地条件下的开路阻抗谐振频率。
+
+这里需要强调，本实验使用的是论文 Table II 和 Table III 的参数重建，不是作者完整 FEM 或完整等效网络源文件的逐节点复刻。因此它的定位是：
+
+\begin{quote}
+基于文献表格参数的机理模型特征复现，用于验证这些参数能否支撑后续在线 PWM 频响辨识实验。
+\end{quote}
+
+\subsection{模型构造}
+
+论文给出了高压高频变压器样机的主要参数：工作频率 \SI{20}{kHz}，容量 \SI{30}{kVA}，匝比 $1:91.3$，低压侧 12 匝，高压侧 1096 匝，磁芯材料为纳米晶 FT-3M。表格参数包括励磁电感、励磁电阻、漏感以及多端子寄生电容。实验中将四个外部端子记为 $1,2,3,4$，并根据论文 Table III 构造电容导纳矩阵：
+
+\begin{equation}
+Y_C(j\omega)=j\omega C_{\mathrm{port}},
+\end{equation}
+
+其中端子间电容包括 $C_{12}$、$C_{34}$、$C_{24}$、$C_{13}$、$C_{23}$、$C_{14}$，端子对地电容包括 $C_{10}$、$C_{20}$、$C_{30}$、$C_{40}$。磁化支路和漏感支路由论文 Table II 给出：
+
+\begin{equation}
+Y_m(j\omega)=\frac{1}{R_m}+\frac{1}{j\omega L_m}, \qquad
+Z_s(j\omega)=j\omega L_{s0}.
+\end{equation}
+
+在开路阻抗计算中，低压端口作为观测端口，高压端口开路；不同接地工况通过将指定端子并入参考地处理。随后从 $|Z_{\mathrm{oc}}|$ 曲线中寻找第一个峰值 $f_1$ 和第一个谷值 $f_2$，并与论文 Table IV 对比。
+
+\subsection{复现结果}
+
+\begin{table}[H]
+\centering
+\caption{宽频机理模型接地条件谐振频率复现结果}
+\small
+\begin{tabular}{lrrrr}
+\toprule
+接地条件 & 论文 $f_1$ & 复现 $f_1$ & 论文 $f_2$ & 复现 $f_2$ \\
+ & (kHz) & (kHz) & (kHz) & (kHz) \\
+\midrule
+绕组均不接地 & 2.50 & 2.48 & 74.0 & 74.51 \\
+低压绕组接地 & 2.50 & 2.48 & 74.0 & 74.51 \\
+高压绕组接地 & 2.00 & 1.99 & 60.0 & 59.68 \\
+两侧绕组接地 & 1.80 & 1.80 & 53.0 & 53.74 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+原始表格参数模型已经可以较好复现论文 Table IV：$f_1$ 误差约为 $-0.63\%$、$-0.63\%$、$-0.52\%$、$-0.04\%$；$f_2$ 误差约为 $0.69\%$、$0.69\%$、$-0.54\%$、$1.40\%$。这说明论文表格中的电容矩阵和漏感/励磁支路足以解释不同接地条件下主要谐振频率的迁移。
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth]{wideband_grounding_reproduction_curves.png}
+\caption{基于 2016 年宽频机理模型表格参数重建的开路阻抗曲线。四种接地条件下，$f_1$ 和 $f_2$ 的迁移趋势与论文 Table IV 一致。}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{wideband_grounding_frequency_comparison.png}
+\caption{论文 Table IV 与表格参数复现结果对比。该结果说明同作者宽频机理模型可作为后续在线 PWM 辨识实验的文献锚定对象。}
+\end{figure}
+
+\subsection{实验三结论}
+
+实验三的意义不在于提出新的辨识算法，而在于补上前期模型可信度链条：
+
+\begin{enumerate}
+  \item 2016 年论文给出了具体样机、绕组、磁芯、FEM/解析提取后的多端口寄生参数；
+  \item 用这些表格参数重建端口模型后，可以较准确复现接地条件导致的谐振频率迁移；
+  \item 因此，后续在线 PWM 实验可以不再只面对抽象三电容模型，而是面对一个有结构来源的宽频机理模型；
+  \item 在线主线仍然不变：把离线扫频得到的端口频响特征，迁移为运行 PWM/陡脉冲条件下的在线宽频辨识。
+\end{enumerate}
+
+\section{实验四：宽频机理模型的在线 PWM 特征辨识}
+
+\subsection{实验目的}
+
+本实验将实验三中由 Liu 2016 文献 Table II--IV 建立的四端口宽频机理模型作为被测对象，不再直接扫描其频率响应，而是在低压侧施加时域二值激励，仅利用端口电压和电流重构输入阻抗。目标是判断运行 PWM 或陡脉冲能否在线恢复接地条件变化引起的两个特征频率 $f_1$ 和 $f_2$。
+
+测试对象包括不接地、低压绕组接地、高压绕组接地和两侧接地四种条件。文献给出的 $f_1$ 范围为 \SIrange{1.8}{2.5}{kHz}，$f_2$ 范围为 \SIrange{53}{74}{kHz}。比较的激励包括单陡脉冲、常规 \SI{20}{kHz} PWM、随机 PRBS、定向二值 PWM 和双时间窗定向激励。
+
+\subsection{在线重构方法}
+
+对第 $r$ 次重复观测，记录输入电压 $v_r(t)$ 与输入电流 $i_r(t)$，并计算离散频谱 $V_r(\omega)$ 与 $I_r(\omega)$。采用互功率谱和自功率谱平均估计输入导纳：
+\begin{equation}
+ \hat{Y}_{\mathrm{in}}(\omega)=
+ \frac{\sum_r I_r(\omega)V_r^*(\omega)}
+ {\sum_r |V_r(\omega)|^2+\lambda},\qquad
+ \hat{Z}_{\mathrm{in}}(\omega)=\frac{1}{\hat{Y}_{\mathrm{in}}(\omega)}.
+\end{equation}
+其中 $\lambda$ 为弱正则项。归一化输入能量低于 $10^{-6}$ 的频点被标记为不可辨识，避免将噪声底上的随机极值误认为谐振点。随后分别在 \SIrange{0.8}{4}{kHz} 和 \SIrange{35}{100}{kHz} 搜索阻抗峰值 $f_1$ 与谷值 $f_2$。
+
+双时间窗方案使用 \SI{250}{kHz} 采样率的长记录辨识 $f_1$，并使用 \SI{1}{MHz} 采样率的短记录辨识 $f_2$，从而分别满足低频分辨率和高频更新速度要求。仿真加入相对均方根幅值为 $0.05\%$ 的电压噪声和 $0.3\%$ 的电流噪声，并进行 10 次谱平均。
+
+\subsection{结果}
+
+\begin{table}[H]
+\centering
+\caption{不同激励下四种接地条件的平均在线辨识性能}
+\begin{tabular}{lccc}
+\toprule
+激励方法 & $f_1$ MAE & $f_2$ MAE & 缺失频带率 \\
+\midrule
+双时间窗定向激励 & $0.775\%$ & $0.026\%$ & $0\%$ \\
+随机 PRBS & $1.637\%$ & $0.000\%$ & $0\%$ \\
+定向二值 PWM & $5.928\%$ & $0.000\%$ & $0\%$ \\
+常规 \SI{20}{kHz} PWM & 不可辨识 & $5.562\%$ & $50\%$ \\
+单陡脉冲 & $6.873\%$ & 不可辨识 & $50\%$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth]{wideband_pwm_online_reconstructed_curves.png}
+\caption{四种接地条件下扫频真值与时域在线重构阻抗的比较}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{wideband_pwm_online_error_comparison.png}
+\caption{不同激励对 $f_1$ 和 $f_2$ 的平均绝对辨识误差}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.86\textwidth]{wideband_pwm_online_excitation_energy.png}
+\caption{不同激励的归一化频谱能量及目标特征频率位置}
+\end{figure}
+
+\subsection{实验四结论}
+
+结果表明，是否能够在线恢复谐振特征，首先取决于输入在目标频带是否提供了足够的持续激励。单陡脉冲不能可靠覆盖 $f_2$，常规 \SI{20}{kHz} PWM 不能覆盖 $f_1$，因而二者均有一半目标频带被判为不可辨识。PRBS 能够宽频覆盖两个频带；双时间窗定向激励进一步将相对模型扫频真值的综合平均绝对误差降至约 $0.40\%$。这验证了从文献离线扫频模型向运行时端口观测迁移的可行性，也为下一步用可观测性、Fisher 信息矩阵和鲁棒 OED 自动设计 PWM 激励提供了明确基线。
+
+\section{实验五：$C_{ps}$ 在线辨识到共模电流预测的工程闭环}
+
+\subsection{实验目的与边界}
+
+前四项实验主要回答“运行时端口观测能否恢复文献离线频响特征”，但尚未说明在线参数能够支持什么工程决策。本实验把工业目标收敛为跨隔离屏障的高频电容耦合：在 Liu 2017 prototype 1 三电容模型中，对绕组间互电容加入 \SIlist{0;2.5;5;10;20}{pF} 的已知扰动，使用固定宽带二值激励在线重构电压传递特性，并由估计的 $C_{ps}$ 预测陡边沿引起的共模位移电流。
+
+需要强调，本实验仍是开路文献模型上的模型级基线。附加电容用于构造可控真值，不代表真实绝缘老化；结果也不能证明 $C_{ps}$ 漂移与某一种绝缘故障之间存在唯一对应关系。
+
+\subsection{零点约束物理拟合}
+
+直接从带噪频响曲线选择最深谷值容易被输出噪声底和离散谱线误导。因此，本实验不再让单个频点决定结果，而是在 \SIrange{0.55}{9.5}{MHz} 内进行一参数复频响物理拟合：
+
+\begin{equation}
+\hat C_{ps}=\arg\min_{C_{ps}}
+\sum_{k\in\mathcal F}w_k
+\left|
+\frac{H_v^{\mathrm{model}}(j\omega_k,C_{ps})-
+\hat H_v(j\omega_k)}
+{\max(|H_v^{\mathrm{model}}(j\omega_k,C_{ps})|,\epsilon)}
+\right|^2.
+\end{equation}
+
+拟合仍受论文传递零点关系约束：
+
+\begin{equation}
+f_{\mathrm{zero}}=\frac{1}{2\pi\sqrt{L_sC_{ps}/n}}.
+\end{equation}
+
+与直接搜索谷值相比，该方法同时利用零点附近的幅值、相位和曲线形状，并限制孤立噪声频点的影响。仿真采用 \SI{50}{MHz} 采样率、$2^{18}$ 点记录、16 次谱平均；每个电容状态重复 8 个独立窗口。
+
+\subsection{共模位移电流预测}
+
+绕组间等效电容构成跨隔离屏障的高频位移电流通道。在一阶近似下：
+
+\begin{equation}
+i_{\mathrm{cm}}(t)\approx C_{ps}\frac{\mathrm d v_{ps}(t)}{\mathrm dt}.
+\end{equation}
+
+因此，本实验用 $\hat C_{ps}$ 预测参考边沿 \SI{16}{kV/\micro\second} 下的峰值位移电流。该电流是可以在后续样机上用共模电流传感器直接校验的工程量，从而把参数辨识结果连接到可测运行现象。
+
+\begin{table}[H]
+\centering
+\caption{已知 $C_{ps}$ 扰动的在线估计与共模电流预测}
+\begin{tabular}{rrrrrr}
+\toprule
+附加电容 & 真值 $C_{ps}$ & 估计 $C_{ps}$ & 窗口标准差 & 参数误差 & 预测电流 \\
+(pF) & (pF) & (pF) & (pF) & (\%) & (A) \\
+\midrule
+0.0  & 28.360 & 28.210 & 0.148 & -0.530 & 0.4514 \\
+2.5  & 30.860 & 30.694 & 0.049 & -0.537 & 0.4911 \\
+5.0  & 33.360 & 33.401 & 0.013 &  0.121 & 0.5344 \\
+10.0 & 38.360 & 38.742 & 0.055 &  0.997 & 0.6199 \\
+20.0 & 48.360 & 49.108 & 0.410 &  1.546 & 0.7857 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+五个状态的 $C_{ps}$ 平均绝对误差为 $0.746\%$，共模位移电流预测的平均绝对误差同为 $0.746\%$。在当前噪声与重复窗口设定下，相邻 \SI{2.5}{pF} 状态的 95\% 单窗口区间不重叠；这只是本模型设置下的分辨能力，不应直接外推为实物系统检测下限。
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth]{cps_common_mode_engineering_closure.png}
+\caption{已知 $C_{ps}$ 扰动跟踪及 \SI{16}{kV/\micro\second} 下的共模位移电流预测。误差棒为 8 个独立窗口的均值加减 1.96 倍标准差。}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\textwidth]{cps_common_mode_transfer_zero_tracking.png}
+\caption{不同 $C_{ps}$ 状态下在线重构的电压传递特性及物理拟合得到的传递零点位置。}
+\end{figure}
+
+\subsection{实验五结论}
+
+该实验首次把现有研究从“恢复一个频率特征”推进到“预测一个可以直接测量的工程量”。结果支持将 $C_{ps}$ 作为原副边高频耦合状态的中间物理变量，而不是把 $C_{ps}$ 数值本身当作最终工业目标。下一步必须在有载双端口或 DAB 场景中验证：负载、温度、接地和测量链路变化是否会被误识别为 $C_{ps}$ 漂移，以及在线估计能否准确预测实测共模电流。
+
+\section{实验六：DAB 多运行窗口下的两端口 $C_{ps}$ 辨识}
+
+\subsection{目标与模型边界}
+
+实验六把副边开路 TC 条件推进到双有源端口运行窗口。原副边桥臂电压均设为有限边沿二值波形，七个窗口改变相移角、电压比和占空比，并同步获得 $v_1,i_1,v_2,i_2$。变压器本体仍采用 Liu 2017 prototype 1 两端口模型，因此本实验属于“预设桥臂电压的有载数值基线”，尚不是包含控制器、死区、半导体寄生和负载动态的完整开关级 DAB。
+
+每个频点满足
+\begin{equation}
+\begin{bmatrix}I_1\\I_2\end{bmatrix}
+=
+\begin{bmatrix}Y_{11}&Y_{12}\\Y_{21}&Y_{22}\end{bmatrix}
+\begin{bmatrix}V_1\\V_2\end{bmatrix}.
+\end{equation}
+将多个运行窗口的端口频谱横向堆叠，可用带微小岭正则的复数最小二乘重构完整导纳矩阵。多个相移和电压比的作用，是使端口激励矩阵保持满秩，避免仅有单一 $V_2/V_1$ 比值时无法分离两列导纳。
+
+互导纳具有直接的参数结构：
+\begin{equation}
+Y_{12}(j\omega)
+=-
+\frac{n}{R_s+j\omega L_s}
+-j\omega C_{ps}.
+\end{equation}
+因此本实验没有固定漏感，而是在 $0.08$--\SI{10}{MHz} 有效频带内联合估计 $L_s$ 与 $C_{ps}$。这样可以检验漏感漂移是否会被错误解释成电容漂移。
+
+\subsection{联合估计的目标函数与参数串扰}
+
+在有效频点集合 $\mathcal F$ 上，以对数参数保证正值：
+\begin{equation}
+\mathbf x=[\log R_s,\log L_s,\log C_{ps}]^T.
+\end{equation}
+复数残差按模型幅值归一化，并把实部、虚部堆叠成实向量：
+\begin{equation}
+\mathbf r(\mathbf x)=
+\begin{bmatrix}
+\Re\{w_k(Y_{12}^{\mathrm{model}}-\hat Y_{12})/s_k\}\\
+\Im\{w_k(Y_{12}^{\mathrm{model}}-\hat Y_{12})/s_k\}
+\end{bmatrix}_{k\in\mathcal F},
+\qquad
+s_k=\max(|\hat Y_{12,k}|,s_{\min}).
+\end{equation}
+物理估计为有界非线性最小二乘
+\begin{equation}
+\hat{\mathbf x}=\arg\min_{\mathbf x}\|\mathbf r(\mathbf x)\|_2^2.
+\label{eq:physical-inverse}
+\end{equation}
+权重 $w_k$ 同时抑制激励能量不足和条件数过大的频点。$L_s$ 主要改变 $-n/(R_s+j\omega L_s)$ 的磁耦合项，$C_{ps}$ 主要改变 $-j\omega C_{ps}$ 的高频斜率；但在有限频带内二者的灵敏度方向并不完全正交，因此固定其中一个会把另一个的变化错误吸收。式~\eqref{eq:cps-error-propagation} 给出了这种串扰的最简解析解释。
+
+\subsection{对照与扰动设置}
+
+设置 $0$、$2.5$、$5$、$10$ 和 \SI{20}{pF} 五个已知附加电容状态，并设置标称、绕组电阻增至 1.4 倍、漏感减少 $5\%$ 和漏感增加 $5\%$ 四种模型状态。每个状态重复 6 次。比较三种方法：
+\begin{enumerate}
+  \item 完整多端口 $Y_{12}$ 联合估计 $L_s+C_{ps}$；
+  \item 完整多端口 $Y_{12}$ 但错误固定标称 $L_s$；
+  \item 只使用单个有载窗口的 $I_1/V_1$，并错误地将其当作 $Y_{11}$。
+\end{enumerate}
+
+第三种方法是刻意设置的反例。有载时实际关系为
+\begin{equation}
+\frac{I_1}{V_1}=Y_{11}+Y_{12}\frac{V_2}{V_1},
+\end{equation}
+因此表观输入导纳混入了相移、母线比和副边运行状态，不能直接视为变压器自身的 $Y_{11}$。
+
+\subsection{结果}
+
+\begin{table}[H]
+\centering
+\caption{不同扰动下三种 $C_{ps}$ 估计方法的平均绝对误差}
+\begin{tabular}{lrrr}
+\toprule
+场景 & 多端口联合估计 & 多端口固定 $L_s$ & 错误单端口 \\
+ & (\%) & (\%) & (\%) \\
+\midrule
+标称 & 0.049 & 0.052 & 85.561 \\
+绕组电阻 1.4 倍 & 0.030 & 0.088 & 85.561 \\
+$L_s$ 减少 $5\%$ & 0.052 & 85.561 & 85.561 \\
+$L_s$ 增加 $5\%$ & 0.059 & 159.899 & 85.561 \\
+\midrule
+全部状态平均 & 0.047 & 61.400 & 85.561 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.99\textwidth]{loaded_dab_multiport_cps_summary.png}
+\caption{多运行窗口 $C_{ps}$ 跟踪、漏感漂移对照和有载单端口反例。联合估计曲线与理想线几乎重合；固定漏感在 $L_s$ 漂移时出现严重参数串扰。}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.99\textwidth]{loaded_dab_multiport_y12_and_current.png}
+\caption{代表性状态下的 $Y_{12}$ 重构与开关边沿位移电流预测。电流由 $i_{ps}=C_{ps}\,\mathrm d(v_1-v_2)/\mathrm dt$ 计算。}
+\end{figure}
+
+\subsection{实验六结论}
+
+实验六给出三个直接结论。第一，有载状态下必须同步观测两个端口，并通过多个线性独立运行窗口分离 $Y_{11}$ 与 $Y_{12}$；单端口 $I_1/V_1$ 会把运行工况误当作器件参数。第二，$L_s$ 与 $C_{ps}$ 在 $Y_{12}$ 中同时起作用，固定漏感会在结构漂移时产生严重的伪电容变化，联合估计是必要的。第三，辨识结果可以直接预测开关边沿跨隔离屏障位移电流，从而继续保持“端口观测--物理参数--可测工程量”的工业闭环。
+
+需要强调，$0.047\%$ 是同一文献模型生成和反演下的数值自洽精度，仅证明当前观测与算法在所设噪声下具备辨识能力。下一步必须引入独立模型误差和实物测量，才能评价真实精度、最小可检测变化与虚警率。
+
+\section{实验七：独立前向模型失配下的物理残差验证}
+
+\subsection{目的与模型边界}
+
+实验六的前向生成模型与反演模型具有相同结构，因而其 $0.047\%$ 误差主要反映数值自洽性。实验七故意令前向模型复杂于在线反演模型，以回答后续机器学习是否存在真实任务，而不是人为在同模数据上增加网络。前向模型在实验六两端口网络基础上加入四类非理想因素：
+
+\begin{enumerate}
+  \item 用经验频变串联阻抗表示集肤/邻近效应和漏感色散：
+  \begin{equation}
+  Z_s(f)=R_s\left[1+k_R\sqrt{f/f_{\mathrm{ref}}}\right]
+  +\mathrm{j}\omega L_s\left[1-k_L\ln(1+f/f_{\mathrm{ref}})\right];
+  \end{equation}
+  \item 在绕组间支路中加入介质损耗和一个弱附加跨端口 RLC 模态：
+  \begin{equation}
+  Y_{ps}(f)=\mathrm{j}\omega C_{ps}+\omega C_{ps}\tan\delta
+  +\frac{1}{R_r+\mathrm{j}\omega L_r+1/(\mathrm{j}\omega C_r)};
+  \end{equation}
+  \item 为 $v_1,v_2,i_1,i_2$ 四个测量通道分别加入小幅增益、带宽和时延差异；
+  \item 保留实验六的七个 DAB 式运行窗口、噪声、频带能量门控和激励矩阵条件数筛选。
+\end{enumerate}
+
+反演端仍采用简化互导纳
+\begin{equation}
+Y_{12}^{\mathrm{inv}}(j\omega)
+=-
+\frac{n}{R_s+j\omega L_s}
+-j\omega C_{ps},
+\end{equation}
+并比较固定 $R_s$ 的二参数拟合与同时放开 $R_s,L_s,C_{ps}$ 的三参数拟合。该实验仍是预设桥臂波形驱动的频域两端口模型级压力测试，不是完整开关器件级 DAB，也不能代替有限元或样机验证。
+
+\subsection{误差分解设计}
+
+设置匹配控制、铜阻/漏感频变、绕组间介质损耗、附加跨端口模态、测量通道失配以及全部非理想因素组合六种前向场景。每种场景继续施加 $0$、$2.5$、$5$、$10$ 和 \SI{20}{pF} 的已知 $C_{ps}$ 扰动，每个状态重复 5 次。为避免比较口径不一致，``纯模型失配''与``重构后反演''使用完全相同的有效频点、PWM 能量权重和激励条件数权重：
+
+\begin{enumerate}
+  \item 纯模型失配：直接用复杂前向模型的精确 $Y_{12}$ 拟合简化三参数模型；
+  \item 重构后二参数：先由含噪 $v_1,i_1,v_2,i_2$ 重构 $Y_{12}$，再联合估计 $L_s,C_{ps}$；
+  \item 重构后三参数：在上一项基础上同时估计 $R_s,L_s,C_{ps}$。
+\end{enumerate}
+
+\subsection{结果}
+
+\begin{table}[H]
+\centering
+\caption{独立前向模型失配下的 $C_{ps}$ 平均绝对误差}
+\begin{tabular}{lrrr}
+\toprule
+前向场景 & 纯模型三参数 & 重构后二参数 & 重构后三参数 \\
+ & (\%) & (\%) & (\%) \\
+\midrule
+匹配控制 & 0.000 & 0.086 & 0.086 \\
+铜阻/漏感频变 & 3.254 & 3.258 & 3.258 \\
+绕组间介质损耗 & 0.031 & 0.138 & 0.138 \\
+附加跨端口模态 & 1.613 & 1.655 & 1.654 \\
+测量通道失配 & 0.000 & 0.857 & 0.857 \\
+组合失配 & 3.787 & 5.091 & 5.091 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+匹配控制组的重构误差为 $0.086\%$，与实验六保持同一数量级，说明本实验没有通过降低基线质量人为制造模型失配。组合场景中，复杂模型本身相对简化模型产生 $3.787\%$ 的结构偏差；叠加多端口重构、噪声和通道幅相误差后，$C_{ps}$ MAE 增至 $5.091\%$。二参数与三参数结果几乎相同，说明将常数 $R_s$ 释放为待估参数不能吸收频变铜阻、漏感色散和附加模态造成的误差，继续堆叠常数参数不是有效修正。
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.99\textwidth]{forward_model_mismatch_error_decomposition.png}
+\caption{各类前向模型失配下的 $C_{ps}$ 误差分解。图中 $0.01\%$ 为对数坐标显示下限，匹配控制和纯通道失配的纯模型结构误差实际接近零。}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.99\textwidth]{forward_model_mismatch_residual_structure.png}
+\caption{三参数物理拟合后的对数残差随真实 $C_{ps}$ 的变化。组合失配与铜阻/漏感频变呈现稳定负偏差，但组合场景在部分电容状态下方差较大，提示后续模型应同时输出不确定度。}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.99\textwidth]{forward_model_mismatch_representative_y12.png}
+\caption{组合失配、附加 \SI{10}{pF} 时的代表性 $Y_{12}$ 重构、简化三参数拟合和运行窗口激励矩阵条件数。简化模型能够描述主趋势，但不能完全复现附加模态附近的宽频形状。}
+\end{figure}
+
+\subsection{实验七结论与 AI 接口}
+
+实验七证明后续 AI 存在一个受约束且可解释的任务：以多端口物理反演结果为锚点，学习
+\begin{equation}
+\Delta\log C_{ps}
+=\log C_{ps}^{\mathrm{true}}
+-\log \hat C_{ps}^{\mathrm{phy}},
+\end{equation}
+而不是从原始波形黑箱输出 $C_{ps}$。但是当前 6 个离散失配场景只用于证明残差存在，尚不足以训练和评价神经网络。进入 AI 阶段前，必须连续随机化频变系数、附加模态、负载/运行窗口、接地和通道幅相误差，并按未见工况或未见样机划分测试集。组合场景的残差方差还表明，后续网络除了残差均值，还应给出估计不确定度或可信区间。
+
+\section{实验八：开关状态 DAB 多工况辨识先导实验}
+
+\subsection{目的与边界}
+
+实验八进一步把预设平滑桥臂波形替换为显式双极性开关状态。原副边桥臂均包含 \SI{100}{ns} 死区零电平、有限 $C_{\mathrm{oss}}$ 等效边沿时间常数和弱环路振铃；负载功率通过单移相 DAB 功率关系确定基准相移运行点，并在其附近构造七个线性独立观测窗口。前向变压器包含主耦合 RL 支路、励磁支路、端口电容、$C_{ps}$、对地电容以及可选弱跨端口 RLC 模态；反演端仍采用实验六、七的简化 $Y_{12}$ 模型。
+
+该模型使用刚性直流母线，负载通过相移运行点进入；死区和 $C_{\mathrm{oss}}$ 由开关零状态与有限边沿表示，而不是逐器件非线性模型。因而它属于开关状态先导模型，尚不是完整 SPICE DAB，也没有闭环输出电容动态。
+
+\subsection{周期稳态校准}
+
+初始实现采用零初值时域递推，但漏感支路时间常数约为 \SI{1}{ms}，短预热窗口没有达到稳态，初始暂态被 FFT 错误解释为宽频信息，使匹配模型也产生超过 $60\%$ 的伪 $C_{ps}$ 误差。正式实验改用整数个开关周期记录，并对线性变压器支路求严格周期稳态频谱响应。修正后匹配开关状态基线 MAE 降至 $0.128\%$。这一校准说明在线频响分析必须显式处理窗口稳态与周期连续性，不能用后续 AI 补偿数值初始条件错误。
+
+\subsection{多工况设计与结果}
+
+实验设置 \SIlist{250;750}{W} 两个负载运行点、\SIlist{25;80}{\degreeCelsius} 两个温度、基准/非对称两种对地电容状态，以及 $0$、$5$、\SI{10}{pF} 三个已知附加 $C_{ps}$ 状态。比较匹配开关模型、弱附加跨端口模态和包含通道幅相误差的完整测量链路三种前向层级，共形成 72 个工况状态；每个状态独立重复 3 次，共保存 216 条试验记录。
+
+\begin{table}[H]
+\centering
+\caption{开关状态 DAB 先导模型的 $C_{ps}$ 平均绝对误差}
+\begin{tabular}{lr}
+\toprule
+前向层级 & $C_{ps}$ MAE (\%) \\
+\midrule
+匹配开关状态 & 0.128 \\
+弱附加跨端口模态 & 1.288 \\
+完整测量链路 & 0.419 \\
+全部状态平均 & 0.612 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+完整链路在不同负载、温度和接地状态下的分组 MAE 为 $0.304\%$--$0.666\%$。结果表明，在当前模型边界内，多运行窗口 $Y_{12}$ 重构能够区分 $C_{ps}$ 与负载运行点、温度电阻和对地电容变化。弱跨端口模态的误差高于完整通道场景并不意味着加入测量误差改善了物理模型，而是特定通道幅相偏差与模型偏差发生了部分抵消；非理想误差不能假设为单调相加。
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.99\textwidth]{switch_state_dab_cps_summary.png}
+\caption{开关状态 DAB 多工况 $C_{ps}$ 跟踪与三种前向层级误差。完整链路在未改变反演模型的情况下仍保持亚百分比级跟踪。}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.99\textwidth]{switch_state_dab_representative_waveform.png}
+\caption{代表性多端口 $Y_{12}$ 重构与含死区、有限边沿的原副边开关状态电压。}
+\end{figure}
+
+\subsection{共模工程边界}
+
+本实验分别计算跨绕组位移电流
+\begin{equation}
+i_{ps}=C_{ps}\frac{\mathrm d(v_1-v_2)}{\mathrm dt}
+\end{equation}
+以及对地电容源电流
+\begin{equation}
+i_g=C_{pg}\frac{\mathrm d v_1}{\mathrm dt}
++C_{sg}\frac{\mathrm d v_2}{\mathrm dt}.
+\end{equation}
+如果仅用辨识的 $C_{ps}$ 去预测 $i_{ps}+i_g$，全部工况平均误差达到 $87.95\%$，且不同接地状态下会因各支路相位相加或相消产生非单调变化。因此当前方法能够较好闭合“$C_{ps}$--跨绕组位移电流”，但不能仅凭 $C_{ps}$ 宣称闭合系统总共模电流。后者必须进一步辨识 $C_{pg},C_{sg}$，并加入磁芯、屏蔽、散热器、接地阻抗及实际回流路径。
+
+\section{实验九：CUDA 物理锚定频谱残差学习先导实验}
+
+\subsection{实验问题与方法定位}
+
+实验七已经证明，频变铜阻、漏感色散、附加跨端口模态与测量链路失配会使简化物理反演留下稳定残差。实验九不再问“神经网络能否从零预测 $C_{ps}$”，而是验证更受约束的问题：在物理反演已经给出 $\hat L_s^{\mathrm{phy}}$ 和 $\hat C_{ps}^{\mathrm{phy}}$ 后，频谱网络能否学习剩余乘性偏差，并在未见物理状态和分布偏移条件下保持改善。
+
+网络目标定义为
+\begin{equation}
+\mathbf r^{\mathrm{true}}=
+\begin{bmatrix}
+\Delta\log L_s\\
+\Delta\log C_{ps}
+\end{bmatrix}
+=
+\begin{bmatrix}
+\log L_s^{\mathrm{true}}-\log\hat L_s^{\mathrm{phy}}\\
+\log C_{ps}^{\mathrm{true}}-\log\hat C_{ps}^{\mathrm{phy}}
+\end{bmatrix}.
+\label{eq:ai-log-residual}
+\end{equation}
+若网络输出 $\hat{\mathbf r}$，最终参数为
+\begin{equation}
+\hat L_s=\hat L_s^{\mathrm{phy}}\exp(\hat r_L),\qquad
+\hat C_{ps}=\hat C_{ps}^{\mathrm{phy}}\exp(\hat r_C).
+\label{eq:ai-correction}
+\end{equation}
+采用对数残差有三点好处：参数始终为正；网络学习相对误差而非绝对皮法量级；不同额定容量或不同电容量级之间更容易迁移。
+
+\subsection{快速复杂前向模型与参数随机化}
+
+为避免直接生成上万条长时域开关波形，本实验采用便宜频域前向模型。串联支路写为
+\begin{equation}
+R_s(f)=R_s\left[1+k_R\sqrt{f/f_{\mathrm{ref}}}\right],
+\end{equation}
+\begin{equation}
+L_s(f)=L_s\,\mathrm{clip}\left[1-k_L\ln(1+f/f_{\mathrm{ref}}),0.70,1.10\right].
+\end{equation}
+跨绕组导纳包含理想电容、介质损耗和可选附加串联 RLC 模态：
+\begin{equation}
+Y_{ps}(f)=j\omega C_{ps}+\omega C_{ps}\tan\delta
++\frac{1}{R_r+j\omega L_r+1/(j\omega C_r)}.
+\end{equation}
+两端口对角项另外加入 $C_{pg},C_{sg}$。四个测量通道分别使用一阶低通、增益和延时模型
+\begin{equation}
+H_q(f)=g_q\frac{\exp(-j2\pi f\tau_q)}{1+jf/f_{c,q}},
+\end{equation}
+从而测得的导纳近似为
+\begin{equation}
+\mathbf Y_{\mathrm{meas}}(f)=
+\mathbf H_I(f)\mathbf Y_{\mathrm{true}}(f)\mathbf H_V^{-1}(f)+\mathbf N(f).
+\end{equation}
+
+使用加扰 Sobol 低差异序列生成 512 个独立物理状态。连续随机化的电路参数为
+\[
+\{C_{ps},L_s,R_s,C_{pg},C_{sg},C_p,C_s,L_m,R_m\},
+\]
+同时随机化温度、负载、相移、频变系数、介质损耗、附加模态以及通道幅相误差。每个状态生成 4 次独立测量噪声，共得到 2048 条记录。该设计的重点不是“记录数多”，而是保证 512 个独立物理状态覆盖不同参数组合；同一状态的噪声重复不能被错误计作新的物理状态。
+
+\subsection{频谱令牌、全局特征与数据划分}
+
+每条记录在 \SI{80}{kHz}--\SI{10}{MHz} 之间取 64 个对数频率点。对 $Y_{11},Y_{12},Y_{22}$，每个频点构造
+\begin{equation}
+\begin{aligned}
+\mathbf t_k=\big[&\widetilde{\log f_k},\\
+&\log|Y_{11,k}|,\ \sin\angle Y_{11,k},\ \cos\angle Y_{11,k},\\
+&\log|Y_{12,k}|,\ \sin\angle Y_{12,k},\ \cos\angle Y_{12,k},\\
+&\log|Y_{22,k}|,\ \sin\angle Y_{22,k},\ \cos\angle Y_{22,k}\big].
+\end{aligned}
+\end{equation}
+用正弦和余弦表示相位，可避免 $-\pi$ 与 $\pi$ 之间的人为跳变。全局特征包括物理拟合的 $\log R_s,\log L_s,\log C_{ps}$、拟合残差、负载、温度、相移角和噪声水平。所有标准化均只使用训练集统计量。
+
+数据按\textbf{物理状态}而非按记录随机划分：
+\begin{table}[H]
+\centering
+\caption{实验九数据划分}
+\begin{tabular}{lrrl}
+\toprule
+数据集 & 独立状态 & 记录数 & 作用 \\
+\midrule
+训练集 & 320 & 1280 & 学习训练分布内的物理残差 \\
+验证集 & 64 & 256 & 早停与超参数选择 \\
+插值测试集 & 64 & 256 & 评价未见状态的同分布泛化 \\
+偏移测试集 & 64 & 256 & 评价训练范围外高温、高负载和更强色散/延时 \\
+\bottomrule
+\end{tabular}
+\end{table}
+同一物理状态的 4 次重复始终位于同一集合，四个集合的状态编号交集为零。该规则避免网络通过看到同一参数状态的另一噪声版本而获得虚假的测试精度。
+
+\subsection{两种网络与 CUDA 实现}
+
+第一种模型为 MLP 残差基线。将 64 个频谱令牌展开，与全局特征拼接后经过 $256\rightarrow128\rightarrow64\rightarrow2$ 的 GELU 网络，参数量约 $2.07\times10^5$。它没有显式利用频点集合结构，但在小数据上通常具有较强归纳偏置，因此必须保留为基线。
+
+第二种模型为轻量 Spectral Perceiver。每个令牌首先嵌入到 64 维，8 个可学习 latent tokens 通过四头交叉注意力读取全部频点，再经过两层 latent 自注意力，最后与工况嵌入共同输出两个对数残差。参数量约 $1.06\times10^5$，比 MLP 更少，并天然支持把非均匀频点视作集合；当前版本尚未加入 Fisher/OED 门控，因此应称为普通频谱 Perceiver 基线，而不是最终 Fisher-guided 模型。
+
+训练使用 PyTorch 2.11.0+cu128、CUDA 12.8 和 NVIDIA GeForce RTX 5070，采用 float16 自动混合精度。批量大小为 128，AdamW 初始学习率 $2\times10^{-3}$，权重衰减 $2\times10^{-4}$，最大 160 轮，验证集早停耐心值为 28。实际 MLP 在第 9 轮达到最佳验证值并于 37 轮停止；Perceiver 在第 15 轮最佳并于 43 轮停止。CUDA 训练时间分别约为 2.5 s 和 4.8 s，说明本实验的主要风险不是算力，而是数据物理覆盖和跨域真实性。
+
+\subsection{目标函数}
+
+训练目标由三部分构成：
+\begin{equation}
+\mathcal L=
+\mathcal L_{\mathrm{param}}
++\lambda_Y\mathcal L_Y
++\lambda_r\mathcal L_r.
+\end{equation}
+参数监督项是在训练集标准化后的残差均方误差：
+\begin{equation}
+\mathcal L_{\mathrm{param}}=
+\frac{1}{2N}\sum_i
+\left\|\hat{\mathbf r}_i-\mathbf r_i^{\mathrm{true}}\right\|_2^2.
+\end{equation}
+物理一致性项把修正后的 $L_s,C_{ps}$ 重新代入简化 $Y_{12}$ 模型：
+\begin{equation}
+\mathcal L_Y=\frac{1}{NK}\sum_{i,k}
+\frac{|Y_{12}^{\mathrm{inv}}(f_k;\hat R_{s,i}^{\mathrm{phy}},\hat L_{s,i},\hat C_{ps,i})
+-Y_{12,i}^{\mathrm{meas}}(f_k)|^2}
+{\max(|Y_{12,i}^{\mathrm{meas}}(f_k)|,s_{\min})^2}.
+\end{equation}
+残差正则项
+\begin{equation}
+\mathcal L_r=\frac{1}{N}\sum_i\|\hat{\mathbf r}_i\|_2^2
+\end{equation}
+限制网络无依据地推翻物理估计。当前取 $\lambda_Y=0.01$、$\lambda_r=2\times10^{-4}$。必须注意，复杂前向模型无法由简化 $Y_{12}$ 完全解释，因此物理一致性权重不应过大，否则会迫使网络重新回到有偏的简化模型最优点。
+
+\subsection{结果与解释}
+
+\begin{table}[H]
+\centering
+\caption{实验九不同方法的 $C_{ps}$ 平均绝对百分比误差}
+\begin{tabular}{lrrr}
+\toprule
+测试集 & 纯物理反演 & MLP 残差修正 & Spectral Perceiver \\
+ & (\%) & (\%) & (\%) \\
+\midrule
+验证集 & 3.610 & \textbf{1.075} & 1.167 \\
+插值测试集 & 3.584 & \textbf{1.018} & 1.253 \\
+分布偏移测试集 & 6.686 & \textbf{2.484} & 2.827 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+插值测试中，MLP 与 Perceiver 分别将物理误差降低 $71.6\%$ 和 $65.0\%$；分布偏移测试中仍分别降低 $62.8\%$ 和 $57.7\%$。因此可以得出受限但明确的结论：当前合成模型内，频谱与工况中确实存在足以预测物理残差的信息，“物理反演+AI修正”并非空任务。
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.99\textwidth]{ai_residual_pilot_training_and_metrics.png}
+\caption{CUDA 训练收敛与分组状态泛化结果。纯物理反演在偏移测试中误差明显上升；两种残差模型均有改善，但当前 MLP 优于 Spectral Perceiver。}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.76\textwidth]{ai_residual_pilot_cps_scatter.png}
+\caption{插值测试集中物理估计与 Perceiver 修正后的 $C_{ps}$ 散点。橙色点总体更接近理想线，但仍可见高电容区和部分附加模态状态的残差。}
+\end{figure}
+
+复杂网络没有战胜 MLP 是本实验的重要结果，而非应隐藏的失败。Perceiver 的训练误差低于 MLP，但验证和测试误差更高，说明 320 个独立训练状态对其仍偏少、正则化不足，或当前固定 64 点任务本身不需要集合注意力。只有在增加独立状态、引入非均匀 OED 频点或可变频点数量后仍能稳定超过 MLP，才有理由把 Perceiver 作为主方法。
+
+联合输出的跨域稳定性也尚未完全建立。分布偏移测试中，$C_{ps}$ 得到明显改善，但 MLP 的 $L_s$ MAE 由纯物理的 $1.632\%$ 上升到 $1.791\%$；Perceiver 修正后约为 $1.628\%$。这说明网络可能优先利用高频电容斜率修正 $C_{ps}$，却没有充分学会漏感色散与真实 $L_s$ 的区别。下一步应分别报告两个参数的灵敏度、相关残差和不确定度，不能只看 $C_{ps}$ 单指标。
+
+\subsection{数据质量审计与证据边界}
+
+正式数据集包含 2048 条有限值记录、512 个独立状态，四个划分之间状态重叠数为零。物理拟合代价的中位数为 0.098，95\% 分位数为 0.186；纯物理 $C_{ps}$ 绝对误差中位数为 $3.33\%$，95\% 分位数为 $10.07\%$，说明数据同时包含容易和困难状态，而不是只在近零残差上训练。
+
+然而“仿真标签精确”不等于“数据代表真实硬件”。当前数据仍来自同一个 Python 频域模型族，附加模态、频变规律和测量链路均为预设经验分布。实验九只能证明算法闭环和模型内泛化，尚不能证明跨求解器或跨样机泛化。下一阶段应采用多保真路线：大量便宜频域数据用于预训练，少量独立 SPICE/PLECS/FEM 数据用于跨模型校准，最终用低压样机数据微调和测试。
+
+\section{当前阶段研究判断}
+
+这九组实验把研究主线从“自定义模型上的在线辨识”推进到了“文献方法在线化”“文献机理模型锚定”“PWM 在线辨识”“参数到可测工程量的初步闭环”“有载多端口参数分离”“独立前向模型失配验证”“开关状态多工况选择性验证”和“CUDA 物理残差学习”。目前更稳妥的表述是：
+
+\begin{quote}
+本文首先复现高频变压器寄生电容离线特征频率提取方法，并研究运行二值激励下这些特征频率的在线重构条件；随后引入宽频机理模型表格参数，验证结构来源参数能够解释接地条件下的谐振频率迁移。进一步通过已知 $C_{ps}$ 扰动，建立在线复频响物理拟合、绕组间电容估计和跨绕组位移电流预测之间的模型级闭环。面向双有源端口运行，又利用多个运行窗口重构 $Y_{12}$，证明有载单端口观测不能替代完整多端口参数分离。最后通过独立复杂前向模型量化频变参数、附加模态和测量链路误差下的系统残差，并用 CUDA 残差学习把插值测试 $C_{ps}$ MAE 从 $3.584\%$ 降到约 $1\%$。当前工业抓手应表述为高频变压器跨隔离屏障耦合状态与共模电流风险监测，而不是仅凭 $C_{ps}$ 单参数宣称绝缘老化诊断。
+\end{quote}
+
+因此，下一步不宜笼统追求“所有寄生参数同时在线辨识”，而应围绕工业可测量闭环采用分层目标：
+
+\begin{enumerate}
+  \item 第一目标：完成 128、256、512、1024 个独立状态的学习曲线，判断复杂网络是否真正受益于数据量；
+  \item 第二目标：把当前频域前向模型扩展到独立 SPICE/PLECS 或更完整开关级 DAB，形成跨模型测试集；
+  \item 第三目标：在不同负载、相移角、温度和接地方式下联合辨识 $L_s$ 与 $C_{ps}$，检验参数选择性与虚警；
+  \item 第四目标：用离线阻抗/VNA 真值和直接测得的跨绕组/共模电流验证在线结果；
+  \item 第五目标：采用“合成数据预训练+少量样机数据微调”，而不是只在同源仿真数据上扩大网络。
+\end{enumerate}
+
+\section{研读检查表}
+
+在进入下一轮实验前，建议能够不看代码回答下列问题。若其中某一项不清楚，可直接回到括号中的章节：
+\begin{enumerate}
+  \item 为什么副边开路时 $H_v=-Y_{21}/Y_{22}$，有载时却不能继续使用该式？（统一技术基础、实验六）
+  \item 为什么 $f_{\mathrm{zero}}$ 能给出 $C_{ps}$，而 $L_s$ 误差会一比一地传到 $C_{ps}$？（实验一）
+  \item 为什么低频特征需要长窗口，高频特征需要快边沿和高采样率？（实验二、四）
+  \item 多个 DAB 运行窗口为什么不是简单平均，而是在恢复 $\mathbf V_k$ 的秩？（实验六）
+  \item 同模误差 $0.047\%$ 与失配误差 $5.091\%$ 分别证明什么、不能证明什么？（实验六、七）
+  \item 为什么 $C_{ps}$ 能预测 $i_{ps}$，却不能单独预测系统总共模电流？（实验五、八）
+  \item 网络为什么预测 $\Delta\log C_{ps}$，而不是直接预测 $C_{ps}$？（实验七、九）
+  \item 为什么实验九中 MLP 暂时优于 Perceiver，仍然支持总体研究路线？（实验九）
+\end{enumerate}
+
+\section{下一步实验建议}
+
+建议把下一步拆成“学习曲线与跨模型校准”和“低压样机验证”两层，而不是立即继续堆叠网络模块：
+
+\begin{enumerate}
+  \item 数据层：保持物理状态分组，绘制 128--1024 独立状态学习曲线，加入频点/模块消融；
+  \item 模型层：用独立开关级求解器生成 64--128 个高保真锚点，检查当前 Python 模型的域偏差；
+  \item 样机层：搭建低压 DAB 或独立高频变压器测试平台，保留可调 $C_{ps}$、共模回路和接地阻抗；
+  \item 观测量：同步获取 $v_1,i_1,v_2,i_2$ 以及跨绕组/共模电流；
+  \item 真值扰动：在原副边之间加入已知小电容，并改变负载、相移、温度和接地方式；
+  \item 评价指标：$C_{ps}$ 误差、最小可检测变化、跨域误差、虚警率、不确定度校准和单次更新时间。
+\end{enumerate}
+
+如果该实验成功，论文创新点可以收敛为：
+
+\begin{quote}
+面向隔离型变换器高频共模耦合监测的高频变压器原位辨识方法：利用运行开关激励和多端口观测估计绕组间等效电容，并预测跨隔离屏障共模电流。
+\end{quote}
+
+\section*{附录：文件位置}
+\addcontentsline{toc}{section}{附录：文件位置}
+
+\small
+\sloppy
+\begin{itemize}
+  \item 项目目录：\texttt{D:/高频变压器/可辨识性分析}
+  \item 实验一脚本：位于 \texttt{模型与代码} 目录，文件名为
+  \path{run_paper_capacitance_reproduction.m}
+  \item 实验二脚本：位于 \texttt{模型与代码} 目录，文件名为
+  \path{run_paper_tc_online_reconstruction.m}
+  \item 实验三脚本：位于 \texttt{模型与代码} 目录，文件名为
+  \path{run_wideband_mechanism_grounding_reproduction.m}
+  \item 实验一结果表：位于 \texttt{数据} 目录，文件名为
+  \path{paper_capacitance_reproduction_summary.csv}
+  \item 实验二结果表：位于 \texttt{数据} 目录，文件名为
+  \path{paper_tc_online_reconstruction_summary.csv}
+  \item 实验三结果表：位于 \texttt{数据} 目录，文件名为
+  \path{wideband_grounding_reproduction_raw_summary.csv}
+  \item 实验四脚本：位于 \texttt{模型与代码} 目录，文件名为
+  \path{run_wideband_pwm_online_identification.m}
+  \item 实验四结果表：位于 \texttt{数据} 目录，文件名为
+  \path{wideband_pwm_online_identification_summary.csv}
+  \item 实验五脚本：位于 \texttt{模型与代码} 目录，文件名为
+  \path{run_cps_common_mode_engineering_demo.py}
+  \item 实验五汇总表：位于 \texttt{数据} 目录，文件名为
+  \path{cps_common_mode_engineering_summary.csv}
+  \item 实验五重复窗口结果：位于 \texttt{数据} 目录，文件名为
+  \path{cps_common_mode_engineering_trials.csv}
+  \item 实验六脚本：位于 \texttt{模型与代码} 目录，文件名为
+  \path{run_loaded_dab_multiport_cps_identification.py}
+  \item 实验六汇总表：位于 \texttt{数据} 目录，文件名为
+  \path{loaded_dab_multiport_cps_summary.csv}
+  \item 实验六重复窗口结果：位于 \texttt{数据} 目录，文件名为
+  \path{loaded_dab_multiport_cps_trials.csv}
+  \item 实验七脚本：位于 \texttt{模型与代码} 目录，文件名为
+  \path{run_loaded_dab_forward_model_mismatch.py}
+  \item 实验七逐次结果：位于 \texttt{数据} 目录，文件名为
+  \path{forward_model_mismatch_trials.csv}
+  \item 实验七状态汇总：位于 \texttt{数据} 目录，文件名为
+  \path{forward_model_mismatch_summary.csv}
+  \item 实验七场景汇总：位于 \texttt{数据} 目录，文件名为
+  \path{forward_model_mismatch_scenario_metrics.csv}
+  \item 实验七配置：位于 \texttt{数据} 目录，文件名为
+  \path{forward_model_mismatch_config.json}
+  \item 实验八脚本：位于 \texttt{模型与代码} 目录，文件名为
+  \path{run_switch_state_dab_cps_pilot.py}
+  \item 实验八结果目录：位于项目根目录，目录名为
+  \path{experiment8_switch_state_dab_20260715}
+  \item 实验八逐次结果：位于上述目录的 \texttt{data} 子目录，文件名为
+  \path{switch_state_dab_cps_trials.csv}
+  \item 实验八工况汇总：位于上述目录的 \texttt{data} 子目录，文件名为
+  \path{switch_state_dab_cps_summary.csv}
+  \item 实验八配置：位于上述目录的 \texttt{data} 子目录，文件名为
+  \path{switch_state_dab_cps_config.json}
+  \item 实验九训练与评估脚本：位于 \texttt{模型与代码} 目录，文件名为
+  \path{run_ai_residual_pilot_cuda.py}
+  \item 实验九结果目录：位于项目根目录，目录名为
+  \path{experiment9_ai_residual_pilot_20260716}
+  \item 实验九训练数据：位于上述目录的 \texttt{data} 子目录，文件名为
+  \path{ai_residual_pilot_dataset.npz}
+  \item 实验九数据划分与状态元数据：位于上述目录的 \texttt{data} 子目录，文件名为
+  \path{ai_residual_pilot_metadata.csv}
+  \item 实验九配置与评价指标：位于上述目录的 \texttt{data} 子目录，文件名分别为
+  \path{ai_residual_pilot_config.json} 和 \path{ai_residual_pilot_metrics.csv}
+  \item 实验九训练历史：位于上述目录的 \texttt{data} 子目录，文件名分别为
+  \path{mlp_residual_training_history.csv} 和
+  \path{spectral_perceiver_training_history.csv}
+  \item 实验九最优模型：位于上述目录的 \texttt{models} 子目录，文件名分别为
+  \path{mlp_residual_best.pt} 和 \path{spectral_perceiver_best.pt}
+  \item 实验九实验记录：位于上述目录的 \texttt{notes} 子目录，文件名为
+  \path{ai_residual_pilot_record.md}
+  \item 本报告目录：\texttt{在线化实验\_LaTeX\_20260712}
+\end{itemize}
+
+\end{document}

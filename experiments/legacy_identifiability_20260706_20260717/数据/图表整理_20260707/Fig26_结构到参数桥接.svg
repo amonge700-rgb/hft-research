@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="760" viewBox="0 0 1280 760">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#334155"/>
+    </marker>
+    <style>
+      .box { fill:#f8fafc; stroke:#334155; stroke-width:2; rx:12; }
+      .main { fill:#e0f2fe; stroke:#0369a1; stroke-width:2; rx:12; }
+      .param { fill:#ecfdf5; stroke:#047857; stroke-width:2; rx:12; }
+      .out { fill:#fff7ed; stroke:#c2410c; stroke-width:2; rx:12; }
+      .txt { font-family:"Microsoft YaHei", "SimSun", Arial, sans-serif; font-size:22px; fill:#0f172a; }
+      .small { font-family:"Microsoft YaHei", "SimSun", Arial, sans-serif; font-size:18px; fill:#334155; }
+      .arrow { stroke:#334155; stroke-width:2.2; fill:none; marker-end:url(#arrow); }
+      .title { font-family:"Microsoft YaHei", "SimSun", Arial, sans-serif; font-size:30px; font-weight:700; fill:#0f172a; }
+    </style>
+  </defs>
+
+  <text class="title" x="355" y="48">高频变压器结构到等效参数的桥接关系</text>
+
+  <rect class="main" x="430" y="80" width="420" height="78"/>
+  <text class="txt" x="472" y="113">绕组匝数 / 排布 / 间距</text>
+  <text class="small" x="498" y="142">磁芯结构、绝缘、屏蔽层、导体尺寸</text>
+
+  <rect class="box" x="80" y="230" width="230" height="70"/>
+  <text class="txt" x="135" y="273">漏磁通路径</text>
+
+  <rect class="box" x="350" y="230" width="230" height="70"/>
+  <text class="txt" x="405" y="273">绕组间电场</text>
+
+  <rect class="box" x="620" y="230" width="250" height="70"/>
+  <text class="txt" x="650" y="273">绕组-磁芯/地电场</text>
+
+  <rect class="box" x="910" y="230" width="270" height="70"/>
+  <text class="txt" x="950" y="260">Skin / Proximity</text>
+  <text class="small" x="1002" y="286">高频损耗</text>
+
+  <rect class="param" x="80" y="390" width="230" height="78"/>
+  <text class="txt" x="116" y="424">Lsigma 漏感</text>
+  <text class="small" x="118" y="452">短路测试 / FEM 磁能</text>
+
+  <rect class="param" x="350" y="390" width="230" height="78"/>
+  <text class="txt" x="398" y="424">Cps 绕组间电容</text>
+  <text class="small" x="386" y="452">端口间电容 / 电场能量</text>
+
+  <rect class="param" x="620" y="390" width="250" height="78"/>
+  <text class="txt" x="673" y="424">Cg 对地电容</text>
+  <text class="small" x="660" y="452">端口-地 / 屏蔽层电容</text>
+
+  <rect class="param" x="910" y="390" width="270" height="78"/>
+  <text class="txt" x="978" y="424">Rac(f)</text>
+  <text class="small" x="952" y="452">频率相关交流电阻</text>
+
+  <rect class="param" x="500" y="520" width="280" height="78"/>
+  <text class="txt" x="568" y="554">Gg 损耗电导</text>
+  <text class="small" x="532" y="582">介质损耗 / 泄漏 / 弱辨识项</text>
+
+  <rect class="out" x="395" y="650" width="490" height="72"/>
+  <text class="txt" x="475" y="682">端口导纳/阻抗矩阵</text>
+  <text class="small" x="495" y="710">Y(jw), Z(jw), Y11 / Y12 / Y22</text>
+
+  <path class="arrow" d="M500,158 C390,185 275,198 195,230"/>
+  <path class="arrow" d="M595,158 C550,188 505,205 465,230"/>
+  <path class="arrow" d="M700,158 C720,188 735,205 745,230"/>
+  <path class="arrow" d="M810,158 C910,185 1000,200 1045,230"/>
+
+  <path class="arrow" d="M195,300 L195,390"/>
+  <path class="arrow" d="M465,300 L465,390"/>
+  <path class="arrow" d="M745,300 L745,390"/>
+  <path class="arrow" d="M1045,300 L1045,390"/>
+
+  <path class="arrow" d="M735,468 C720,495 690,505 650,520"/>
+
+  <path class="arrow" d="M195,468 C250,570 350,620 470,650"/>
+  <path class="arrow" d="M465,468 C500,560 560,610 615,650"/>
+  <path class="arrow" d="M745,468 C725,560 695,610 655,650"/>
+  <path class="arrow" d="M1045,468 C965,575 850,625 735,650"/>
+  <path class="arrow" d="M640,598 L640,650"/>
+</svg>

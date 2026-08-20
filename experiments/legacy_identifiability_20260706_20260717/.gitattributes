@@ -1,0 +1,6 @@
+*.pdf binary
+*.png binary
+*.mat binary
+*.npz binary
+*.pt binary
+

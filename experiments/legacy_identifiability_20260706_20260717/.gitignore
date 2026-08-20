@@ -1,0 +1,7 @@
+# Generated caches and copyrighted paper-page extracts are not research outputs.
+**/__pycache__/
+**/*.pyc
+数据/.matplotlib/
+数据/wideband_paper_pages/
+数据/latex_build_engineering/
+

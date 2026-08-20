@@ -1,0 +1,8 @@
+Reduced 4-parameter OED demo after fixing Gg
+Generated: 2026-07-07 00:45:59
+
+Monte Carlo ranking:
+full_260_4param, K=260, meanRmsePct=2.847454e-01
+eopt_nominal_4param, K=40, meanRmsePct=4.034262e-01
+eopt_prior_avg_4param, K=40, meanRmsePct=5.019011e-01
+log_uniform_4param, K=40, meanRmsePct=6.239042e-01

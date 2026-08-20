@@ -1,0 +1,280 @@
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\pkgconfig] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\alpaqa] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\alpaqa\accelerators] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\alpaqa\accelerators\internal] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\alpaqa\casadi] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\alpaqa\config] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\alpaqa\dl] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\alpaqa\implementation] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\alpaqa\implementation\accelerators] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\alpaqa\implementation\casadi] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\alpaqa\implementation\inner] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\alpaqa\implementation\inner\directions] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\alpaqa\implementation\inner\directions\panoc] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\alpaqa\implementation\outer] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\alpaqa\implementation\outer\internal] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\alpaqa\implementation\params] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\alpaqa\implementation\problem] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\alpaqa\implementation\util] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\alpaqa\implementation\util\io] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\alpaqa\inner] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\alpaqa\inner\directions] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\alpaqa\inner\directions\panoc] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\alpaqa\inner\directions\panoc-ocp] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\alpaqa\inner\directions\pantr] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\alpaqa\inner\internal] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\alpaqa\ipopt] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\alpaqa\lbfgsb] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\alpaqa\outer] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\alpaqa\outer\internal] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\alpaqa\params] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\alpaqa\problem] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\alpaqa\util] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\alpaqa\util\io] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\alpaqa\util\quadmath] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\casadi] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\casadi\core] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\casadi\core\runtime] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\coin] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\coin-or] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\coin-or\metis] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\coin-or\mumps] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\cholesky] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\cholmodsupport] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\core] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\core\arch] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\core\arch\avx] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\core\arch\avx512] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\core\arch\altivec] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\core\arch\cuda] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\core\arch\default] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\core\arch\gpu] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\core\arch\hip] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\core\arch\hip\hcc] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\core\arch\msa] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\core\arch\neon] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\core\arch\sse] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\core\arch\sve] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\core\arch\sycl] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\core\arch\zvector] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\core\functors] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\core\products] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\core\util] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\eigenvalues] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\geometry] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\geometry\arch] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\householder] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\iterativelinearsolvers] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\jacobi] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\klusupport] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\lu] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\lu\arch] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\metissupport] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\orderingmethods] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\pastixsupport] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\pardisosupport] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\qr] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\spqrsupport] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\svd] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\sparsecholesky] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\sparsecore] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\sparselu] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\sparseqr] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\stlsupport] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\superlusupport] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\umfpacksupport] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\misc] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\eigen\src\plugins] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\unsupported] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\unsupported\eigen] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\unsupported\eigen\cxx11] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\unsupported\eigen\cxx11\src] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\unsupported\eigen\cxx11\src\tensor] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\unsupported\eigen\cxx11\src\tensorsymmetry] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\unsupported\eigen\cxx11\src\tensorsymmetry\util] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\unsupported\eigen\cxx11\src\threadpool] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\unsupported\eigen\cxx11\src\util] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\unsupported\eigen\src] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\unsupported\eigen\src\autodiff] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\unsupported\eigen\src\bvh] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\unsupported\eigen\src\eigenvalues] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\unsupported\eigen\src\eulerangles] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\unsupported\eigen\src\fft] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\unsupported\eigen\src\iterativesolvers] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\unsupported\eigen\src\kroneckerproduct] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\unsupported\eigen\src\levenbergmarquardt] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\unsupported\eigen\src\matrixfunctions] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\unsupported\eigen\src\morevectorization] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\unsupported\eigen\src\nonlinearoptimization] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\unsupported\eigen\src\numericaldiff] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\unsupported\eigen\src\polynomials] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\unsupported\eigen\src\skyline] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\unsupported\eigen\src\sparseextra] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\unsupported\eigen\src\specialfunctions] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\unsupported\eigen\src\specialfunctions\arch] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\unsupported\eigen\src\specialfunctions\arch\avx] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\unsupported\eigen\src\specialfunctions\arch\avx512] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\unsupported\eigen\src\specialfunctions\arch\gpu] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\unsupported\eigen\src\specialfunctions\arch\neon] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\eigen3\unsupported\eigen\src\splines] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\highs] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\highs\filereaderlp] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\highs\fortran] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\highs\interfaces] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\highs\io] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\highs\ipm] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\highs\lp_data] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\highs\mip] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\highs\model] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\highs\parallel] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\highs\presolve] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\highs\qpsolver] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\highs\simplex] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\highs\test] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\highs\util] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\fmi-standard-2.0.2] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\fmi-standard-3.0] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\alpaqa-external] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\blasfeo-external] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\bonmin-external] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\bonmin-external\bonmin] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\casadi] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\casadi\license] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\casadi-sundials] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\casadi-sundials\cvodes] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\casadi-sundials\idas] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\casadi-sundials\kinsol] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\casadi-sundials\sundials] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\cbc-external] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\cbc-external\cbc] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\cgl-external] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\cgl-external\cgl] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\clp-external] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\clp-external\clp] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\coinutils-external] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\coinutils-external\coinutils] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\highs-external] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\highs-external\extern] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\highs-external\extern\filereaderlp] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\hpipm-external] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\ipopt-external] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\metis-external] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\metis-external\metis-4.0] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\mockups-external] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\mumps-external] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\mumps-external\mumps] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\openblas-external] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\openblas-external\ctest] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\openblas-external\lapack-netlib] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\openblas-external\lapack-netlib\lapacke] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\openblas-external\reference] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\openblas-external\relapack] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\openblas-external\test] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\osi-external] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\osi-external\osi] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\osqp-external] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\osqp-external\lin_sys] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\osqp-external\lin_sys\direct] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\osqp-external\lin_sys\direct\qdldl] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\osqp-external\lin_sys\direct\qdldl\amd] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\osqp-external\lin_sys\direct\qdldl\qdldl_sources] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\proxqp-external] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\proxqp-external\bindings] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\proxqp-external\bindings\python] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\proxqp-external\bindings\python\external] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\proxqp-external\bindings\python\external\pybind11] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\proxqp-external\cmake-module] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\proxqp-external\cmake-module\doxygen] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\proxqp-external\cmake-module\doxygen\mathjax] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\proxqp-external\external] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\proxqp-external\external\cereal] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\proxqp-external\external\cereal\include] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\proxqp-external\external\cereal\include\cereal] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\proxqp-external\external\cereal\include\cereal\external] 
+[警告: 名称不存在或不是目录:
+F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\proxqp-external\external\cereal\include\cereal\external\rapidjson] 
+[警告: 名称不存在或不是目录:
+F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\proxqp-external\external\cereal\include\cereal\external\rapidjson\msinttypes] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\qpoases] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\sleqp-external] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\superscs-external] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\tinyxml2-9.0.0] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\licenses\trlib-external] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\openblas] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\openblas\openblas] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\osqp] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\proxsuite] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\proxsuite\helpers] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\proxsuite\linalg] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\proxsuite\linalg\dense] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\proxsuite\linalg\sparse] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\proxsuite\linalg\veg] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\proxsuite\linalg\veg\internal] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\proxsuite\linalg\veg\internal\external] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\proxsuite\linalg\veg\memory] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\proxsuite\linalg\veg\type_traits] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\proxsuite\linalg\veg\util] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\proxsuite\proxqp] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\proxsuite\proxqp\dense] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\proxsuite\proxqp\dense\preconditioner] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\proxsuite\proxqp\sparse] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\proxsuite\proxqp\sparse\preconditioner] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\proxsuite\proxqp\utils] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\proxsuite\serialization] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\qdldl] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\simde] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\simde\arm] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\simde\arm\neon] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\simde\x86] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\simde\x86\avx512] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\sleqp] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\sleqp\sparse] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\superscs] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\superscs\linsys] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\include\trlib] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\cmake] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\cmake\alpaqa] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\cmake\highs] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\cmake\osqp] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\cmake\proxsuite] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\cmake\proxsuite\find-external] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\cmake\proxsuite\find-external\simde] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\cmake\qdldl] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\cmake\sleqp] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b\cmake\trlib] 
+[警告: 名称不存在或不是目录: F:\Matlab\casadi-3.6.5-windows64-matlab2018b\casadi-3.6.5-windows64-matlab2018b] 
+           strategy            K     meanFitRelErrPct    stdFitRelErrPct    meanEff_Lsigma    stdPct_Lsigma    shiftPct_Lsigma    meanEff_Cps    stdPct_Cps    shiftPct_Cps    meanEff_Cg    stdPct_Cg    shiftPct_Cg    meanEff_Rac    stdPct_Rac    shiftPct_Rac
+    ______________________    ___    ________________    _______________    ______________    _____________    _______________    ___________    __________    ____________    __________    _________    ___________    ___________    __________    ____________
+
+    "random_40"                40         3.6304             0.017364         2.0937e-06        0.071253            4.687         1.1217e-10       3.0505          40.21       1.4388e-10      2.0763        19.899       0.099511       0.055741       -50.244   
+    "band_robust_eopt_40"      40         4.9765             0.023281         2.0915e-06        0.056537           4.5774         9.6709e-11      0.46641         20.886        9.771e-11     0.59395       -18.575       0.099579        0.07299        -50.21   
+    "uniform_40"               40         5.4809             0.018176         2.0919e-06        0.077836           4.5973         9.6311e-11      0.54525         20.389       1.0031e-10     0.37703       -16.407       0.099109       0.057832       -50.445   
+    "full_260"                260         6.7815            0.0066004          2.092e-06        0.027087           4.6024         9.9182e-11      0.73618         23.978       9.9528e-11     0.57656        -17.06       0.099171       0.024559       -50.415   
+    "prior_avg_eopt_40"        40          7.264             0.012783         2.0826e-06        0.051995           4.1313         9.9298e-11      0.85049         24.123        9.818e-11     0.58299       -18.183        0.10512        0.13396        -47.44   
+    "nominal_eopt_40"          40         29.041             0.024371         2.0968e-06        0.050498           4.8411         9.8086e-11      0.64504         22.608       9.9251e-11     0.54961       -17.291        0.11684        0.58406        -41.58   
+    "robust_worst_eopt_40"     40         29.182             0.029575         2.0985e-06        0.061066           4.9259         9.8053e-11      0.59488         22.566       9.9224e-11      0.4507       -17.314        0.10832        0.48063       -45.842   
+
+           strategy            K     nominalLambdaMin    priorWorstLambdaMin    priorMeanLambdaMin    priorMeanLogDet
+    ______________________    ___    ________________    ___________________    __________________    _______________
+
+    "uniform_40"               40         2027.7               336.56                   6464.7            48.324     
+    "random_40"                40         208.73               69.054                   297.13            43.509     
+    "nominal_eopt_40"          40           6747               1371.3                    11384            48.689     
+    "prior_avg_eopt_40"        40           2357               497.43                     5067            49.714     
+    "robust_worst_eopt_40"     40         6740.5               1369.6                    15901            49.808     
+    "band_robust_eopt_40"      40         4768.2               838.64                   7186.9            48.692     
+    "full_260"                260         6910.5               1421.3               1.0084e+05            56.326     
+
+{刷新时出错。
+} 
+{错误使用 exit
+函数或变量 'Settings' 无法识别。
+} 
+{错误使用 exit
+函数或变量 'Settings' 无法识别。
+} 

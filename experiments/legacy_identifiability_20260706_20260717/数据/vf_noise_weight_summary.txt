@@ -1,0 +1,24 @@
+Noisy vector fitting with PWM weights
+Generated: 2026-07-07 00:04:55
+
+Case: uniform
+  meanRelErrTrue = 6.844637e-04
+  maxRelErrTrue = 4.420929e-03
+  meanRelErrTrueHighFreq = 3.066055e-04
+  meanRelErrTrueWeightedBand = 6.844637e-04
+  finalRmse = 2.341972e+00
+
+Case: pwm_best_tr50ns_fs500k_D03
+  meanRelErrTrue = 1.269427e-03
+  maxRelErrTrue = 2.657155e-02
+  meanRelErrTrueHighFreq = 2.020497e-03
+  meanRelErrTrueWeightedBand = 1.023431e-03
+  finalRmse = 1.989913e+01
+
+Case: pwm_weak_tr500ns_fs50k_D07
+  meanRelErrTrue = 2.727168e-04
+  maxRelErrTrue = 1.773241e-02
+  meanRelErrTrueHighFreq = 5.238271e-04
+  meanRelErrTrueWeightedBand = 2.705673e-04
+  finalRmse = 1.247990e+01
+

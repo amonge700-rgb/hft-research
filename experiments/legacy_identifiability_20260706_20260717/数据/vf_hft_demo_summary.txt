@@ -1,0 +1,23 @@
+Vector fitting HFT demo
+Generated: 2026-07-07 00:03:22
+Model: Z = (Rac + s*Lsigma) parallel Cp
+Lsigma = 2.000000e-06 H
+Cp = 2.000000e-10 F
+Rac = 2.000000e-01 Ohm
+Frequency range = 1.000e+03 to 1.000e+07 Hz
+Vector fitting order = 6
+RMS error history:
+  2.493864e-09
+  5.429029e-11
+  1.124936e-10
+  4.057415e-10
+  3.247869e-10
+Mean relative error = 1.341903e-14
+Max relative error = 3.846722e-13
+Final poles:
+  -3.086157169e+05 +4.635708898e+07i
+  -3.086157169e+05 -4.635708898e+07i
+  -2.429938546e+07 +4.210552131e+07i
+  -2.429938546e+07 -4.210552131e+07i
+  -5.000000000e+04 +4.999997500e+07i
+  -5.000000000e+04 -4.999997500e+07i

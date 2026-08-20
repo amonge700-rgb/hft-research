@@ -1,0 +1,149 @@
+{
+  "seed": 20260714,
+  "nominal": {
+    "n": 4.0,
+    "lm": 0.047,
+    "rm": 25000.0,
+    "ls": 9.6e-05,
+    "rs": 0.095,
+    "cp": 5.31e-12,
+    "cs": 2.1559e-10,
+    "cps": 2.836e-11,
+    "dispersion_reference_hz": 1000000.0
+  },
+  "simulation": {
+    "fs_hz": 50000000.0,
+    "n_samples": 65536,
+    "switching_hz": 100000.0,
+    "bridge_voltage": 100.0,
+    "edge_hz": 8000000.0,
+    "voltage_noise_rel": 0.0004,
+    "current_noise_rel": 0.0008,
+    "fit_low_hz": 80000.0,
+    "fit_high_hz": 10000000.0,
+    "ridge_rel": 2e-07,
+    "energy_rel_gate": 2e-07,
+    "max_condition": 20000.0,
+    "repeats": 5
+  },
+  "added_cps_pf": [
+    0.0,
+    2.5,
+    5.0,
+    10.0,
+    20.0
+  ],
+  "operating_windows": [
+    {
+      "name": "phi5",
+      "phase_deg": 5.0,
+      "ratio": 0.92,
+      "d1": 0.5,
+      "d2": 0.5
+    },
+    {
+      "name": "phi12",
+      "phase_deg": 12.0,
+      "ratio": 1.0,
+      "d1": 0.49,
+      "d2": 0.5
+    },
+    {
+      "name": "phi20",
+      "phase_deg": 20.0,
+      "ratio": 1.08,
+      "d1": 0.5,
+      "d2": 0.51
+    },
+    {
+      "name": "phi30",
+      "phase_deg": 30.0,
+      "ratio": 0.96,
+      "d1": 0.51,
+      "d2": 0.49
+    },
+    {
+      "name": "phi40",
+      "phase_deg": 40.0,
+      "ratio": 1.04,
+      "d1": 0.48,
+      "d2": 0.52
+    },
+    {
+      "name": "phi50",
+      "phase_deg": 50.0,
+      "ratio": 1.1,
+      "d1": 0.52,
+      "d2": 0.5
+    },
+    {
+      "name": "phi_minus20",
+      "phase_deg": -20.0,
+      "ratio": 0.9,
+      "d1": 0.5,
+      "d2": 0.48
+    }
+  ],
+  "scenarios": {
+    "matched_control": {
+      "skin_coeff": 0.0,
+      "leakage_dispersion": 0.0,
+      "tan_delta_ps": 0.0,
+      "mode_r": null,
+      "mode_l": null,
+      "mode_c": null,
+      "measurement_chain": false
+    },
+    "copper_dispersion": {
+      "skin_coeff": 0.16,
+      "leakage_dispersion": 0.018,
+      "tan_delta_ps": 0.0,
+      "mode_r": null,
+      "mode_l": null,
+      "mode_c": null,
+      "measurement_chain": false
+    },
+    "dielectric_loss": {
+      "skin_coeff": 0.0,
+      "leakage_dispersion": 0.0,
+      "tan_delta_ps": 0.025,
+      "mode_r": null,
+      "mode_l": null,
+      "mode_c": null,
+      "measurement_chain": false
+    },
+    "secondary_mode": {
+      "skin_coeff": 0.0,
+      "leakage_dispersion": 0.0,
+      "tan_delta_ps": 0.0,
+      "mode_r": 4500.0,
+      "mode_l": 5e-06,
+      "mode_c": 5e-10,
+      "measurement_chain": false
+    },
+    "probe_mismatch": {
+      "skin_coeff": 0.0,
+      "leakage_dispersion": 0.0,
+      "tan_delta_ps": 0.0,
+      "mode_r": null,
+      "mode_l": null,
+      "mode_c": null,
+      "measurement_chain": true
+    },
+    "combined_mismatch": {
+      "skin_coeff": 0.16,
+      "leakage_dispersion": 0.018,
+      "tan_delta_ps": 0.025,
+      "mode_r": 4500.0,
+      "mode_l": 5e-06,
+      "mode_c": 5e-10,
+      "measurement_chain": true
+    }
+  },
+  "boundaries": [
+    "Model-level frequency-domain two-port experiment with prescribed DAB-like bridge windows.",
+    "Not a complete switching-device DAB simulation and not hardware validation.",
+    "Forward model is intentionally richer than the simplified inverse model.",
+    "The weak cross-port RLC mode and frequency dispersion are empirical nuisance models, not a full electromagnetic model."
+  ]
+}

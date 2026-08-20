@@ -1,0 +1,5 @@
+variant,condition,target_f1_Hz,target_f2_Hz,pred_f1_Hz,pred_f2_Hz,errPct_f1,errPct_f2
+calibrated_leakage_referred_to_HV,no_winding_grounded,2500,74000,2505.05718540478,75136.7940034802,0.202287416191066,1.53620811281104
+calibrated_leakage_referred_to_HV,lv_winding_grounded,2500,74000,2505.05718540478,75136.7940034802,0.202287416191066,1.53620811281104
+calibrated_leakage_referred_to_HV,hv_winding_grounded,2000,60000,2006.36612388557,60179.0326481476,0.318306194278455,0.298387746912595
+calibrated_leakage_referred_to_HV,both_windings_grounded,1800,53000,1814.48749326569,54196.3434574822,0.80486073698301,2.25725180657022

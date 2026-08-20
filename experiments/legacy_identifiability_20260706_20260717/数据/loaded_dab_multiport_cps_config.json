@@ -1,0 +1,45 @@
+{
+  "fs": 50000000.0,
+  "n_samples": 65536,
+  "fsw": 100000.0,
+  "v1_dc": 100.0,
+  "n": 4.0,
+  "edge_hz": 8000000.0,
+  "voltage_noise": 0.0004,
+  "current_noise": 0.0008,
+  "ridge": 2e-07,
+  "energy_threshold": 2e-07,
+  "condition_limit": 20000.0,
+  "fit_band_hz": [
+    80000.0,
+    10000000.0
+  ],
+  "scenarios": {
+    "nominal": {
+      "ls_factor": 1.0,
+      "rs_factor": 1.0
+    },
+    "hot_Rs_x1.4": {
+      "ls_factor": 1.0,
+      "rs_factor": 1.4
+    },
+    "Ls_minus_5pct": {
+      "ls_factor": 0.95,
+      "rs_factor": 1.0
+    },
+    "Ls_plus_5pct": {
+      "ls_factor": 1.05,
+      "rs_factor": 1.0
+    }
+  },
+  "added_cps_pf": [
+    0.0,
+    2.5,
+    5.0,
+    10.0,
+    20.0
+  ],
+  "repeats": 6,
+  "operating_window_count": 7,
+  "valid_frequency_count": 2713
+}

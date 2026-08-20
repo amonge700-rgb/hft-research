@@ -1,0 +1,87 @@
+{
+  "seed": 20260715,
+  "nominal": {
+    "n": 4.0,
+    "lm": 0.047,
+    "rm": 25000.0,
+    "ls": 9.6e-05,
+    "rs": 0.095,
+    "cp": 5.31e-12,
+    "cs": 2.1559e-10,
+    "cps": 2.836e-11,
+    "cpg": 1e-11,
+    "csg": 2.5e-11,
+    "mode_enabled": false,
+    "mode_r": 30000.0,
+    "mode_l": 5e-06,
+    "mode_c": 1.2e-10
+  },
+  "simulation": {
+    "fs_hz": 50000000.0,
+    "record_samples": 65500,
+    "switching_hz": 100000.0,
+    "vdc1": 100.0,
+    "deadtime_s": 1e-07,
+    "edge_tau_primary_s": 3.2e-08,
+    "edge_tau_secondary_s": 4.5e-08,
+    "ringing_gain": 0.018,
+    "voltage_noise_rel": 0.0004,
+    "current_noise_rel": 0.0008,
+    "fit_low_hz": 80000.0,
+    "fit_high_hz": 10000000.0,
+    "ridge_rel": 2e-07,
+    "energy_rel_gate": 2e-07,
+    "max_condition": 20000.0,
+    "repeats": 3
+  },
+  "load_levels_w": [
+    250.0,
+    750.0
+  ],
+  "temperatures_c": [
+    25.0,
+    80.0
+  ],
+  "grounding_capacitances_f": {
+    "baseline": [
+      1e-11,
+      2.5e-11
+    ],
+    "asymmetric": [
+      3.5e-11,
+      9e-11
+    ]
+  },
+  "added_cps_pf": [
+    0.0,
+    5.0,
+    10.0
+  ],
+  "forward_scenarios": {
+    "matched_switching": {
+      "mode_enabled": false,
+      "measurement_chain": false
+    },
+    "weak_cross_mode": {
+      "mode_enabled": true,
+      "measurement_chain": false
+    },
+    "full_chain": {
+      "mode_enabled": true,
+      "measurement_chain": true
+    }
+  },
+  "metrics": {
+    "overall_cps_mae_pct": 0.6116510898772662,
+    "matched_switching_cps_mae_pct": 0.12817756842844594,
+    "weak_cross_mode_cps_mae_pct": 1.2875878191014323,
+    "full_chain_cps_mae_pct": 0.41918788210192054,
+    "mean_cps_only_total_source_error_pct": 87.95112119230674
+  },
+  "boundaries": [
+    "Stiff-DC-bus switch-state DAB pilot; load is represented by its phase-shift operating point.",
+    "Dead time and Coss are represented by zero states and finite edge dynamics, not nonlinear device models.",
+    "Interwinding displacement current is not identical to total system common-mode current.",
+    "Results are simulation evidence, not hardware accuracy."
+  ]
+}

@@ -1,0 +1,16 @@
+OED frequency-selection demo for multi-port HFT identification
+Generated: 2026-07-07 00:44:00
+
+Design summary: see oed_frequency_design_summary.csv
+Monte Carlo summary: see oed_frequency_mc_summary.csv
+
+Best design rows by K using prior-averaged lambda_min:
+K=20: eopt_prior_avg, lambdaMinPrior=6.676826e-01, condPrior=1.125284e+08
+K=40: eopt_prior_avg, lambdaMinPrior=6.703395e-01, condPrior=1.129827e+08
+K=80: eopt_prior_avg, lambdaMinPrior=6.708526e-01, condPrior=1.141829e+08
+
+Monte Carlo ranking:
+eopt_nominal, K=40, meanRmsePct=4.750173e+01
+eopt_prior_avg, K=40, meanRmsePct=5.223852e+01
+full_260_freq, K=260, meanRmsePct=5.266538e+01
+log_uniform, K=40, meanRmsePct=6.055180e+01
