@@ -1,0 +1,3 @@
+model,Np,Ns,Nb,nnz_Cps,lambda_min_L_H,compile_ok,compile_time_s
+hft_four_terminal_4p_4s_regression4,4,4,8,4,5.62499999999982e-08,1,4.123354
+hft_four_terminal_8p_8s_candidate8,8,8,16,34,3.02290832605515e-08,1,1.8957303

@@ -1,0 +1,18 @@
+
+=== Building hft_four_terminal_4p_4s_regression4 ===
+Generating Simulink library 'hftparam_lib' in the current directory 'D:\高频变压器\hft-worktrees\experiments\experiments\experiment13_parametric_four_terminal_hft_20260821\simulink' ...
+
+=== Building hft_four_terminal_4p_4s_regression4 ===
+Generating Simulink library 'hftparam_lib' in the current directory 'D:\高频变压器\hft-worktrees\experiments\experiments\experiment13_parametric_four_terminal_hft_20260821\simulink' ...
+
+=== Building hft_four_terminal_4p_4s_regression4 ===
+Generating Simulink library 'hftparam_lib' in the current directory 'D:\高频变压器\hft-worktrees\experiments\experiments\experiment13_parametric_four_terminal_hft_20260821\simulink' ...
+
+=== Building hft_four_terminal_8p_8s_candidate8 ===
+Generating Simulink library 'hftparam_lib' in the current directory 'D:\高频变压器\hft-worktrees\experiments\experiments\experiment13_parametric_four_terminal_hft_20260821\simulink' ...
+                     model                     Np    Ns    Nb    nnz_Cps    lambda_min_L_H    compile_ok    compile_time_s
+    _______________________________________    __    __    __    _______    ______________    __________    ______________
+
+    {'hft_four_terminal_4p_4s_regression4'}    4     4      8       4          5.625e-08        true            4.1234    
+    {'hft_four_terminal_8p_8s_candidate8' }    8     8     16      34         3.0229e-08        true            1.8957    
+
