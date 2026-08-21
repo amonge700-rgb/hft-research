@@ -1,0 +1,20 @@
+component ideal_dc_source
+% Ideal floating DC voltage source.
+nodes
+    p = foundation.electrical.electrical;
+    n = foundation.electrical.electrical;
+end
+parameters
+    V = { 400, 'V' };
+end
+variables
+    i = { 0, 'A' };
+end
+branches
+    i : p.i -> n.i;
+end
+equations
+    p.v - n.v == V;
+end
+end
+

@@ -1,0 +1,4 @@
+# Full-resolution ideal-edge failure trace is retained locally (129.8 MB).
+# GitHub receives the reduced MAT that preserves uniform samples and extrema.
+results/ideal_edge_failure_waveforms.mat
+results/ideal_edge_failure_waveforms.zip

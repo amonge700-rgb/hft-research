@@ -1,0 +1,2 @@
+primary_bridge_ac_absorbed_W,secondary_bridge_ac_absorbed_W,winding_absorbed_loss_W,primary_peak_current_A,secondary_peak_current_A,primary_bridge_power_residual_W,secondary_bridge_power_residual_W,simulation_time_s
+-48109.1194729363,41115.9509991109,6993.16847382543,211.842858624995,879.960479486279,2.91038304567337e-11,9.5367431640625e-07,7.1989501

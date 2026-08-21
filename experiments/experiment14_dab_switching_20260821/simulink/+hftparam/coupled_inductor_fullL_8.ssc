@@ -1,0 +1,50 @@
+component coupled_inductor_fullL_8
+% Full 8x8 reciprocal coupled winding component.
+% Constitutive law: v = R.*i + L*i.der
+
+nodes
+    p1 = foundation.electrical.electrical;
+    n1 = foundation.electrical.electrical;
+    p2 = foundation.electrical.electrical;
+    n2 = foundation.electrical.electrical;
+    p3 = foundation.electrical.electrical;
+    n3 = foundation.electrical.electrical;
+    p4 = foundation.electrical.electrical;
+    n4 = foundation.electrical.electrical;
+    p5 = foundation.electrical.electrical;
+    n5 = foundation.electrical.electrical;
+    p6 = foundation.electrical.electrical;
+    n6 = foundation.electrical.electrical;
+    p7 = foundation.electrical.electrical;
+    n7 = foundation.electrical.electrical;
+    p8 = foundation.electrical.electrical;
+    n8 = foundation.electrical.electrical;
+end
+
+parameters
+    R = { ones(8,1), 'Ohm' };
+    L = { eye(8), 'H' };
+end
+
+variables
+    i = { zeros(8,1), 'A' };
+    v = { zeros(8,1), 'V' };
+end
+
+branches
+    i(1) : p1.i -> n1.i;
+    i(2) : p2.i -> n2.i;
+    i(3) : p3.i -> n3.i;
+    i(4) : p4.i -> n4.i;
+    i(5) : p5.i -> n5.i;
+    i(6) : p6.i -> n6.i;
+    i(7) : p7.i -> n7.i;
+    i(8) : p8.i -> n8.i;
+end
+
+equations
+    v == [ p1.v-n1.v; p2.v-n2.v; p3.v-n3.v; p4.v-n4.v; p5.v-n5.v; p6.v-n6.v; p7.v-n7.v; p8.v-n8.v ];
+    v == R.*i + L*i.der;
+end
+
+end

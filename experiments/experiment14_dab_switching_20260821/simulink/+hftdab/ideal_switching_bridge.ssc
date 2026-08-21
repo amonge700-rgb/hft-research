@@ -1,0 +1,36 @@
+component ideal_switching_bridge
+% Lossless full-bridge switching-function model.
+% u must be +1 or -1 outside switching instants.
+nodes
+    dcp = foundation.electrical.electrical;
+    dcn = foundation.electrical.electrical;
+    acp = foundation.electrical.electrical;
+    acn = foundation.electrical.electrical;
+end
+inputs
+    u = { 1, '1' };
+end
+outputs
+    vac = { 0, 'V' };
+    iac = { 0, 'A' };
+    vdc = { 0, 'V' };
+    idc = { 0, 'A' };
+end
+variables
+    i_dc = { 0, 'A' };
+    i_ac = { 0, 'A' };
+end
+branches
+    i_dc : dcp.i -> dcn.i;
+    i_ac : acp.i -> acn.i;
+end
+equations
+    vac == acp.v-acn.v;
+    vdc == dcp.v-dcn.v;
+    iac == i_ac;
+    idc == i_dc;
+    vac == u*vdc;
+    i_dc == -u*i_ac;
+end
+end
+

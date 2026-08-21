@@ -1,0 +1,37 @@
+component voltage_test_port
+% Ideal voltage-driven electrical test port with measured input current.
+% The physical-signal input prescribes v(p)-v(n).  The physical-signal
+% output reports current entering terminal p.  Keeping excitation and
+% measurement inside one Simscape component makes both signals explicit to
+% the Simulink linearization engine.
+
+nodes
+    p = foundation.electrical.electrical;
+    n = foundation.electrical.electrical;
+end
+
+inputs
+    vcmd = { 0, 'V' };
+end
+
+outputs
+    imeas = { 0, 'A' };
+end
+
+variables
+    i = { 0, 'A' };
+end
+
+branches
+    i : p.i -> n.i;
+end
+
+equations
+    p.v - n.v == vcmd;
+    % Branch current i flows from p to n inside the ideal source.  The
+    % network-port convention used by Y is current entering the external
+    % network, hence the reported current is the negative source current.
+    imeas == -i;
+end
+
+end
