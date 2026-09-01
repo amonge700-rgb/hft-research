@@ -1,0 +1,7 @@
+{
+  "frequency_hz": {"min": 1000.0, "max": 10000000.0, "points": 161},
+  "models": [4, 8],
+  "dtype": "float64/complex128",
+  "solver": "torch.linalg.solve + Kron reduction",
+  "training": false
+}

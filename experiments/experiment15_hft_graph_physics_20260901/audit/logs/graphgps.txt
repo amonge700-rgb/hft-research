@@ -1,0 +1,3 @@
+Command: python -c "from graphgps.layer.gps_layer import GPSLayer"
+Result: ModuleNotFoundError: No module named 'torch_geometric'
+Interpretation: official GraphGPS imports GraphGym through package initialization; no environment downgrade attempted.

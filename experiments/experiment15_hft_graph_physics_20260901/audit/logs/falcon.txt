@@ -1,0 +1,3 @@
+Command: python -c "import models.circuit_gnn"
+Result: ModuleNotFoundError: No module named 'torch_geometric'
+Interpretation: dependency boundary recorded; no global installation attempted.

@@ -1,0 +1,2 @@
+Command: construct 2-layer EGNN, 6 nodes, forward and backward
+Result: EGNN_FORWARD_BACKWARD_OK (6, 4), input gradient norm 0.07468563318252563

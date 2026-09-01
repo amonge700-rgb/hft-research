@@ -1,0 +1,735 @@
+{
+  "potential_nodes": [
+    {
+      "id": "gnd",
+      "node_type": "reference",
+      "winding": null,
+      "terminal_type": null,
+      "is_external": false,
+      "is_internal": false,
+      "is_reference": true,
+      "boundary": "reference",
+      "xyz_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "size_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "material_region": null,
+      "metadata": {}
+    },
+    {
+      "id": "p0",
+      "node_type": "winding",
+      "winding": "primary",
+      "terminal_type": null,
+      "is_external": true,
+      "is_internal": false,
+      "is_reference": false,
+      "boundary": "floating",
+      "xyz_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "size_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "material_region": null,
+      "metadata": {}
+    },
+    {
+      "id": "p1",
+      "node_type": "winding",
+      "winding": "primary",
+      "terminal_type": null,
+      "is_external": false,
+      "is_internal": true,
+      "is_reference": false,
+      "boundary": "floating",
+      "xyz_m": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "size_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "material_region": null,
+      "metadata": {}
+    },
+    {
+      "id": "p2",
+      "node_type": "winding",
+      "winding": "primary",
+      "terminal_type": null,
+      "is_external": false,
+      "is_internal": true,
+      "is_reference": false,
+      "boundary": "floating",
+      "xyz_m": [
+        0.0,
+        2.0,
+        0.0
+      ],
+      "size_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "material_region": null,
+      "metadata": {}
+    },
+    {
+      "id": "p3",
+      "node_type": "winding",
+      "winding": "primary",
+      "terminal_type": null,
+      "is_external": false,
+      "is_internal": true,
+      "is_reference": false,
+      "boundary": "floating",
+      "xyz_m": [
+        0.0,
+        3.0,
+        0.0
+      ],
+      "size_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "material_region": null,
+      "metadata": {}
+    },
+    {
+      "id": "s0",
+      "node_type": "winding",
+      "winding": "secondary",
+      "terminal_type": null,
+      "is_external": true,
+      "is_internal": false,
+      "is_reference": false,
+      "boundary": "floating",
+      "xyz_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "size_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "material_region": null,
+      "metadata": {}
+    },
+    {
+      "id": "s1",
+      "node_type": "winding",
+      "winding": "secondary",
+      "terminal_type": null,
+      "is_external": false,
+      "is_internal": true,
+      "is_reference": false,
+      "boundary": "floating",
+      "xyz_m": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "size_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "material_region": null,
+      "metadata": {}
+    },
+    {
+      "id": "s2",
+      "node_type": "winding",
+      "winding": "secondary",
+      "terminal_type": null,
+      "is_external": false,
+      "is_internal": true,
+      "is_reference": false,
+      "boundary": "floating",
+      "xyz_m": [
+        0.0,
+        2.0,
+        0.0
+      ],
+      "size_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "material_region": null,
+      "metadata": {}
+    },
+    {
+      "id": "s3",
+      "node_type": "winding",
+      "winding": "secondary",
+      "terminal_type": null,
+      "is_external": false,
+      "is_internal": true,
+      "is_reference": false,
+      "boundary": "floating",
+      "xyz_m": [
+        0.0,
+        3.0,
+        0.0
+      ],
+      "size_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "material_region": null,
+      "metadata": {}
+    }
+  ],
+  "conductor_segments": [
+    {
+      "id": "p_seg0",
+      "winding": "primary",
+      "order": 0,
+      "start_node": "p0",
+      "end_node": "p1",
+      "turns": 1.0,
+      "length_m": 0.0,
+      "area_m2": 0.0,
+      "conductor_type": "copper",
+      "material": "Cu",
+      "xyz_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "layer": null,
+      "physical_section": null,
+      "forced_boundary": false,
+      "resistance_ohm": "tensor(0.0450, dtype=torch.float64)",
+      "self_inductance_h": "tensor(1.4650e-05, dtype=torch.float64)",
+      "metadata": {}
+    },
+    {
+      "id": "p_seg1",
+      "winding": "primary",
+      "order": 1,
+      "start_node": "p1",
+      "end_node": "p2",
+      "turns": 1.0,
+      "length_m": 0.0,
+      "area_m2": 0.0,
+      "conductor_type": "copper",
+      "material": "Cu",
+      "xyz_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "layer": null,
+      "physical_section": null,
+      "forced_boundary": false,
+      "resistance_ohm": "tensor(0.0450, dtype=torch.float64)",
+      "self_inductance_h": "tensor(1.4650e-05, dtype=torch.float64)",
+      "metadata": {}
+    },
+    {
+      "id": "p_seg2",
+      "winding": "primary",
+      "order": 2,
+      "start_node": "p2",
+      "end_node": "p3",
+      "turns": 1.0,
+      "length_m": 0.0,
+      "area_m2": 0.0,
+      "conductor_type": "copper",
+      "material": "Cu",
+      "xyz_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "layer": null,
+      "physical_section": null,
+      "forced_boundary": false,
+      "resistance_ohm": "tensor(0.0450, dtype=torch.float64)",
+      "self_inductance_h": "tensor(1.4650e-05, dtype=torch.float64)",
+      "metadata": {}
+    },
+    {
+      "id": "p_seg3",
+      "winding": "primary",
+      "order": 3,
+      "start_node": "p3",
+      "end_node": "gnd",
+      "turns": 1.0,
+      "length_m": 0.0,
+      "area_m2": 0.0,
+      "conductor_type": "copper",
+      "material": "Cu",
+      "xyz_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "layer": null,
+      "physical_section": null,
+      "forced_boundary": false,
+      "resistance_ohm": "tensor(0.0450, dtype=torch.float64)",
+      "self_inductance_h": "tensor(1.4650e-05, dtype=torch.float64)",
+      "metadata": {}
+    },
+    {
+      "id": "s_seg0",
+      "winding": "secondary",
+      "order": 0,
+      "start_node": "s0",
+      "end_node": "s1",
+      "turns": 1.0,
+      "length_m": 0.0,
+      "area_m2": 0.0,
+      "conductor_type": "copper",
+      "material": "Cu",
+      "xyz_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "layer": null,
+      "physical_section": null,
+      "forced_boundary": false,
+      "resistance_ohm": "tensor(0.0028, dtype=torch.float64)",
+      "self_inductance_h": "tensor(9.1563e-07, dtype=torch.float64)",
+      "metadata": {}
+    },
+    {
+      "id": "s_seg1",
+      "winding": "secondary",
+      "order": 1,
+      "start_node": "s1",
+      "end_node": "s2",
+      "turns": 1.0,
+      "length_m": 0.0,
+      "area_m2": 0.0,
+      "conductor_type": "copper",
+      "material": "Cu",
+      "xyz_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "layer": null,
+      "physical_section": null,
+      "forced_boundary": false,
+      "resistance_ohm": "tensor(0.0028, dtype=torch.float64)",
+      "self_inductance_h": "tensor(9.1563e-07, dtype=torch.float64)",
+      "metadata": {}
+    },
+    {
+      "id": "s_seg2",
+      "winding": "secondary",
+      "order": 2,
+      "start_node": "s2",
+      "end_node": "s3",
+      "turns": 1.0,
+      "length_m": 0.0,
+      "area_m2": 0.0,
+      "conductor_type": "copper",
+      "material": "Cu",
+      "xyz_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "layer": null,
+      "physical_section": null,
+      "forced_boundary": false,
+      "resistance_ohm": "tensor(0.0028, dtype=torch.float64)",
+      "self_inductance_h": "tensor(9.1563e-07, dtype=torch.float64)",
+      "metadata": {}
+    },
+    {
+      "id": "s_seg3",
+      "winding": "secondary",
+      "order": 3,
+      "start_node": "s3",
+      "end_node": "gnd",
+      "turns": 1.0,
+      "length_m": 0.0,
+      "area_m2": 0.0,
+      "conductor_type": "copper",
+      "material": "Cu",
+      "xyz_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "layer": null,
+      "physical_section": null,
+      "forced_boundary": false,
+      "resistance_ohm": "tensor(0.0028, dtype=torch.float64)",
+      "self_inductance_h": "tensor(9.1563e-07, dtype=torch.float64)",
+      "metadata": {}
+    }
+  ],
+  "magnetic_edges": [
+    {
+      "segment_i": "p_seg0",
+      "segment_j": "p_seg1",
+      "mutual_inductance_h": "tensor(1.3750e-05, dtype=torch.float64)",
+      "parameterization": "constant",
+      "metadata": {}
+    },
+    {
+      "segment_i": "p_seg0",
+      "segment_j": "p_seg2",
+      "mutual_inductance_h": "tensor(1.3750e-05, dtype=torch.float64)",
+      "parameterization": "constant",
+      "metadata": {}
+    },
+    {
+      "segment_i": "p_seg0",
+      "segment_j": "p_seg3",
+      "mutual_inductance_h": "tensor(1.3750e-05, dtype=torch.float64)",
+      "parameterization": "constant",
+      "metadata": {}
+    },
+    {
+      "segment_i": "p_seg0",
+      "segment_j": "s_seg0",
+      "mutual_inductance_h": "tensor(-3.4375e-06, dtype=torch.float64)",
+      "parameterization": "constant",
+      "metadata": {}
+    },
+    {
+      "segment_i": "p_seg0",
+      "segment_j": "s_seg1",
+      "mutual_inductance_h": "tensor(-3.4375e-06, dtype=torch.float64)",
+      "parameterization": "constant",
+      "metadata": {}
+    },
+    {
+      "segment_i": "p_seg0",
+      "segment_j": "s_seg2",
+      "mutual_inductance_h": "tensor(-3.4375e-06, dtype=torch.float64)",
+      "parameterization": "constant",
+      "metadata": {}
+    },
+    {
+      "segment_i": "p_seg0",
+      "segment_j": "s_seg3",
+      "mutual_inductance_h": "tensor(-3.4375e-06, dtype=torch.float64)",
+      "parameterization": "constant",
+      "metadata": {}
+    },
+    {
+      "segment_i": "p_seg1",
+      "segment_j": "p_seg2",
+      "mutual_inductance_h": "tensor(1.3750e-05, dtype=torch.float64)",
+      "parameterization": "constant",
+      "metadata": {}
+    },
+    {
+      "segment_i": "p_seg1",
+      "segment_j": "p_seg3",
+      "mutual_inductance_h": "tensor(1.3750e-05, dtype=torch.float64)",
+      "parameterization": "constant",
+      "metadata": {}
+    },
+    {
+      "segment_i": "p_seg1",
+      "segment_j": "s_seg0",
+      "mutual_inductance_h": "tensor(-3.4375e-06, dtype=torch.float64)",
+      "parameterization": "constant",
+      "metadata": {}
+    },
+    {
+      "segment_i": "p_seg1",
+      "segment_j": "s_seg1",
+      "mutual_inductance_h": "tensor(-3.4375e-06, dtype=torch.float64)",
+      "parameterization": "constant",
+      "metadata": {}
+    },
+    {
+      "segment_i": "p_seg1",
+      "segment_j": "s_seg2",
+      "mutual_inductance_h": "tensor(-3.4375e-06, dtype=torch.float64)",
+      "parameterization": "constant",
+      "metadata": {}
+    },
+    {
+      "segment_i": "p_seg1",
+      "segment_j": "s_seg3",
+      "mutual_inductance_h": "tensor(-3.4375e-06, dtype=torch.float64)",
+      "parameterization": "constant",
+      "metadata": {}
+    },
+    {
+      "segment_i": "p_seg2",
+      "segment_j": "p_seg3",
+      "mutual_inductance_h": "tensor(1.3750e-05, dtype=torch.float64)",
+      "parameterization": "constant",
+      "metadata": {}
+    },
+    {
+      "segment_i": "p_seg2",
+      "segment_j": "s_seg0",
+      "mutual_inductance_h": "tensor(-3.4375e-06, dtype=torch.float64)",
+      "parameterization": "constant",
+      "metadata": {}
+    },
+    {
+      "segment_i": "p_seg2",
+      "segment_j": "s_seg1",
+      "mutual_inductance_h": "tensor(-3.4375e-06, dtype=torch.float64)",
+      "parameterization": "constant",
+      "metadata": {}
+    },
+    {
+      "segment_i": "p_seg2",
+      "segment_j": "s_seg2",
+      "mutual_inductance_h": "tensor(-3.4375e-06, dtype=torch.float64)",
+      "parameterization": "constant",
+      "metadata": {}
+    },
+    {
+      "segment_i": "p_seg2",
+      "segment_j": "s_seg3",
+      "mutual_inductance_h": "tensor(-3.4375e-06, dtype=torch.float64)",
+      "parameterization": "constant",
+      "metadata": {}
+    },
+    {
+      "segment_i": "p_seg3",
+      "segment_j": "s_seg0",
+      "mutual_inductance_h": "tensor(-3.4375e-06, dtype=torch.float64)",
+      "parameterization": "constant",
+      "metadata": {}
+    },
+    {
+      "segment_i": "p_seg3",
+      "segment_j": "s_seg1",
+      "mutual_inductance_h": "tensor(-3.4375e-06, dtype=torch.float64)",
+      "parameterization": "constant",
+      "metadata": {}
+    },
+    {
+      "segment_i": "p_seg3",
+      "segment_j": "s_seg2",
+      "mutual_inductance_h": "tensor(-3.4375e-06, dtype=torch.float64)",
+      "parameterization": "constant",
+      "metadata": {}
+    },
+    {
+      "segment_i": "p_seg3",
+      "segment_j": "s_seg3",
+      "mutual_inductance_h": "tensor(-3.4375e-06, dtype=torch.float64)",
+      "parameterization": "constant",
+      "metadata": {}
+    },
+    {
+      "segment_i": "s_seg0",
+      "segment_j": "s_seg1",
+      "mutual_inductance_h": "tensor(8.5938e-07, dtype=torch.float64)",
+      "parameterization": "constant",
+      "metadata": {}
+    },
+    {
+      "segment_i": "s_seg0",
+      "segment_j": "s_seg2",
+      "mutual_inductance_h": "tensor(8.5938e-07, dtype=torch.float64)",
+      "parameterization": "constant",
+      "metadata": {}
+    },
+    {
+      "segment_i": "s_seg0",
+      "segment_j": "s_seg3",
+      "mutual_inductance_h": "tensor(8.5938e-07, dtype=torch.float64)",
+      "parameterization": "constant",
+      "metadata": {}
+    },
+    {
+      "segment_i": "s_seg1",
+      "segment_j": "s_seg2",
+      "mutual_inductance_h": "tensor(8.5938e-07, dtype=torch.float64)",
+      "parameterization": "constant",
+      "metadata": {}
+    },
+    {
+      "segment_i": "s_seg1",
+      "segment_j": "s_seg3",
+      "mutual_inductance_h": "tensor(8.5938e-07, dtype=torch.float64)",
+      "parameterization": "constant",
+      "metadata": {}
+    },
+    {
+      "segment_i": "s_seg2",
+      "segment_j": "s_seg3",
+      "mutual_inductance_h": "tensor(8.5938e-07, dtype=torch.float64)",
+      "parameterization": "constant",
+      "metadata": {}
+    }
+  ],
+  "capacitance_edges": [
+    {
+      "node_i": "p0",
+      "node_j": "p1",
+      "capacitance_f": "tensor(7.2000e-11, dtype=torch.float64)",
+      "subtype": "longitudinal",
+      "metadata": {}
+    },
+    {
+      "node_i": "p0",
+      "node_j": "gnd",
+      "capacitance_f": "tensor(7.0000e-12, dtype=torch.float64)",
+      "subtype": "ground",
+      "metadata": {}
+    },
+    {
+      "node_i": "p1",
+      "node_j": "p2",
+      "capacitance_f": "tensor(7.2000e-11, dtype=torch.float64)",
+      "subtype": "longitudinal",
+      "metadata": {}
+    },
+    {
+      "node_i": "p1",
+      "node_j": "gnd",
+      "capacitance_f": "tensor(6.0000e-12, dtype=torch.float64)",
+      "subtype": "ground",
+      "metadata": {}
+    },
+    {
+      "node_i": "p2",
+      "node_j": "p3",
+      "capacitance_f": "tensor(7.2000e-11, dtype=torch.float64)",
+      "subtype": "longitudinal",
+      "metadata": {}
+    },
+    {
+      "node_i": "p2",
+      "node_j": "gnd",
+      "capacitance_f": "tensor(5.0000e-12, dtype=torch.float64)",
+      "subtype": "ground",
+      "metadata": {}
+    },
+    {
+      "node_i": "p3",
+      "node_j": "gnd",
+      "capacitance_f": "tensor(7.2000e-11, dtype=torch.float64)",
+      "subtype": "longitudinal",
+      "metadata": {}
+    },
+    {
+      "node_i": "p3",
+      "node_j": "gnd",
+      "capacitance_f": "tensor(4.0000e-12, dtype=torch.float64)",
+      "subtype": "ground",
+      "metadata": {}
+    },
+    {
+      "node_i": "s0",
+      "node_j": "s1",
+      "capacitance_f": "tensor(4.2000e-11, dtype=torch.float64)",
+      "subtype": "longitudinal",
+      "metadata": {}
+    },
+    {
+      "node_i": "s0",
+      "node_j": "gnd",
+      "capacitance_f": "tensor(5.0000e-12, dtype=torch.float64)",
+      "subtype": "ground",
+      "metadata": {}
+    },
+    {
+      "node_i": "s1",
+      "node_j": "s2",
+      "capacitance_f": "tensor(4.2000e-11, dtype=torch.float64)",
+      "subtype": "longitudinal",
+      "metadata": {}
+    },
+    {
+      "node_i": "s1",
+      "node_j": "gnd",
+      "capacitance_f": "tensor(4.5000e-12, dtype=torch.float64)",
+      "subtype": "ground",
+      "metadata": {}
+    },
+    {
+      "node_i": "s2",
+      "node_j": "s3",
+      "capacitance_f": "tensor(4.2000e-11, dtype=torch.float64)",
+      "subtype": "longitudinal",
+      "metadata": {}
+    },
+    {
+      "node_i": "s2",
+      "node_j": "gnd",
+      "capacitance_f": "tensor(4.0000e-12, dtype=torch.float64)",
+      "subtype": "ground",
+      "metadata": {}
+    },
+    {
+      "node_i": "s3",
+      "node_j": "gnd",
+      "capacitance_f": "tensor(4.2000e-11, dtype=torch.float64)",
+      "subtype": "longitudinal",
+      "metadata": {}
+    },
+    {
+      "node_i": "s3",
+      "node_j": "gnd",
+      "capacitance_f": "tensor(3.5000e-12, dtype=torch.float64)",
+      "subtype": "ground",
+      "metadata": {}
+    },
+    {
+      "node_i": "p0",
+      "node_j": "s0",
+      "capacitance_f": "tensor(7.0900e-12, dtype=torch.float64)",
+      "subtype": "interwinding",
+      "metadata": {}
+    },
+    {
+      "node_i": "p1",
+      "node_j": "s1",
+      "capacitance_f": "tensor(7.0900e-12, dtype=torch.float64)",
+      "subtype": "interwinding",
+      "metadata": {}
+    },
+    {
+      "node_i": "p2",
+      "node_j": "s2",
+      "capacitance_f": "tensor(7.0900e-12, dtype=torch.float64)",
+      "subtype": "interwinding",
+      "metadata": {}
+    },
+    {
+      "node_i": "p3",
+      "node_j": "s3",
+      "capacitance_f": "tensor(7.0900e-12, dtype=torch.float64)",
+      "subtype": "interwinding",
+      "metadata": {}
+    }
+  ],
+  "conductance_edges": [],
+  "geometric_edges": [],
+  "metadata": {
+    "source": "EXP-010 transparent pilot",
+    "n": 4,
+    "turns_ratio": 4.0
+  }
+}
