@@ -1,0 +1,347 @@
+\documentclass[11pt,a4paper]{ctexart}
+\usepackage[margin=2.25cm]{geometry}
+\usepackage{amsmath,amssymb,bm,booktabs,longtable,array,tabularx}
+\usepackage{graphicx,xcolor,tikz,hyperref,float,caption}
+\usetikzlibrary{arrows.meta,positioning,fit,calc,shapes.geometric}
+\definecolor{navy}{HTML}{17365D}\definecolor{blue}{HTML}{2F75B5}
+\definecolor{lightblue}{HTML}{D9EAF7}\definecolor{green}{HTML}{548235}
+\definecolor{orange}{HTML}{C65911}\definecolor{gray}{HTML}{5B6573}
+\hypersetup{colorlinks=true,linkcolor=navy,urlcolor=blue,pdfauthor={HFT Research Project},pdftitle={EXP-015 HFT全耦合图数据规范与可微电磁矩阵求解器}}
+\setlength{\parindent}{2em}\setlength{\parskip}{0.35em}
+\captionsetup{font=small,labelfont=bf}
+\pagestyle{plain}
+\newcommand{\mat}[1]{\bm{#1}}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\result}[1]{\textcolor{green}{\bfseries #1}}
+\newcommand{\warning}[1]{\textcolor{orange}{\bfseries #1}}
+\title{\vspace{-1.2cm}\textbf{EXP-015：高频变压器全耦合图数据规范\\与可微电磁矩阵求解器}\\[0.5em]\large 从梯形网络矩阵到 AI 物理闭环的统一底座}
+\author{高频变压器智能建模与降阶项目}
+\date{2026年9月1日}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+本实验面向后续“广义全耦合图模型与 AI 降阶”研究，建立一套不依赖特定分段数、不依赖 PyTorch Geometric、且可以端到端自动微分的高频变压器物理计算底座。实验把绕组电位节点、导体区段、磁耦合、电容耦合、介质损耗和几何关系表示为分型异构图，并确定性地装配为关联矩阵 \(\mat A\)、电阻矩阵 \(\mat R\)、电感矩阵 \(\mat L\)、Maxwell 型电容矩阵 \(\mat C\) 与电导矩阵 \(\mat G\)。在频域内通过线性方程求解与 Kron 消元得到端口导纳和全部内部节点状态。4+4 与 8+8 基准在 1~kHz--10~MHz 内相对 EXP-010 NumPy 求解器的端口矩阵误差分别为 \(2.06\times10^{-15}\) 和 \(4.95\times10^{-15}\)，内部 KCL 最大残差约为 \(2.0\times10^{-14}\,\mathrm A\)。20 项单元测试覆盖结构合法性、矩阵约定、互易性、无源性、Kron 消元、内部状态及参数梯度。本实验不训练 AI，而是冻结 EXP-016 所需的物理接口和可信回归基线。
+\end{abstract}
+
+\tableofcontents
+\clearpage
+
+\section{研究背景、问题与边界}
+
+前期 EXP-010 已经证明，分段梯形网络可以把高频变压器的串联电阻、自感/互感、纵向电容、对地电容和跨绕组电容统一写入矩阵，并由 Kron 消元获得端口频响；EXP-013 明确了四端子高频变压器的接线与参数化结构；EXP-014 则用 DAB 开关级模型验证双侧主动 PWM 工况。现阶段真正缺少的不是再搭一个孤立电路，而是建立一层\textbf{统一、可扩展、可微分且可追溯的数据和物理接口}，使未来 AI 可以改变图结构或参数聚合方式，同时仍由严格电磁网络方程评判结果。
+
+本实验的范围严格限定为：
+\begin{enumerate}
+  \item 建立 HFT 全耦合图的数据规范；
+  \item 实现图与 \(\mat A,\mat R,\mat L,\mat C,\mat G\) 矩阵之间的转换；
+  \item 实现批量复数、可微的节点导纳与 Kron 求解器；
+  \item 恢复内部电压/电流并检查 KCL、互易性和无源性；
+  \item 用 4+4、8+8 模型与旧求解器做数值回归；
+  \item 审计 FALCON、GraphGPS 和 EGNN，为下一阶段选型提供边界。
+\end{enumerate}
+
+本实验\warning{不宣称}透明演示参数等于某台真实样机参数，不进行大规模 AI 训练，也不把矩阵仿真误称为 FEM、Simscape 或硬件实验。
+
+\section{总体技术路线与工具分工}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[node distance=8mm and 9mm,>=Latex,
+box/.style={draw=navy,rounded corners,minimum width=3.05cm,minimum height=1.12cm,align=center,fill=lightblue,font=\small},
+small/.style={draw=gray,rounded corners,minimum width=2.55cm,minimum height=0.9cm,align=center,fill=gray!8,font=\small},
+arr/.style={->,thick,draw=blue}]
+\node[box] (source) {参数来源\\解析/FEM/测量};
+\node[box,right=of source] (graph) {全耦合异构图\\节点、区段、分型边};
+\node[box,right=of graph] (matrix) {确定性矩阵装配\\$\mat A,\mat R,\mat L,\mat C,\mat G$};
+\node[box,below=of matrix] (solver) {可微复数求解\\节点导纳与Kron消元};
+\node[box,left=of solver] (states) {任务响应\\端口矩阵/内部电压/$i_{ps}$};
+\node[box,left=of states] (ai) {未来AI降阶\\结构压缩与参数聚合};
+\draw[arr] (source)--(graph);\draw[arr] (graph)--(matrix);\draw[arr] (matrix)--(solver);\draw[arr] (solver)--(states);\draw[arr] (states)--(ai);\draw[arr] (ai) to[bend left=28] (graph);
+\node[small,below=12mm of source] (comsol) {COMSOL/Maxwell\\高保真参数与场};
+\node[small,right=of comsol] (sim) {Simulink/Simscape\\代表电路与DAB};
+\node[small,right=of sim] (hardware) {硬件样机\\最终真实性验证};
+\draw[arr,dashed] (comsol)--(source);\draw[arr,dashed] (states)--(sim);\draw[arr,dashed] (sim)--(hardware);
+\end{tikzpicture}
+\caption{EXP-015 在项目总链路中的位置。AI 不替代物理求解器，而是通过物理求解器接受任务响应与约束。}
+\end{figure}
+
+四类工具的职责如下：
+\begin{itemize}
+  \item \textbf{COMSOL/Maxwell}：由真实几何、材料和边界条件提取局部/全局 \(R,L,C,G\)，并提供场分布真值；
+  \item \textbf{本矩阵求解器}：以毫秒级批量完成宽频计算、内部状态恢复和梯度传播；
+  \item \textbf{Simulink/Simscape}：验证四端子接线、DAB 双侧 PWM、死区、控制器和开关器件相互作用；
+  \item \textbf{硬件样机}：最终验证端口频响、内部/代理测量量、位移电流和跨工况泛化。
+\end{itemize}
+
+\section{全耦合异构图数据规范}
+
+\subsection{为什么不能只用一个普通邻接矩阵}
+
+高频变压器至少同时存在三种拓扑：导体的电气连续性、任意区段之间的磁耦合、电位节点之间的电容/电导耦合。若把它们压成一个无类型邻接矩阵，将丢失支路方向、物理量单位、端口条件和参数盖章规则。因此，本实验显式区分两类实体和五类关系，见表~\ref{tab:schema}。
+
+\begin{table}[H]
+\centering\small
+\caption{HFT 图模式及其物理含义}\label{tab:schema}
+\begin{tabularx}{\textwidth}{p{3.0cm}p{3.2cm}X}
+\toprule
+对象 & 关键字段 & 物理含义与进入方程的方式\\
+\midrule
+PotentialNode & 端口/内部/参考、坐标、绕组 & 电位未知量；参考节点在约化矩阵中消去\\
+ConductorSegment & 起止节点、顺序、$R_i,L_{ii}$ & 串联导体区段，形成关联矩阵列及阻抗矩阵对角项\\
+MagneticEdge & 区段对、$M_{ij}$ & 构成电感矩阵非对角项，强制对称盖章\\
+CapacitanceEdge & 节点对、$C_{ij}$、子类型 & 纵向、对地、跨绕组电容，按 Maxwell/Laplacian 规则盖章\\
+ConductanceEdge & 节点对、$G_{ij}$ & 介质损耗或泄漏通道，盖章规则与电容相同\\
+GeometricEdge & 距离、相邻、允许合并 & 供 AI 使用，不直接改变电路方程\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+数据类位于 \code{hft\_graph/schema.py}。每个对象均允许保存 \code{metadata}，用于记录来源（解析、FEM、拟合或实测）、不确定度、材料区域、层号和强制分段边界。这样，未来即使网络产生了降阶结构，也能追踪每个粗化参数由哪些细区段聚合而来。
+
+\subsection{图到矩阵的确定性映射}
+
+对每个有方向区段 \(b:k\rightarrow k+1\)，关联矩阵第 \(b\) 列在起点写入 \(+1\)，终点写入 \(-1\)；若终点是数学参考节点，则约化矩阵中只保留 \(+1\)。串联电阻和自感写入 \(\mat R,\mat L\) 对角元，互感 \(M_{ij}\) 同时写入 \(L_{ij}\) 与 \(L_{ji}\)。
+
+对于节点间被动参数 \(x\in\{C,G\}\)，盖章为
+\[
+\Delta \mat X=x
+\begin{bmatrix}1&-1\\-1&1\end{bmatrix},
+\]
+若另一端为参考节点，则只在保留节点对角线上增加 \(x\)。由此得到的 \(\mat C\) 与 \(\mat G\) 对称、非对角元非正，并在被动参数非负时半正定。
+
+\section{电磁矩阵方程的完整推导}
+
+\subsection{支路阻抗与节点导纳}
+
+设保留电位节点电压为 \(\mat v\in\mathbb C^{N_v}\)，串联区段电流为 \(\mat i_b\in\mathbb C^{N_b}\)，关联矩阵为 \(\mat A\in\mathbb R^{N_v\times N_b}\)。频率 \(\omega\) 下的串联阻抗矩阵为
+\begin{equation}
+\mat Z_b(\omega)=\mat R(\omega)+j\omega\mat L(\omega).
+\end{equation}
+支路电压由节点电位给出：
+\begin{equation}
+\mat A^T\mat v=\mat Z_b\mat i_b,
+\qquad
+\mat i_b=\mat Z_b^{-1}\mat A^T\mat v.
+\end{equation}
+节点注入电流由串联支路、电导和电容支路共同贡献：
+\begin{equation}
+\mat i=\mat A\mat i_b+(\mat G+j\omega\mat C)\mat v.
+\end{equation}
+代入支路电流，得到完整节点导纳：
+\begin{equation}
+\boxed{\mat Y_n(\omega)=\mat A\mat Z_b^{-1}(\omega)\mat A^T+\mat G(\omega)+j\omega\mat C(\omega).}
+\label{eq:ynodal}
+\end{equation}
+
+实现中绝不显式构造 \(\mat Z_b^{-1}\)，而求解
+\begin{equation}
+\mat Z_b\mat X=\mat A^T,
+\qquad \mat Y_z=\mat A\mat X,
+\end{equation}
+对应代码 \code{torch.linalg.solve(Z, A.T)}。其优点是数值稳定、支持批量频率和复数自动微分。
+
+\subsection{Kron 消元与内部状态恢复}
+
+将节点按外部端口 \(p\) 和内部节点 \(q\) 排列：
+\begin{equation}
+\begin{bmatrix}\mat i_p\\\mat i_q\end{bmatrix}=
+\begin{bmatrix}\mat Y_{pp}&\mat Y_{pq}\\\mat Y_{qp}&\mat Y_{qq}\end{bmatrix}
+\begin{bmatrix}\mat v_p\\\mat v_q\end{bmatrix}.
+\end{equation}
+内部节点没有独立电流源时 \(\mat i_q=0\)，因此
+\begin{equation}
+\mat v_q=-\mat Y_{qq}^{-1}\mat Y_{qp}\mat v_p
+\equiv\mat K(\omega)\mat v_p,
+\end{equation}
+其中 \(\mat K\) 是内部恢复矩阵。端口导纳为 Schur 补：
+\begin{equation}
+\boxed{\mat Y_{port}=\mat Y_{pp}-\mat Y_{pq}\mat Y_{qq}^{-1}\mat Y_{qp}.}
+\label{eq:kron}
+\end{equation}
+本实验同时返回 \(\mat Y_n,\mat Y_{port},\mat K\)，从而可计算：端口阻抗/导纳、各内部节点电压、相邻区段压差、跨绕组局部差模电压以及内部 KCL 残差。后续 AI 的任务损失不必局限于端口曲线。
+
+\subsection{可微性与参数梯度}
+
+设任务损失为 \(\mathcal L(\mat Y_{port},\mat v_q)\)。由于矩阵盖章、线性求解和 Schur 补均由 PyTorch 张量运算实现，可以获得
+\[
+\frac{\partial\mathcal L}{\partial R_i},\quad
+\frac{\partial\mathcal L}{\partial L_{ii}},\quad
+\frac{\partial\mathcal L}{\partial M_{ij}},\quad
+\frac{\partial\mathcal L}{\partial C_{g,i}},\quad
+\frac{\partial\mathcal L}{\partial C_{ps,ij}}.
+\]
+这使下一阶段的软分段、参数聚合、Fisher 信息或物理一致性损失能够直接反向传播。当前测试已覆盖上述五类参数，并以中心有限差分验证 \(C_{ps}\) 梯度。
+
+\section{4+4 与 8+8 参考模型}
+
+\subsection{参数来源与性质}
+
+基准模型沿用 EXP-010 的透明演示参数，目的仅是验证算法等价性。主要设置列于表~\ref{tab:param}。
+
+\begin{table}[H]\centering\small
+\caption{回归模型主要参数}\label{tab:param}
+\begin{tabular}{lll}
+\toprule
+参数 & 数值/规则 & 说明\\
+\midrule
+变比 & 4 & 副边电阻、漏感按变比平方折算\\
+原边总电阻 & 0.18~$\Omega$ & 各段均分\\
+原边总漏感 & 3.6~$\mu$H & 各段均分\\
+公共磁通项 & 220~$\mu$H & 低秩外积构造，叠加正漏感保证正定\\
+原/副纵向电容 & 72/42~pF 每段 & 与串联区段并联\\
+原边对地电容 & 7--4~pF & 沿绕组位置线性变化\\
+副边对地电容 & 5--3.5~pF & 沿绕组位置线性变化\\
+总跨绕组电容 & 28.36~pF & 对应区段均分\\
+介质电导 & 0 & 首版回归基线\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+4+4 模型每侧四个区段，用来与 EXP-010 直接比较；8+8 模型保持相同总参数构造原则，提高离散维数，用于排除求解器被写死在固定规模的可能性。完整图以 JSON 和 SVG 保存，可供人工检查与后续 PyG 适配。
+
+\subsection{与四端口 Simulink/Simscape 模型的关系}
+
+矩阵模型中的“端口”是从全部电位节点中选择的外部边界。EXP-013 的四端子结构可以把原边首末端和副边首末端都标为外部节点，随后对具体接地/开路条件再做约束或二次消元。当前 4+4/8+8 回归采用每侧首端为外部端口、末端为数学参考的两端口测量约定，以保持与 EXP-010 一致；这\warning{不表示}真实原副边末端在硬件中短接。
+
+后续结合流程为：
+\begin{enumerate}
+\item 由 EXP-015 生成完整四端口 \(\mat Y_{4p}(\omega)\) 和内部恢复矩阵；
+\item 按 EXP-013 的接地、开路或测量接线得到对应端口响应；
+\item 将选定的宽频模型或有理拟合模型导入 Simulink/Simscape；
+\item 在 EXP-014 DAB 工况下比较双侧 PWM 端口波形、局部电压和位移电流；
+\item 用硬件扫频与运行波形验证。
+\end{enumerate}
+
+\section{软件结构与统一执行入口}
+
+\footnotesize
+\begin{longtable}{p{5.4cm}p{8.8cm}}
+\caption{EXP-015 主要文件及职责}\\
+\toprule 文件 & 职责\\\midrule\endfirsthead
+\toprule 文件 & 职责\\\midrule\endhead
+\code{hft\_graph/schema.py} & 两类节点、磁/电容/电导/几何边的数据类和可选 PyG 适配器\\
+\code{hft\_graph/validation.py} & ID、端点、绕组顺序、重复边和参考节点检查\\
+\code{hft\_graph/converters.py} & 图与 \(\mat A,\mat R,\mat L,\mat C,\mat G\) 的双向转换\\
+\code{hft\_graph/reference\_models.py} & 4+4、8+8 透明被动基准图工厂\\
+\code{physics/kron\_solver.py} & 批量复数节点求解和 Kron 消元\\
+\code{physics/internal\_states.py} & 端口激励下内部电压、电流与 KCL 恢复\\
+\code{physics/passivity.py} & 对称性、正定性、互易性和端口实部无源性诊断\\
+\code{models/interfaces.py} & EXP-016 图降阶器接口，占位但不训练\\
+\code{scripts/run\_exp15.py} & 新旧求解器回归、梯度检查、CSV/JSON/SVG 结果生成\\
+\code{tests/test\_exp15.py} & 20 项标准库 unittest\\
+\bottomrule
+\end{longtable}
+\normalsize
+
+统一复现命令为：
+\begin{verbatim}
+D:\HFT_AI\envs\hft-ident\python.exe -m unittest discover -s tests -v
+D:\HFT_AI\envs\hft-ident\python.exe scripts\run_exp15.py
+D:\HFT_AI\envs\hft-ident\python.exe scripts\convert_existing_models.py
+\end{verbatim}
+
+\section{验证设计与结果}
+
+\subsection{测试覆盖}
+
+20 项单元测试覆盖：图模式合法性、重复节点失败、4+4/8+8 尺寸、关联矩阵、电容符号约定、矩阵往返转换、\(\mat L\) 对称正定、\(\mat C\) 对称半正定、Kron 输出尺寸、端口互易性、内部 KCL、端口无源性、奇异模型显式失败，以及 \(R_i,L_{ii},M_{ij},C_g,C_{ps}\) 梯度和有限差分一致性。
+
+\subsection{新旧求解器回归}
+
+频率采用对数扫描 1~kHz--10~MHz，共 161 点。相对误差定义为
+\begin{equation}
+\varepsilon_Y=\frac{\|\mat Y_{port}^{\mathrm{torch}}-\mat Y_{port}^{\mathrm{numpy}}\|_F}{\|\mat Y_{port}^{\mathrm{numpy}}\|_F}.
+\end{equation}
+
+\begin{table}[H]\centering
+\caption{核心数值验证结果}\label{tab:result}
+\begin{tabular}{lrr}
+\toprule
+指标 & 4+4 & 8+8\\
+\midrule
+端口矩阵全频带相对误差 & \result{$2.056\times10^{-15}$} & \result{$4.953\times10^{-15}$}\\
+最大内部 KCL 残差/A & \result{$2.004\times10^{-14}$} & \result{$1.998\times10^{-14}$}\\
+$\lambda_{\min}(\mat L)$/H & $5.625\times10^{-8}$ & $2.8125\times10^{-8}$\\
+$\lambda_{\min}(\mat C)$/F & $1.176\times10^{-11}$ & $7.040\times10^{-12}$\\
+端口互易误差 & $3.639\times10^{-14}$ & $3.457\times10^{-14}$\\
+端口实部最小特征值 & $9.229\times10^{-9}$ & $1.324\times10^{-8}$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+结果表明，新图转换和 PyTorch 求解器在浮点舍入范围内复现旧 NumPy 物理算法；内部 KCL、互易性和无源性同时成立。跨绕组电容对示例损失的梯度有限且非零。这里的 \(10^{-15}\) 误差是“同一物理方程的两种实现”的软件回归精度，\warning{不是}真实模型相对硬件的预测精度。
+
+\section{三项开源实现审计及取舍}
+
+审计采用仓库外浅克隆和三个隔离虚拟环境，不安装新 PyG、不修改全局 CUDA、不训练大型模型。固定版本见表~\ref{tab:audit}。
+
+\begin{table}[H]\centering\small
+\caption{开源实现轻量审计}\label{tab:audit}
+\begin{tabularx}{\textwidth}{p{2.2cm}p{4.0cm}X}
+\toprule
+项目 & 最小验证结果 & 对本项目的启发与限制\\
+\midrule
+FALCON & 导入因缺少 \code{torch\_geometric} 阻塞 & 电路关系分型、网表转图和反向优化有价值；不为跑通而污染当前环境\\
+GraphGPS & GPSLayer 导入因 PyG/GraphGym 阻塞 & 局部 MPNN 与全局注意力适合全耦合图；更适合借鉴结构而非整体搬入旧环境\\
+EGNN & 6 节点、2 层前向与反向成功 & 相对几何编码有利于跨结构泛化；真实绕组坐标不应被网络随意更新\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+因此，下一阶段的候选骨干不是机械复制三者之一，而是“分型局部消息传递 + GPS 式全局注意力 + 固定坐标的相对几何编码”。物理输出必须经过本实验的矩阵求解器，才能检查无源性、互易性和内部状态。
+
+\section{为 EXP-016 冻结的 AI 接口}
+
+当前仅定义抽象接口 \code{GraphReducer}：输入为精细全耦合图与任务上下文，输出为分配矩阵 \(\mat S\)、降阶图和诊断信息。未来可令细节点电位通过聚合矩阵 \(\mat P\) 映射，导体区段通过 \(\mat T\) 聚合，形成
+\begin{equation}
+\mat R_c=\mat T^T\mat R_f\mat T,\quad
+\mat L_c=\mat T^T\mat L_f\mat T,\quad
+\mat C_c=\mat P^T\mat C_f\mat P,
+\end{equation}
+再由式~\eqref{eq:ynodal}--\eqref{eq:kron}计算粗模型响应。候选损失为
+\begin{equation}
+\mathcal L=\lambda_p\mathcal L_{port}+\lambda_v\mathcal L_{internal}
++\lambda_i\mathcal L_{ips}+\lambda_{res}\mathcal L_{resonance}
++\lambda_{phy}\mathcal L_{passive}+\beta N_c.
+\end{equation}
+
+其中 \(\mathcal L_{port}\) 约束端口矩阵逐元素幅相，\(\mathcal L_{internal}\) 约束完整内部电压空间分布，\(\mathcal L_{ips}\) 约束跨绕组位移电流，\(\mathcal L_{resonance}\) 约束谐振/反谐振位置，\(\mathcal L_{passive}\) 约束正定性、互易性和 KCL，\(N_c\) 惩罚模型规模。Fisher 信息可作为任务上下文或额外可辨识性项，但不应在物理底座尚未冻结前直接堆入网络。
+
+\section{结论、局限与下一步}
+
+EXP-015 已经完成从“特定梯形脚本”到“统一全耦合图 + 可微矩阵物理层”的关键过渡。它证明：任意分段规模只要遵守图模式和参数盖章规则，就能自动生成节点方程、端口矩阵和内部状态；4+4 与 8+8 的新旧结果达到机器精度一致；物理参数到工程响应的梯度链路可用于未来降阶优化。
+
+当前局限包括：参数仍是演示基准；尚未导入独立 FEM/实测高保真参数；频变 \(R,L,G\)、磁芯非线性、温度和测量链路未纳入；当前回归仍属于同模验证。下一步应按以下顺序推进：
+\begin{enumerate}
+  \item 导入一个独立来源的逐匝/高分段 \(R,L,C,G\) 数据集，明确参数来源和不确定度；
+  \item 建立精细图与 4/8/12 段规则基线，比较端口与完整内部状态；
+  \item 加入 Fisher/任务信息的非学习优化分段，形成强信息论基线；
+  \item 再实现轻量物理约束图降阶器，并与均匀、几何、Fisher 基线公平比较；
+  \item 将代表模型导入四端口 Simscape 和 DAB，最终用硬件验证。
+\end{enumerate}
+
+\appendix
+\section{运行环境与可复现信息}
+
+\begin{itemize}
+\item 操作系统：Windows 10 build 26200；Python 3.11.15；
+\item PyTorch 2.11.0+cu128，CUDA runtime 12.8；
+\item GPU：NVIDIA GeForce RTX 5070，显存 12227 MiB；驱动 610.62；
+\item PyG 未安装；测试使用 Python 标准库 \code{unittest}；
+\item EXP-015 提交：\code{f7954af}；分支：\code{work/experiments}；
+\item EXP-010 用户原有未提交报告修改未被本实验触碰。
+\end{itemize}
+
+\section{结果文件索引}
+
+\begin{itemize}
+\item \code{results/summary.json}：核心误差、KCL、正定性、互易性与梯度摘要；
+\item \code{results/sweep.csv}：1~kHz--10~MHz 扫频数据；
+\item \code{results/graph\_4x4.json}、\code{graph\_8x8.json}：完整图结构；
+\item \code{results/graph\_4x4.svg}、\code{graph\_8x8.svg}：图结构示意；
+\item \code{audit/open\_source\_audit.md}：第三方实现版本与适配判断；
+\item \code{tests/test\_exp15.py}：20 项可执行回归测试。
+\end{itemize}
+
+\end{document}
