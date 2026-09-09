@@ -1,0 +1,185 @@
+\documentclass[10pt,a4paper]{ctexart}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{amsmath,amssymb,bm,booktabs,longtable,graphicx,xcolor,hyperref,float,array}
+\hypersetup{colorlinks=true,linkcolor=blue!55!black,urlcolor=blue!55!black}
+\graphicspath{{results/}}
+\title{EXP-016：FALCON 风格匝级图网络与高频变压器物理闭环\\\large 第一版可复现实验报告}
+\author{高频变压器广义全耦合图模型项目}
+\date{2026年9月9日}
+\begin{document}
+\maketitle
+\begin{abstract}
+本实验把 EXP-015 的可微分布参数矩阵求解器与 FALCON 风格图代理连接起来，建立了“匝级图表示--端口频响预测--结构化物理反演”的最小闭环。实验采用透明的 4+4 与 8+8 匝合成无源网络，比较同质 FALCON 基线和高频变压器分型关系网络，并使用精确矩阵求解器反演八个正值尺度参数。正式实验使用 RTX 5070 CUDA、900/180/240 个训练/验证/测试样本。结果表明，同质基线与分型网络的归一化响应 MAE 分别为 0.0521 和 0.0538，当前分型设计并未形成优势。更重要的是，物理反演的响应损失虽仅为 $3.02\times10^{-7}$，八参数平均尺度误差仍为 7.16\%，Jacobian 条件数达到 1368.85；电容尺度误差为 10.11\%--21.28\%。这说明“端口曲线拟合很好”并不等于“内部参数辨识正确”，下一步应优先引入 Fisher/OED、观测增强和参数分组，而不是单纯增加 GNN 复杂度。
+\end{abstract}
+
+\section{实验目的与边界}
+本实验回答三个前置问题：第一，FALCON 的边中心思想能否迁移到匝级高频变压器；第二，把串联、电磁和电容关系分型是否天然优于同质图；第三，端口频响是否足以稳定恢复多个内部矩阵尺度。
+
+本实验\textbf{不使用 COMSOL 或实测数据}。真值由 EXP-015 透明参考网络产生，仅用于验证代码、梯度和方法链路。因而结果不能被解释为真实样机精度、跨结构泛化能力或在线匝间矩阵唯一可辨识性。
+
+\section{从匝级网络到端口矩阵}
+设非参考电位节点数为 $n_v$，导体段数为 $n_b$，关联矩阵为
+\begin{equation}
+ \bm A\in\mathbb{R}^{n_v\times n_b}.
+\end{equation}
+导体支路阻抗矩阵为
+\begin{equation}
+ \bm Z_b(j\omega)=\bm R+j\omega\bm L,
+\end{equation}
+其中 $\bm R$ 为对角电阻矩阵，$\bm L$ 同时包含自感和互感。节点电容、介质电导分别为 $\bm C$ 和 $\bm G$。支路消元后得到节点导纳
+\begin{equation}
+ \boxed{\bm Y_n(j\omega)=\bm A\bm Z_b^{-1}(j\omega)\bm A^T+\bm G+j\omega\bm C.}
+\end{equation}
+实现中不显式求逆，而求解
+\begin{equation}
+ \bm Z_b\bm X=\bm A^T,\qquad \bm Y_n=\bm A\bm X+\bm G+j\omega\bm C,
+\end{equation}
+以改善数值稳定性并保留自动微分。
+
+将节点分成外部端口 $p$ 与内部节点 $i$：
+\begin{equation}
+\begin{bmatrix}\bm i_p\\\bm 0\end{bmatrix}=
+\begin{bmatrix}\bm Y_{pp}&\bm Y_{pi}\\\bm Y_{ip}&\bm Y_{ii}\end{bmatrix}
+\begin{bmatrix}\bm v_p\\\bm v_i\end{bmatrix}.
+\end{equation}
+内部节点满足 $\bm v_i=-\bm Y_{ii}^{-1}\bm Y_{ip}\bm v_p$，端口导纳为
+\begin{equation}
+ \boxed{\bm Y_{port}=\bm Y_{pp}-\bm Y_{pi}\bm Y_{ii}^{-1}\bm Y_{ip}.}
+\end{equation}
+这就是 GNN 输出需要逼近的物理对象，也是反演损失最终回到的约束。
+
+\section{结构化参数与无源性}
+为避免网络或优化器直接自由修改矩阵元素，本实验只允许八个对数尺度参数
+\begin{equation}
+\bm z=[z_{R_p},z_{R_s},z_{L_\ell},z_{L_m},z_{C_{lp}},z_{C_{ls}},z_{C_g},z_{C_{ps}}]^T,
+\end{equation}
+对应尺度 $s_k=\exp(z_k)>0$。矩阵写成
+\begin{align}
+ \bm R(\bm z)&=s_{R_p}\bm R_p+s_{R_s}\bm R_s,\\
+ \bm L(\bm z)&=s_{L_\ell}\bm L_\ell+s_{L_m}\bm L_m,\\
+ \bm C(\bm z)&=s_{C_{lp}}\bm C_{lp}+s_{C_{ls}}\bm C_{ls}+s_{C_g}\bm C_g+s_{C_{ps}}\bm C_{ps}.
+\end{align}
+各基矩阵本身为物理可接受的正定或半正定贡献，正尺度组合使 $\bm R\succ0$、$\bm L\succ0$、$\bm C\succeq0$ 得以保持。相比逐元素自由预测，这种方式牺牲了一部分自由度，但显著降低了非无源、非互易和病态矩阵风险。
+
+\section{图表示与两种代理模型}
+AI 图中的每个节点对应一个导体段/匝级单元。节点特征包括绕组类别、归一化匝位置、端口/绕组标识以及 $\log R_i$、$\log L_{ii}$。关系矩阵分为：
+\begin{enumerate}
+ \item 串联邻接关系：描述同一绕组连续导体段；
+ \item 磁关系：由归一化 $|L_{ij}|$ 表示，可包含远距离共享磁通；
+ \item 电关系：由归一化 $|C_{ij}|$ 表示，强调局部和跨绕组电场耦合。
+\end{enumerate}
+
+对于第 $r$ 类关系，基本消息聚合为
+\begin{equation}
+ \bm m_i^{(r,l)}=\bm W_r^{(l)}\sum_j\bar a_{ij}^{(r)}\bm h_j^{(l)},
+\end{equation}
+节点更新为
+\begin{equation}
+ \bm h_i^{(l+1)}=\mathrm{LN}\!\left(\bm h_i^{(l)}+mathrm{SiLU}\left(\bm W_s^{(l)}\bm h_i^{(l)}+\sum_r\bm m_i^{(r,l)}\right)\right).
+\end{equation}
+
+\subsection{FALCON 风格同质基线}
+三类邻接先相加，采用共享消息映射和全局平均池化。该模型复现的是 FALCON 的核心思想，而不是逐行复制其依赖 PyG 的实现。其优势是简单、参数少；限制是丢失关系类型和端口角色。
+
+\subsection{HFT 分型关系模型}
+三类关系采用独立线性映射，并使用端口感知读出：
+\begin{equation}
+\bm h_G=[\mathrm{mean}(H),\mathrm{mean}(H_p),\mathrm{mean}(H_s),h_{p0},h_{s0}].
+\end{equation}
+对数频率经独立编码后与图向量拼接，输出
+\begin{equation}
+[\log_{10}|Y_{11}|,\log_{10}|Y_{22}|,\log_{10}|Y_{12}|,
+\angle Y_{11},\angle Y_{22},\angle Y_{12}].
+\end{equation}
+互易性使 $Y_{21}=Y_{12}$，故不重复预测。
+
+\section{数据与训练设置}
+4+4 和 8+8 匝参考网络交替采样；每个 $z_k\sim U(-0.22,0.22)$，即每类物理贡献约在标称值的 0.80--1.25 倍内变化。频率为 $10\,$kHz--$10\,$MHz 的 12 个对数点。训练、验证、测试样本为 900、180、240。两种模型均为 3 层、隐藏维度 64、AdamW、学习率 $2\times10^{-3}$、70 epoch、batch size 32。运行环境为 PyTorch 2.11.0+cu128 与 NVIDIA RTX 5070。
+
+\section{结果}
+\begin{table}[H]\centering
+\caption{图代理正式测试结果}
+\begin{tabular}{lrrrr}\toprule
+模型 & 参数量 & 总 MAE & 幅值 MAE/decade & 相位 MAE/rad\\\midrule
+FALCON 同质图 & 47,302 & 0.0521 & 约 0.0568 & 约 0.0474\\
+HFT 分型图 & 105,030 & 0.0538 & 约 0.0593 & 约 0.0484\\\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]\centering
+\includegraphics[width=.78\linewidth]{training_curves.png}
+\caption{两种图代理的验证损失。分型模型并未因参数更多而自动取得更低误差。}
+\end{figure}
+
+当前结果不能支持“HFT 分型关系网络优于 FALCON 同质图”的假设。可能原因包括：数据仅有两种规则拓扑；扰动是低维全局尺度；同质网络已可从节点参数充分恢复响应；分型网络参数翻倍而数据量有限。这个负结果很重要：只有当数据包含跨布局、非局部磁耦合、局部电容变化或边级任务时，异构关系的优势才可能显现。
+
+\subsection{精确物理反演}
+采用 Adam 直接优化 $\bm z$，目标为端口特征均方误差加弱正则：
+\begin{equation}
+ \mathcal L=\frac1{6K}\sum_k\|\bm y(\omega_k;\bm z)-\bm y_k^{obs}\|_2^2+10^{-5}\|\bm z\|_2^2.
+\end{equation}
+最终响应损失为 $3.02\times10^{-7}$，但平均参数尺度误差为 7.16\%。
+
+\begin{table}[H]\centering
+\caption{各结构化尺度的绝对相对误差}
+\begin{tabular}{lrrrrrrrr}\toprule
+参数 & $R_p$ & $R_s$ & $L_\ell$ & $L_m$ & $C_{lp}$ & $C_{ls}$ & $C_g$ & $C_{ps}$\\\midrule
+误差/\% &0.56&0.45&0.05&2.41&21.28&10.11&11.21&11.22\\\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]\centering
+\includegraphics[width=.82\linewidth]{physics_inverse_scales.png}
+\caption{一个 8+8 匝留出样本的真实尺度与物理反演尺度。}
+\end{figure}
+
+\section{为什么曲线很准而参数仍会错}
+令观测特征为 $\bm y(\bm z)$，局部灵敏度矩阵为
+\begin{equation}
+ \bm J=\frac{\partial\bm y}{\partial\bm z}.
+\end{equation}
+本样本的奇异值从 3.09 降至 0.00226，条件数
+\begin{equation}
+ \kappa(\bm J)=\frac{\sigma_{max}}{\sigma_{min}}=1368.85.
+\end{equation}
+这意味着某些参数组合沿端口观测中的弱敏感方向变化时，频响几乎不变。因此优化器可找到一组曲线误差极小、但内部电容分配错误的参数。
+
+\begin{figure}[H]\centering
+\includegraphics[width=.72\linewidth]{identifiability_spectrum.png}
+\caption{八参数响应 Jacobian 的奇异值谱。小奇异值对应难以从当前端口频点区分的参数组合。}
+\end{figure}
+
+若测量噪声协方差为 $\bm\Sigma$，Fisher 信息矩阵为
+\begin{equation}
+ \boxed{\bm F=\bm J^H\bm\Sigma^{-1}\bm J.}
+\end{equation}
+本实验尚未把 Fisher 信息送入 GNN；但该奇异值结果证明 Fisher/OED 不是装饰模块，而是决定“哪些尺度值得同时在线辨识、选哪些频点和 DAB 窗口”的前置工具。
+
+\section{物理合规检查}
+结构化反演后，端口互易误差
+\begin{equation}
+ \max_\omega\|\bm Y_{port}-\bm Y_{port}^T\|_\infty=2.98\times10^{-15},
+\end{equation}
+端口导纳实部最小特征值为 $1.60\times10^{-8}>0$。这说明当前参数化和矩阵求解未破坏互易性与小信号无源性。最小二乘/梯度优化不是“物理约束本身”；真正的物理约束来自矩阵构造、正值参数化、Kron 方程和合规检查。
+
+\section{对项目路线的结论}
+\begin{enumerate}
+ \item FALCON 可以作为软件和实验基线，但不能直接充当最终 HFT 方法；其核心可迁移部分是图级正向代理和可微逆优化。
+ \item 每匝一段是当前合理选择，近期无需再把“学习分段”作为主问题。
+ \item 仅给关系分型并不会自动提高精度。下一版必须让任务真正包含边级差异，例如局部 $C_{ij}$、非局部 $M_{ij}$、跨布局变化和内部电压输出。
+ \item 当前端口观测对八个尺度明显病态。在线阶段不应试图自由恢复全部 $O(N^2)$ 边，而应在 FEM/GNN 先验上只更新少量可辨识的分组系数或低秩坐标。
+ \item AI 的合理职责是学习跨结构的边先验、正向代理或低维更新坐标；Fisher/OED 决定在线可观测的参数子空间；精确矩阵方程负责最终物理闭环。
+\end{enumerate}
+
+\section{下一步实施顺序}
+\begin{enumerate}
+ \item 在当前代码上加入自动微分 Fisher 分析，比较 $Y_{11},Y_{12},Y_{22}$、频点集合和 DAB 多窗口对最小奇异值的提升。
+ \item 把八参数反演改成“全参数、Fisher 选参、分组/低秩参数”三组对照，验证参数误差而不仅是曲线误差。
+ \item 构造局部边扰动数据：相邻匝电容、面对原副边电容、主磁通和漏磁通分别变化，使异构 GNN 面对真正的边级任务。
+ \item 再接 COMSOL：静电端口提取 $\bm C$，磁场/频域端口提取 $\bm L$ 或 $\bm Z(\omega)$；以少量 4+4/8+8 模型先验证矩阵符号、对称性、能量和端口扫频。
+ \item 最后接 DAB 运行波形。在线数据只校正可辨识的低维图坐标，不从四个端口波形直接猜测全部匝间矩阵。
+\end{enumerate}
+
+\smallskip\noindent\textbf{复现文件：}主程序为 \texttt{run\_exp16.py}，自检程序为 \texttt{test\_exp16.py}；结果目录保存两套权重、训练历史、指标 JSON 和三张图。程序自动检测 CUDA，正式运行记录的设备为 NVIDIA GeForce RTX 5070。
+
+\end{document}

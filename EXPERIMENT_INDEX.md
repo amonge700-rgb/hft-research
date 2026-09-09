@@ -27,9 +27,13 @@
 - `experiment10_segmented_ladder_identification_20260721/`：分段梯形网络与局部参数可辨识性。
 - `experiment11_segmented_hft_simscape_validation_20260728/`：Simscape 与矩阵模型独立实现比较。
 - `experiment12_segmentation_strategy_20260817/`：均匀、物理层和信息引导分段比较。
+- `experiment13_generalized_coupled_graph_20260824/`：广义全耦合图模型阶段实验。
+- `experiment14_graph_matrix_integration_20260831/`：图表示与矩阵求解接口整合。
+- `experiment15_hft_graph_physics_20260901/`：匝级图数据契约、可微矩阵/Kron 求解与物理合规基线。
+- `experiment16_falcon_hft_gnn_20260909/`：FALCON 风格同质 GNN、HFT 分型关系 GNN 与结构化物理反演闭环。
+- `experiment17_fisher_oed_subspace_20260909/`：八参数逐端口/逐频点 Fisher 信息、log-det OED、原参数筛选与低秩可辨识子空间反演。
 
 ## 阅读顺序
 
-建议先阅读早期归档中的实验一至九总报告，再依次阅读实验十、十一和十二报告。
-Fisher/OED 工作不是被后续实验替代，而是为端口选择、频点选择、参数降维和分段合并提供数学基础。
-
+建议先阅读早期归档中的实验一至九总报告，再依次阅读实验十至十七报告。
+Fisher/OED 工作不是被后续实验替代；EXP-017 已进一步证明，形式满秩不等于数值稳定，三端口互补、频点 OED 和参数子空间降维应先于继续增加网络复杂度。
