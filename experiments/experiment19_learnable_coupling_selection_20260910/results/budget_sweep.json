@@ -1,0 +1,530 @@
+{
+  "0.2": {
+    "distance": {
+      "port_response_mae": {
+        "mean": 3.4158456892112386e-06,
+        "p95": 5.808089657437403e-06
+      },
+      "node_voltage_mae_norm": {
+        "mean": 1.892750492922859e-07,
+        "p95": 3.2405915954772525e-07
+      },
+      "displacement_current_error_percent": {
+        "mean": 57.85483619725281,
+        "p95": 66.89223863361809
+      },
+      "peak_voltage_error_percent": {
+        "mean": 2.986332699586206e-05,
+        "p95": 5.3333895193201426e-05
+      },
+      "peak_location_distance_norm": {
+        "mean": 0.0,
+        "p95": 0.0
+      },
+      "edge_retention": {
+        "mean": 0.19502314814814814,
+        "p95": 0.203125
+      }
+    },
+    "fisher_proxy": {
+      "port_response_mae": {
+        "mean": 2.7227000224543164e-06,
+        "p95": 4.495572007088208e-06
+      },
+      "node_voltage_mae_norm": {
+        "mean": 2.1298967357155717e-07,
+        "p95": 3.613176871215334e-07
+      },
+      "displacement_current_error_percent": {
+        "mean": 53.77279845366792,
+        "p95": 59.00186272972524
+      },
+      "peak_voltage_error_percent": {
+        "mean": 3.0804454715429764e-05,
+        "p95": 5.887691738369864e-05
+      },
+      "peak_location_distance_norm": {
+        "mean": 0.0,
+        "p95": 0.0
+      },
+      "edge_retention": {
+        "mean": 0.19502314814814814,
+        "p95": 0.203125
+      }
+    },
+    "learned_gate": {
+      "port_response_mae": {
+        "mean": 2.689018119829416e-06,
+        "p95": 4.548391031940212e-06
+      },
+      "node_voltage_mae_norm": {
+        "mean": 1.9921637213179105e-07,
+        "p95": 3.3886474391922636e-07
+      },
+      "displacement_current_error_percent": {
+        "mean": 52.29446616004879,
+        "p95": 58.29997180270811
+      },
+      "peak_voltage_error_percent": {
+        "mean": 2.8694351666072744e-05,
+        "p95": 5.534794381440482e-05
+      },
+      "peak_location_distance_norm": {
+        "mean": 0.0,
+        "p95": 0.0
+      },
+      "edge_retention": {
+        "mean": 0.19502314814814814,
+        "p95": 0.203125
+      }
+    },
+    "magnitude": {
+      "port_response_mae": {
+        "mean": 3.6412140774102165e-06,
+        "p95": 6.183090636371717e-06
+      },
+      "node_voltage_mae_norm": {
+        "mean": 1.8538145321292782e-07,
+        "p95": 3.1121252484233127e-07
+      },
+      "displacement_current_error_percent": {
+        "mean": 59.494574928915256,
+        "p95": 67.97104919934843
+      },
+      "peak_voltage_error_percent": {
+        "mean": 3.1393532764501395e-05,
+        "p95": 5.5914341640971725e-05
+      },
+      "peak_location_distance_norm": {
+        "mean": 0.0,
+        "p95": 0.0
+      },
+      "edge_retention": {
+        "mean": 0.19502314814814814,
+        "p95": 0.203125
+      }
+    },
+    "oracle_edge_current": {
+      "port_response_mae": {
+        "mean": 2.7616016749184386e-06,
+        "p95": 4.751737391646473e-06
+      },
+      "node_voltage_mae_norm": {
+        "mean": 1.8694605144539707e-07,
+        "p95": 3.208741779970965e-07
+      },
+      "displacement_current_error_percent": {
+        "mean": 51.86526585321427,
+        "p95": 58.20532357520805
+      },
+      "peak_voltage_error_percent": {
+        "mean": 2.756737554847414e-05,
+        "p95": 5.0001139031389264e-05
+      },
+      "peak_location_distance_norm": {
+        "mean": 0.0,
+        "p95": 0.0
+      },
+      "edge_retention": {
+        "mean": 0.19502314814814814,
+        "p95": 0.203125
+      }
+    }
+  },
+  "0.4": {
+    "distance": {
+      "port_response_mae": {
+        "mean": 2.1484261472339417e-06,
+        "p95": 3.993713491919539e-06
+      },
+      "node_voltage_mae_norm": {
+        "mean": 1.0968690297051253e-07,
+        "p95": 1.9012191952931352e-07
+      },
+      "displacement_current_error_percent": {
+        "mean": 35.41716686722034,
+        "p95": 45.97147771935825
+      },
+      "peak_voltage_error_percent": {
+        "mean": 1.839719327980553e-05,
+        "p95": 3.4762417838449614e-05
+      },
+      "peak_location_distance_norm": {
+        "mean": 0.0,
+        "p95": 0.0
+      },
+      "edge_retention": {
+        "mean": 0.3900462962962963,
+        "p95": 0.40625
+      }
+    },
+    "fisher_proxy": {
+      "port_response_mae": {
+        "mean": 1.317863736560666e-06,
+        "p95": 2.3898225870978605e-06
+      },
+      "node_voltage_mae_norm": {
+        "mean": 1.1063287930306438e-07,
+        "p95": 1.988662849082502e-07
+      },
+      "displacement_current_error_percent": {
+        "mean": 29.19722059726154,
+        "p95": 34.82232968294159
+      },
+      "peak_voltage_error_percent": {
+        "mean": 1.3391865619992805e-05,
+        "p95": 2.6053536749975903e-05
+      },
+      "peak_location_distance_norm": {
+        "mean": 0.0,
+        "p95": 0.0
+      },
+      "edge_retention": {
+        "mean": 0.3900462962962963,
+        "p95": 0.40625
+      }
+    },
+    "learned_gate": {
+      "port_response_mae": {
+        "mean": 1.3563413743208084e-06,
+        "p95": 2.4600936858438826e-06
+      },
+      "node_voltage_mae_norm": {
+        "mean": 1.0181789868612204e-07,
+        "p95": 1.717560788451615e-07
+      },
+      "displacement_current_error_percent": {
+        "mean": 28.008833510733226,
+        "p95": 34.178957700899716
+      },
+      "peak_voltage_error_percent": {
+        "mean": 1.3653308033336015e-05,
+        "p95": 2.638932376279387e-05
+      },
+      "peak_location_distance_norm": {
+        "mean": 0.0,
+        "p95": 0.0
+      },
+      "edge_retention": {
+        "mean": 0.3900462962962963,
+        "p95": 0.40625
+      }
+    },
+    "magnitude": {
+      "port_response_mae": {
+        "mean": 2.0475887310908112e-06,
+        "p95": 3.4829369730805565e-06
+      },
+      "node_voltage_mae_norm": {
+        "mean": 1.0185180471888566e-07,
+        "p95": 1.7659505601055045e-07
+      },
+      "displacement_current_error_percent": {
+        "mean": 33.71336054978506,
+        "p95": 42.16272921252264
+      },
+      "peak_voltage_error_percent": {
+        "mean": 1.694270655590191e-05,
+        "p95": 3.10693923644444e-05
+      },
+      "peak_location_distance_norm": {
+        "mean": 0.0,
+        "p95": 0.0
+      },
+      "edge_retention": {
+        "mean": 0.3900462962962963,
+        "p95": 0.40625
+      }
+    },
+    "oracle_edge_current": {
+      "port_response_mae": {
+        "mean": 1.3444299934948208e-06,
+        "p95": 2.41049117836263e-06
+      },
+      "node_voltage_mae_norm": {
+        "mean": 1.0201046087097325e-07,
+        "p95": 1.717560788451615e-07
+      },
+      "displacement_current_error_percent": {
+        "mean": 27.975379730439272,
+        "p95": 34.178957700899716
+      },
+      "peak_voltage_error_percent": {
+        "mean": 1.3624185332844471e-05,
+        "p95": 2.638932376279387e-05
+      },
+      "peak_location_distance_norm": {
+        "mean": 0.0,
+        "p95": 0.0
+      },
+      "edge_retention": {
+        "mean": 0.3900462962962963,
+        "p95": 0.40625
+      }
+    }
+  },
+  "0.6": {
+    "distance": {
+      "port_response_mae": {
+        "mean": 8.597161690277509e-07,
+        "p95": 1.7457564772025794e-06
+      },
+      "node_voltage_mae_norm": {
+        "mean": 3.922773861871094e-08,
+        "p95": 8.715040303702393e-08
+      },
+      "displacement_current_error_percent": {
+        "mean": 14.50545524655664,
+        "p95": 21.381092247793283
+      },
+      "peak_voltage_error_percent": {
+        "mean": 5.947800196041131e-06,
+        "p95": 1.139513341136696e-05
+      },
+      "peak_location_distance_norm": {
+        "mean": 0.0,
+        "p95": 0.0
+      },
+      "edge_retention": {
+        "mean": 0.6099537037037037,
+        "p95": 0.625
+      }
+    },
+    "fisher_proxy": {
+      "port_response_mae": {
+        "mean": 5.005229605852215e-07,
+        "p95": 8.530931613535904e-07
+      },
+      "node_voltage_mae_norm": {
+        "mean": 4.9411590683207293e-08,
+        "p95": 8.274953809195034e-08
+      },
+      "displacement_current_error_percent": {
+        "mean": 13.752900457960482,
+        "p95": 16.95896410506931
+      },
+      "peak_voltage_error_percent": {
+        "mean": 4.516714464178505e-06,
+        "p95": 8.116890147454912e-06
+      },
+      "peak_location_distance_norm": {
+        "mean": 0.0,
+        "p95": 0.0
+      },
+      "edge_retention": {
+        "mean": 0.6099537037037037,
+        "p95": 0.625
+      }
+    },
+    "learned_gate": {
+      "port_response_mae": {
+        "mean": 6.226076321706546e-07,
+        "p95": 1.0769650939540809e-06
+      },
+      "node_voltage_mae_norm": {
+        "mean": 3.837009869310098e-08,
+        "p95": 7.56515768954366e-08
+      },
+      "displacement_current_error_percent": {
+        "mean": 12.151177084276192,
+        "p95": 16.68981076160859
+      },
+      "peak_voltage_error_percent": {
+        "mean": 5.16193495630595e-06,
+        "p95": 1.0051505339958375e-05
+      },
+      "peak_location_distance_norm": {
+        "mean": 0.0,
+        "p95": 0.0
+      },
+      "edge_retention": {
+        "mean": 0.6099537037037037,
+        "p95": 0.625
+      }
+    },
+    "magnitude": {
+      "port_response_mae": {
+        "mean": 8.949591274052016e-07,
+        "p95": 1.7662813062695613e-06
+      },
+      "node_voltage_mae_norm": {
+        "mean": 3.976752084239881e-08,
+        "p95": 8.212121625719095e-08
+      },
+      "displacement_current_error_percent": {
+        "mean": 14.882997673544232,
+        "p95": 21.324050825545015
+      },
+      "peak_voltage_error_percent": {
+        "mean": 6.181870925608277e-06,
+        "p95": 1.1841496403255982e-05
+      },
+      "peak_location_distance_norm": {
+        "mean": 0.0,
+        "p95": 0.0
+      },
+      "edge_retention": {
+        "mean": 0.6099537037037037,
+        "p95": 0.625
+      }
+    },
+    "oracle_edge_current": {
+      "port_response_mae": {
+        "mean": 5.332912500261269e-07,
+        "p95": 9.72118352748711e-07
+      },
+      "node_voltage_mae_norm": {
+        "mean": 3.9255470351735415e-08,
+        "p95": 7.39367606184169e-08
+      },
+      "displacement_current_error_percent": {
+        "mean": 11.728962131186254,
+        "p95": 15.979276744932772
+      },
+      "peak_voltage_error_percent": {
+        "mean": 4.698902942251204e-06,
+        "p95": 8.5381964391918e-06
+      },
+      "peak_location_distance_norm": {
+        "mean": 0.0,
+        "p95": 0.0
+      },
+      "edge_retention": {
+        "mean": 0.6099537037037037,
+        "p95": 0.625
+      }
+    }
+  },
+  "0.8": {
+    "distance": {
+      "port_response_mae": {
+        "mean": 2.938978875614456e-07,
+        "p95": 7.397397532021959e-07
+      },
+      "node_voltage_mae_norm": {
+        "mean": 9.531316827491693e-09,
+        "p95": 2.2579062159317524e-08
+      },
+      "displacement_current_error_percent": {
+        "mean": 4.776090870925719,
+        "p95": 8.30610604219308
+      },
+      "peak_voltage_error_percent": {
+        "mean": 1.2809216197119296e-06,
+        "p95": 3.492411878506569e-06
+      },
+      "peak_location_distance_norm": {
+        "mean": 0.0,
+        "p95": 0.0
+      },
+      "edge_retention": {
+        "mean": 0.8049768518518519,
+        "p95": 0.8125
+      }
+    },
+    "fisher_proxy": {
+      "port_response_mae": {
+        "mean": 1.1566403100120868e-07,
+        "p95": 2.0843601100242052e-07
+      },
+      "node_voltage_mae_norm": {
+        "mean": 1.2646351608792011e-08,
+        "p95": 2.235605697091187e-08
+      },
+      "displacement_current_error_percent": {
+        "mean": 3.7697788614802934,
+        "p95": 5.505420370314583
+      },
+      "peak_voltage_error_percent": {
+        "mean": 9.158169487752588e-07,
+        "p95": 1.956418757881187e-06
+      },
+      "peak_location_distance_norm": {
+        "mean": 0.0,
+        "p95": 0.0
+      },
+      "edge_retention": {
+        "mean": 0.8049768518518519,
+        "p95": 0.8125
+      }
+    },
+    "learned_gate": {
+      "port_response_mae": {
+        "mean": 1.8714772907822638e-07,
+        "p95": 3.6162468619246874e-07
+      },
+      "node_voltage_mae_norm": {
+        "mean": 9.787919148858773e-09,
+        "p95": 2.1021820487163128e-08
+      },
+      "displacement_current_error_percent": {
+        "mean": 3.598084189657891,
+        "p95": 5.746468809889331
+      },
+      "peak_voltage_error_percent": {
+        "mean": 1.082795872328082e-06,
+        "p95": 2.391924643647649e-06
+      },
+      "peak_location_distance_norm": {
+        "mean": 0.0,
+        "p95": 0.0
+      },
+      "edge_retention": {
+        "mean": 0.8049768518518519,
+        "p95": 0.8125
+      }
+    },
+    "magnitude": {
+      "port_response_mae": {
+        "mean": 3.0226918740185496e-07,
+        "p95": 6.049896479635057e-07
+      },
+      "node_voltage_mae_norm": {
+        "mean": 1.0635515787847494e-08,
+        "p95": 2.2377860295698853e-08
+      },
+      "displacement_current_error_percent": {
+        "mean": 4.948481837261677,
+        "p95": 8.527202033533953
+      },
+      "peak_voltage_error_percent": {
+        "mean": 1.6011146156824604e-06,
+        "p95": 3.608689143130078e-06
+      },
+      "peak_location_distance_norm": {
+        "mean": 0.0,
+        "p95": 0.0
+      },
+      "edge_retention": {
+        "mean": 0.8049768518518519,
+        "p95": 0.8125
+      }
+    },
+    "oracle_edge_current": {
+      "port_response_mae": {
+        "mean": 1.3546104850918654e-07,
+        "p95": 2.462792221844441e-07
+      },
+      "node_voltage_mae_norm": {
+        "mean": 9.803285151215288e-09,
+        "p95": 2.049960967099371e-08
+      },
+      "displacement_current_error_percent": {
+        "mean": 3.2526885191843813,
+        "p95": 5.162028783476459
+      },
+      "peak_voltage_error_percent": {
+        "mean": 8.31181869392616e-07,
+        "p95": 1.90609644542539e-06
+      },
+      "peak_location_distance_norm": {
+        "mean": 0.0,
+        "p95": 0.0
+      },
+      "edge_retention": {
+        "mean": 0.8049768518518519,
+        "p95": 0.8125
+      }
+    }
+  }
+}

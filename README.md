@@ -19,6 +19,8 @@
 - `experiment15_hft_graph_physics_20260901`：统一图契约与可微矩阵/Kron 求解器；
 - `experiment16_falcon_hft_gnn_20260909`：FALCON 风格 GNN 与 HFT 分型 GNN 基线；
 - `experiment17_fisher_oed_subspace_20260909`：Fisher/OED、参数筛选与低秩可辨识子空间。
+- `experiment18_local_hetero_gnn_20260910`：匝级正向异构 GNN 与 residual 消融；
+- `experiment19_learnable_coupling_selection_20260910`：物理解码的跨绕组电容边选择与率失真分析。
 - [下一阶段实施路线](docs/NEXT_EXPERIMENT_PLAN.md)
 
 ## 重要边界

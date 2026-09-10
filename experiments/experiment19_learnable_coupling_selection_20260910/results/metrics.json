@@ -1,0 +1,212 @@
+{
+  "scope": {
+    "synthetic_only": true,
+    "teacher": "EXP-015 exact matrix/Kron solver",
+    "selected_relation": "cross-winding capacitance only",
+    "online_inverse": false,
+    "comsol_or_hardware": false
+  },
+  "config": {
+    "device": "cuda",
+    "train": 150,
+    "test": 75,
+    "epochs": 45,
+    "keep": 0.4,
+    "seed": 1910,
+    "quick": false,
+    "device_used": "cuda",
+    "train_seconds": 187.9335503578186
+  },
+  "teacher_checks": {
+    "max_reciprocity": 1.5338766736024342e-14,
+    "max_internal_kcl": 0.0,
+    "minimum_real_y_eigenvalue": 6.000394430637925e-07
+  },
+  "metrics": {
+    "distance": {
+      "port_response_mae": {
+        "mean": 2.1484261472339417e-06,
+        "std": 9.398918699386844e-07,
+        "p95": 3.993713491919539e-06
+      },
+      "node_voltage_mae_norm": {
+        "mean": 1.0968690297051253e-07,
+        "std": 4.558391636657227e-08,
+        "p95": 1.9012191952931352e-07
+      },
+      "displacement_current_error_percent": {
+        "mean": 35.41716686722034,
+        "std": 6.239218245450409,
+        "p95": 45.97147771935825
+      },
+      "peak_voltage_error_percent": {
+        "mean": 1.839719327980553e-05,
+        "std": 9.813526571845856e-06,
+        "p95": 3.4762417838449614e-05
+      },
+      "peak_location_hit": {
+        "mean": 1.0,
+        "std": 0.0,
+        "p95": 1.0
+      },
+      "peak_location_distance_norm": {
+        "mean": 0.0,
+        "std": 0.0,
+        "p95": 0.0
+      },
+      "edge_retention": {
+        "mean": 0.3900462962962963,
+        "std": 0.012870071056788482,
+        "p95": 0.40625
+      }
+    },
+    "magnitude": {
+      "port_response_mae": {
+        "mean": 2.0475887310908112e-06,
+        "std": 8.446576204378925e-07,
+        "p95": 3.4829369730805565e-06
+      },
+      "node_voltage_mae_norm": {
+        "mean": 1.0185180471888566e-07,
+        "std": 4.366079677931519e-08,
+        "p95": 1.7659505601055045e-07
+      },
+      "displacement_current_error_percent": {
+        "mean": 33.71336054978506,
+        "std": 5.525136169988808,
+        "p95": 42.16272921252264
+      },
+      "peak_voltage_error_percent": {
+        "mean": 1.694270655590191e-05,
+        "std": 8.346036140953034e-06,
+        "p95": 3.10693923644444e-05
+      },
+      "peak_location_hit": {
+        "mean": 1.0,
+        "std": 0.0,
+        "p95": 1.0
+      },
+      "peak_location_distance_norm": {
+        "mean": 0.0,
+        "std": 0.0,
+        "p95": 0.0
+      },
+      "edge_retention": {
+        "mean": 0.3900462962962963,
+        "std": 0.012870071056788482,
+        "p95": 0.40625
+      }
+    },
+    "fisher_proxy": {
+      "port_response_mae": {
+        "mean": 1.3011515163669862e-06,
+        "std": 5.376502245726283e-07,
+        "p95": 2.3188313606465593e-06
+      },
+      "node_voltage_mae_norm": {
+        "mean": 1.1731972624874234e-07,
+        "std": 4.799216395809351e-08,
+        "p95": 2.1202043753507345e-07
+      },
+      "displacement_current_error_percent": {
+        "mean": 30.001392257839143,
+        "std": 3.8455951105558217,
+        "p95": 35.62243481633627
+      },
+      "peak_voltage_error_percent": {
+        "mean": 1.3617508255541119e-05,
+        "std": 6.366954898344039e-06,
+        "p95": 2.5617254618574772e-05
+      },
+      "peak_location_hit": {
+        "mean": 1.0,
+        "std": 0.0,
+        "p95": 1.0
+      },
+      "peak_location_distance_norm": {
+        "mean": 0.0,
+        "std": 0.0,
+        "p95": 0.0
+      },
+      "edge_retention": {
+        "mean": 0.3900462962962963,
+        "std": 0.012870071056788482,
+        "p95": 0.40625
+      }
+    },
+    "oracle_edge_current": {
+      "port_response_mae": {
+        "mean": 1.3444299934948208e-06,
+        "std": 5.343695101286849e-07,
+        "p95": 2.41049117836263e-06
+      },
+      "node_voltage_mae_norm": {
+        "mean": 1.0201046087097325e-07,
+        "std": 4.2637856239365285e-08,
+        "p95": 1.717560788451615e-07
+      },
+      "displacement_current_error_percent": {
+        "mean": 27.975379730439272,
+        "std": 4.184822030592439,
+        "p95": 34.178957700899716
+      },
+      "peak_voltage_error_percent": {
+        "mean": 1.3624185332844471e-05,
+        "std": 6.991064820517994e-06,
+        "p95": 2.638932376279387e-05
+      },
+      "peak_location_hit": {
+        "mean": 1.0,
+        "std": 0.0,
+        "p95": 1.0
+      },
+      "peak_location_distance_norm": {
+        "mean": 0.0,
+        "std": 0.0,
+        "p95": 0.0
+      },
+      "edge_retention": {
+        "mean": 0.3900462962962963,
+        "std": 0.012870071056788482,
+        "p95": 0.40625
+      }
+    },
+    "learned_gate": {
+      "port_response_mae": {
+        "mean": 1.3563413743208084e-06,
+        "std": 5.464440536210648e-07,
+        "p95": 2.4600936858438826e-06
+      },
+      "node_voltage_mae_norm": {
+        "mean": 1.0181789868612204e-07,
+        "std": 4.2232189155438905e-08,
+        "p95": 1.717560788451615e-07
+      },
+      "displacement_current_error_percent": {
+        "mean": 28.008833510733226,
+        "std": 4.199293038378061,
+        "p95": 34.178957700899716
+      },
+      "peak_voltage_error_percent": {
+        "mean": 1.3653308033336015e-05,
+        "std": 6.95999879312462e-06,
+        "p95": 2.638932376279387e-05
+      },
+      "peak_location_hit": {
+        "mean": 1.0,
+        "std": 0.0,
+        "p95": 1.0
+      },
+      "peak_location_distance_norm": {
+        "mean": 0.0,
+        "std": 0.0,
+        "p95": 0.0
+      },
+      "edge_retention": {
+        "mean": 0.3900462962962963,
+        "std": 0.012870071056788482,
+        "p95": 0.40625
+      }
+    }
+  }
+}
