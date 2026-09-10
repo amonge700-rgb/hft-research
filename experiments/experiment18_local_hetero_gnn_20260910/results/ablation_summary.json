@@ -1,0 +1,13 @@
+{
+  "residual_edge_centric_vs_falcon_improvement_percent": {
+    "graph_response_mae": 4.841513689239922,
+    "node_voltage_mae": 5.57693269595531,
+    "cross_edge_log_current_mae": -1.64533818965664
+  },
+  "interpretation": {
+    "graph_and_node": "small positive advantage under local residual targets",
+    "cross_edge_current": "no advantage; edge-centric model is slightly worse",
+    "localization": "all models remain weak, especially for larger topologies",
+    "absolute_target": "heterogeneous models do not outperform the homogeneous baseline"
+  }
+}

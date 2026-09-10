@@ -1,0 +1,135 @@
+{
+  "experiment": "EXP-018",
+  "synthetic_only": true,
+  "teacher": "EXP-015 exact matrix/Kron",
+  "dab_representation": "natural odd PWM harmonics, not switched-device simulation",
+  "device": "cuda",
+  "gpu": "NVIDIA GeForce RTX 5070",
+  "seed": 1809,
+  "samples": {
+    "train": 720,
+    "val": 150,
+    "test": 240
+  },
+  "topologies": [
+    "4+4",
+    "6+6",
+    "8+8"
+  ],
+  "relations": [
+    "series",
+    "local_cap",
+    "cross_cap",
+    "magnetic"
+  ],
+  "teacher_checks": {
+    "max_reciprocity_error": 1.320372144714677e-14,
+    "minimum_real_admittance_eigenvalue": 3.3061426839249764e-07,
+    "max_internal_kcl_residual": 5.106146581099238e-11
+  },
+  "falcon_homogeneous": {
+    "graph_response_mae": 0.03459401180346807,
+    "node_voltage_mae": 0.021725288902719814,
+    "cross_edge_log_current_mae": 0.07418650016188622,
+    "peak_node_hit_rate": 1.0,
+    "predicted_passivity_rate": 0.7691666483879089,
+    "by_topology": [
+      {
+        "n": 4,
+        "graph_response_mae": 0.04431485757231712,
+        "node_voltage_mae": 0.021426737308502197,
+        "cross_edge_log_current_mae": 0.09633658826351166,
+        "peak_node_hit_rate": 1.0,
+        "predicted_passivity_rate": 0.6875
+      },
+      {
+        "n": 6,
+        "graph_response_mae": 0.03529614582657814,
+        "node_voltage_mae": 0.021377310156822205,
+        "cross_edge_log_current_mae": 0.06587635725736618,
+        "peak_node_hit_rate": 1.0,
+        "predicted_passivity_rate": 0.762499988079071
+      },
+      {
+        "n": 8,
+        "graph_response_mae": 0.02417103201150894,
+        "node_voltage_mae": 0.022371819242835045,
+        "cross_edge_log_current_mae": 0.06034655496478081,
+        "peak_node_hit_rate": 1.0,
+        "predicted_passivity_rate": 0.8574999570846558
+      }
+    ],
+    "parameters": 57449,
+    "train_seconds": 9.580830812454224
+  },
+  "hft_typed": {
+    "graph_response_mae": 0.041373539716005325,
+    "node_voltage_mae": 0.021390148748954136,
+    "cross_edge_log_current_mae": 0.09781057635943095,
+    "peak_node_hit_rate": 1.0,
+    "predicted_passivity_rate": 0.785833328962326,
+    "by_topology": [
+      {
+        "n": 4,
+        "graph_response_mae": 0.05348524823784828,
+        "node_voltage_mae": 0.024632573127746582,
+        "cross_edge_log_current_mae": 0.08388281613588333,
+        "peak_node_hit_rate": 1.0,
+        "predicted_passivity_rate": 0.42499998211860657
+      },
+      {
+        "n": 6,
+        "graph_response_mae": 0.03919920325279236,
+        "node_voltage_mae": 0.020834004506468773,
+        "cross_edge_log_current_mae": 0.09764280915260315,
+        "peak_node_hit_rate": 1.0,
+        "predicted_passivity_rate": 0.9325000047683716
+      },
+      {
+        "n": 8,
+        "graph_response_mae": 0.031436167657375336,
+        "node_voltage_mae": 0.018703868612647057,
+        "cross_edge_log_current_mae": 0.11190610378980637,
+        "peak_node_hit_rate": 1.0,
+        "predicted_passivity_rate": 1.0
+      }
+    ],
+    "parameters": 86177,
+    "train_seconds": 13.612600088119507
+  },
+  "edge_centric_hetero": {
+    "graph_response_mae": 0.036845639968911804,
+    "node_voltage_mae": 0.02254502723614375,
+    "cross_edge_log_current_mae": 0.08635331938664119,
+    "peak_node_hit_rate": 1.0,
+    "predicted_passivity_rate": 0.8733332951863607,
+    "by_topology": [
+      {
+        "n": 4,
+        "graph_response_mae": 0.046164218336343765,
+        "node_voltage_mae": 0.022161001339554787,
+        "cross_edge_log_current_mae": 0.07384306937456131,
+        "peak_node_hit_rate": 1.0,
+        "predicted_passivity_rate": 0.7999999523162842
+      },
+      {
+        "n": 6,
+        "graph_response_mae": 0.03713533654808998,
+        "node_voltage_mae": 0.023067226633429527,
+        "cross_edge_log_current_mae": 0.08472637832164764,
+        "peak_node_hit_rate": 1.0,
+        "predicted_passivity_rate": 0.98499995470047
+      },
+      {
+        "n": 8,
+        "graph_response_mae": 0.027237365022301674,
+        "node_voltage_mae": 0.02240685373544693,
+        "cross_edge_log_current_mae": 0.1004905104637146,
+        "peak_node_hit_rate": 1.0,
+        "predicted_passivity_rate": 0.8349999785423279
+      }
+    ],
+    "parameters": 164129,
+    "train_seconds": 17.948057413101196
+  }
+}

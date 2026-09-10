@@ -1,0 +1,6 @@
+tmp/
+__pycache__/
+output/pdf/main.*
+report/*.aux
+report/*.log
+report/*.out
