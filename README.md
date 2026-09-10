@@ -4,24 +4,31 @@
 
 ## 当前研究主线
 
-1. 从集中参数模型扩展到分段梯形网络；
-2. 用矩阵法建立多端口频率响应；
-3. 用 Simscape/Simulink 独立实现验证矩阵求解器；
-4. 研究运行激励下的参数可辨识性；
-5. 在复杂前向模型产生模型失配后，引入物理引导 AI 残差补偿；
-6. 将参数辨识结果连接到跨绕组位移电流等工程量。
+1. 每匝作为一个导体段，建立包含完整电感矩阵和分布电容矩阵的四端子模型；
+2. 用 MNA/Kron 矩阵法计算端口频响和内部状态，并用 Simscape 独立验证；
+3. 利用 DAB 正常 PWM 运行窗口研究端口、频点和参数子空间的可辨识性；
+4. 以 Fisher/OED 选择在线可辨识坐标，不从少数端口直接自由恢复全部匝间参数；
+5. 用 GNN 学习跨结构的匝级耦合先验或正向代理，再由物理矩阵完成闭环；
+6. 将在线更新结果连接到跨绕组位移电流、内部电压与 EMI 风险等工程量。
 
-## 已归档实验
+## 实验导航
 
-- `experiment9_ai_residual_pilot_20260716`：AI 残差学习初步验证；
-- `experiment10_segmented_ladder_identification_20260721`：分段梯形网络建模与参数辨识；
-- `experiment11_segmented_hft_simscape_validation_20260728`：Simscape 与矩阵模型独立实现对比。
+- [完整实验索引](EXPERIMENT_INDEX.md)
+- `experiment13_parametric_four_terminal_hft_20260821`：参数化四端子 Simscape 模型；
+- `experiment14_dab_switching_20260821`：分布参数变压器接入 DAB 开关运行；
+- `experiment15_hft_graph_physics_20260901`：统一图契约与可微矩阵/Kron 求解器；
+- `experiment16_falcon_hft_gnn_20260909`：FALCON 风格 GNN 与 HFT 分型 GNN 基线；
+- `experiment17_fisher_oed_subspace_20260909`：Fisher/OED、参数筛选与低秩可辨识子空间。
+- [下一阶段实施路线](docs/NEXT_EXPERIMENT_PLAN.md)
 
 ## 重要边界
 
 当前分段模型的参数主要来自文献尺度与合成设定。Simscape 验证证明两种实现的一致性，
 不等同于证明模型已经准确对应某台实物高频变压器。物理参数仍需通过文献样机、有限元
 或实测进行标定。
+
+EXP-016/017 的 AI 与 Fisher 结果同样只证明合成模型上的方法链路。当前尚未建立
+COMSOL 匝级矩阵数据集，也尚未在实物 DAB 上验证在线辨识精度。
 
 ## 仓库规则
 

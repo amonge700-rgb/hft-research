@@ -27,8 +27,8 @@
 - `experiment10_segmented_ladder_identification_20260721/`：分段梯形网络与局部参数可辨识性。
 - `experiment11_segmented_hft_simscape_validation_20260728/`：Simscape 与矩阵模型独立实现比较。
 - `experiment12_segmentation_strategy_20260817/`：均匀、物理层和信息引导分段比较。
-- `experiment13_generalized_coupled_graph_20260824/`：广义全耦合图模型阶段实验。
-- `experiment14_graph_matrix_integration_20260831/`：图表示与矩阵求解接口整合。
+- `experiment13_parametric_four_terminal_hft_20260821/`：参数化四端子完整电感/跨绕组电容 Simscape 模型。
+- `experiment14_dab_switching_20260821/`：分布参数高频变压器接入 DAB 开关运行的回归实验。
 - `experiment15_hft_graph_physics_20260901/`：匝级图数据契约、可微矩阵/Kron 求解与物理合规基线。
 - `experiment16_falcon_hft_gnn_20260909/`：FALCON 风格同质 GNN、HFT 分型关系 GNN 与结构化物理反演闭环。
 - `experiment17_fisher_oed_subspace_20260909/`：八参数逐端口/逐频点 Fisher 信息、log-det OED、原参数筛选与低秩可辨识子空间反演。
