@@ -35,6 +35,16 @@
 - `experiment18_local_hetero_gnn_20260910/`：局部耦合扰动、DAB 自然谐波条件下的逐匝同质/分型/edge-centric 异构 GNN 对照；含绝对目标与局部残差目标消融。
 - `experiment19_learnable_coupling_selection_20260910/`：在相同跨绕组电容边预算下比较距离、幅值、Fisher 代理、真值 oracle 与可学习门控；由精确矩阵求解器验证端口、内部电压和位移电流率失真。
 
+## 最新成果入口
+
+- EXP-016 PDF：`experiments/experiment16_falcon_hft_gnn_20260909/output/pdf/EXP016_FALCON_HFT_GNN_实验报告.pdf`
+- EXP-017 PDF：`experiments/experiment17_fisher_oed_subspace_20260909/output/pdf/`
+- EXP-018 PDF：`experiments/experiment18_local_hetero_gnn_20260910/output/pdf/EXP018_report.pdf`
+- EXP-019 报告：`experiments/experiment19_learnable_coupling_selection_20260910/实验十九阶段报告.md`
+- EXP-019 关键结果：`experiments/experiment19_learnable_coupling_selection_20260910/results/`
+- PDF 总合集：`reports/experiment_report_pdf_collection_20260908/`
+- 任富强博士论文：`literature/source_papers/任富强4117004009博士学位论文.pdf`
+
 ## 阅读顺序
 
 建议先阅读早期归档中的实验一至九总报告，再依次阅读实验十至十九报告。

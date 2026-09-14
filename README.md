@@ -14,6 +14,12 @@
 ## 实验导航
 
 - [完整实验索引](EXPERIMENT_INDEX.md)
+- [下一阶段实施路线](docs/NEXT_EXPERIMENT_PLAN.md)
+- [PDF 报告合集与阅读顺序](reports/experiment_report_pdf_collection_20260908/README_报告索引.md)
+- [参考文献与来源说明](literature/README.md)
+
+### 当前核心实验（EXP-013 至 EXP-019）
+
 - `experiment13_parametric_four_terminal_hft_20260821`：参数化四端子 Simscape 模型；
 - `experiment14_dab_switching_20260821`：分布参数变压器接入 DAB 开关运行；
 - `experiment15_hft_graph_physics_20260901`：统一图契约与可微矩阵/Kron 求解器；
@@ -21,7 +27,18 @@
 - `experiment17_fisher_oed_subspace_20260909`：Fisher/OED、参数筛选与低秩可辨识子空间。
 - `experiment18_local_hetero_gnn_20260910`：匝级正向异构 GNN 与 residual 消融；
 - `experiment19_learnable_coupling_selection_20260910`：物理解码的跨绕组电容边选择与率失真分析。
-- [下一阶段实施路线](docs/NEXT_EXPERIMENT_PLAN.md)
+
+当前最新稳定节点为 EXP-019。该实验首次把 AI 的输出从“响应预测”改成“耦合边选择”，但结果同时表明：边保留率必须由端口响应、内部电压和跨绕组位移电流的联合任务误差确定，不能预先指定一个固定比例。
+
+## 仓库目录
+
+| 目录 | 内容 |
+|---|---|
+| `experiments/` | 各编号实验的代码、配置、关键结果、图表和报告源文件 |
+| `reports/` | 适合直接阅读的 PDF 汇总与校验清单 |
+| `literature/` | 文献索引、阅读说明及经明确授权纳入仓库的原文 |
+| `docs/` | 跨实验路线、下一步计划和项目级说明 |
+| `shared_data_manifest/` | 仓库外大型数据的清单和可追溯说明 |
 
 ## 重要边界
 
