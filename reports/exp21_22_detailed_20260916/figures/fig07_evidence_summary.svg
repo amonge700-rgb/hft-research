@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="416.16pt" height="141.912pt" viewBox="0 0 416.16 141.912" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-09-16T17:10:23.917487</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 141.912 
+L 416.16 141.912 
+L 416.16 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 15.2352 126.42372 
+L 131.7456 126.42372 
+Q 137.772 126.42372 137.772 124.51104 
+L 137.772 19.9512 
+Q 137.772 18.03852 131.7456 18.03852 
+L 15.2352 18.03852 
+Q 9.2088 18.03852 9.2088 19.9512 
+L 9.2088 124.51104 
+Q 9.2088 126.42372 15.2352 126.42372 
+z
+" clip-path="url(#pf1cd7cbbef)" style="fill: #228c7b; opacity: 0.1; stroke: #228c7b; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 147.816 126.42372 
+L 264.3264 126.42372 
+Q 270.3528 126.42372 270.3528 124.51104 
+L 270.3528 19.9512 
+Q 270.3528 18.03852 264.3264 18.03852 
+L 147.816 18.03852 
+Q 141.7896 18.03852 141.7896 19.9512 
+L 141.7896 124.51104 
+Q 141.7896 126.42372 147.816 126.42372 
+z
+" clip-path="url(#pf1cd7cbbef)" style="fill: #4477aa; opacity: 0.1; stroke: #4477aa; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 280.3968 126.42372 
+L 396.9072 126.42372 
+Q 402.9336 126.42372 402.9336 124.51104 
+L 402.9336 19.9512 
+Q 402.9336 18.03852 396.9072 18.03852 
+L 280.3968 18.03852 
+Q 274.3704 18.03852 274.3704 19.9512 
+L 274.3704 124.51104 
+Q 274.3704 126.42372 280.3968 126.42372 
+z
+" clip-path="url(#pf1cd7cbbef)" style="fill: #c44e52; opacity: 0.1; stroke: #c44e52; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #228c7b" x="73.4904" y="35.25264" transform="rotate(-0 73.4904 35.25264)">Established</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 7px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; fill: #222222" transform="translate(25.2792 63.467263)">• 12 COMSOL geometries</text>
+    <text style="font-size: 7px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; fill: #222222" transform="translate(25.2792 72.841179)">pass matrix checks</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 7px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; fill: #222222" transform="translate(25.2792 90.484411)">• Multi-window + Kron +</text>
+    <text style="font-size: 7px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; fill: #222222" transform="translate(25.2792 98.981139)">CUDA loop runs</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 7px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; fill: #222222" transform="translate(25.2792 115.778355)">• Physics inversion reaches</text>
+    <text style="font-size: 7px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; fill: #222222" transform="translate(25.2792 125.028677)">~1% response error</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #4477aa" x="206.0712" y="35.25264" transform="rotate(-0 206.0712 35.25264)">Promising, not proven</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 7px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; fill: #222222" transform="translate(157.86 64.344451)">• GNN lowers nominal</text>
+    <text style="font-size: 7px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; fill: #222222" transform="translate(157.86 71.97821)">response error</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 7px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; fill: #222222" transform="translate(157.86 90.089567)">• Fast direct estimate /</text>
+    <text style="font-size: 7px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; fill: #222222" transform="translate(157.86 99.847936)">useful initializer</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 7px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; fill: #222222" transform="translate(157.86 115.778355)">• Turn-level graph accepts</text>
+    <text style="font-size: 7px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; fill: #222222" transform="translate(157.86 125.100865)">C and L/M edges</text>
+   </g>
+   <g id="text_9">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #c44e52" x="338.652" y="35.25264" transform="rotate(-0 338.652 35.25264)">Still missing</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 7px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; fill: #222222" transform="translate(290.4408 64.344451)">• No hardware DAB</text>
+    <text style="font-size: 7px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; fill: #222222" transform="translate(290.4408 73.66696)">validation</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 7px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; fill: #222222" transform="translate(290.4408 90.484411)">• No multi-seed</text>
+    <text style="font-size: 7px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; fill: #222222" transform="translate(290.4408 98.929733)">uncertainty</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 7px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; fill: #222222" transform="translate(290.4408 116.624371)">• GNN does not beat</text>
+    <text style="font-size: 7px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; fill: #222222" transform="translate(290.4408 125.100865)">physics accuracy</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pf1cd7cbbef">
+   <rect x="7.2" y="7.2" width="401.76" height="127.512"/>
+  </clipPath>
+ </defs>
+</svg>
