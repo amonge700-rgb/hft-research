@@ -1,0 +1,31 @@
+{
+  "experiment": "EXP-025",
+  "model_scope": "finite-rise-time PWM waveform plus linear turn-level network; no semiconductor device switching",
+  "cases_per_seed_geometry": 100,
+  "seeds": 5,
+  "snr_db": 45,
+  "runtime_seconds": 67.36389636993408,
+  "metrics": {
+    "multi_pwm": {
+      "y_measurement_error": 0.0005438393306865173,
+      "response_reconstruction_error": 0.0007556696903234548,
+      "parameter_rmse": 0.030864440042733626,
+      "active_parameter_mae": 0.06760877033544646,
+      "median_excitation_condition": 2.405250179436981
+    },
+    "degenerate_pwm": {
+      "y_measurement_error": 1.0782975118766955,
+      "response_reconstruction_error": 0.0005888864162785887,
+      "parameter_rmse": 0.030823883946714665,
+      "active_parameter_mae": 0.06761068814395692,
+      "median_excitation_condition": 12826405.305837639
+    },
+    "single_pwm": {
+      "y_measurement_error": 0.9365758329309732,
+      "response_reconstruction_error": 0.0006633429574589852,
+      "parameter_rmse": 0.030824382465052185,
+      "active_parameter_mae": 0.06761419480854519,
+      "median_excitation_condition": 3.372510934266439e+16
+    }
+  }
+}

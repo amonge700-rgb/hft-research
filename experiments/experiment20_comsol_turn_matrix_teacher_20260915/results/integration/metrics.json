@@ -1,0 +1,30 @@
+{
+  "scope": "quasi-static C and linear-core L/M; DC geometric R",
+  "frequency_points": 241,
+  "frequency_min_hz": 1000.0,
+  "frequency_max_hz": 10000000.0,
+  "full_capacitance_edges": 28,
+  "literature_retained_edges": 22,
+  "literature_edge_retention": 0.7857142857142857,
+  "removed_mutual_capacitance_pf": 1.2162989731727472,
+  "removed_fraction_of_mutual_capacitance_percent": 2.0540983587887713,
+  "port_admittance_relative_frobenius": 1.1617278678813349e-07,
+  "port_admittance_max_magnitude_delta_db": 0.004572555007527512,
+  "internal_voltage_relative_l2": 1.0885403773296092e-06,
+  "cross_winding_current_relative_l2": 2.1900893183249727e-06,
+  "full_open_input_impedance_peak_hz": 10000000.0,
+  "literature_open_input_impedance_peak_hz": 10000000.0,
+  "open_input_peak_shift_percent": 0.0,
+  "full_internal_kcl_max_a": 2.124320360410731e-13,
+  "literature_internal_kcl_max_a": 2.0277875239845167e-13,
+  "dc_resistance_ohm": {
+    "P1": 0.0024374425760610467,
+    "P2": 0.0024374425760610467,
+    "P3": 0.0024374425760610467,
+    "P4": 0.0024374425760610467,
+    "S1": 0.0028707657006941216,
+    "S2": 0.0028707657006941216,
+    "S3": 0.0028707657006941216,
+    "S4": 0.0028707657006941216
+  }
+}

@@ -1,0 +1,7 @@
+metric,value
+symmetry_relative_frobenius,0
+minimum_eigenvalue_F,2.124785857474581e-12
+maximum_eigenvalue_F,3.440029914330454e-11
+minimum_diagonal_F,1.409312678951197e-11
+maximum_offdiagonal_F,-5.881407942954144e-15
+minimum_reference_capacitance_F,6.346432847210375e-13

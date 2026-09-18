@@ -34,6 +34,11 @@
 - `experiment17_fisher_oed_subspace_20260909/`：八参数逐端口/逐频点 Fisher 信息、log-det OED、原参数筛选与低秩可辨识子空间反演。
 - `experiment18_local_hetero_gnn_20260910/`：局部耦合扰动、DAB 自然谐波条件下的逐匝同质/分型/edge-centric 异构 GNN 对照；含绝对目标与局部残差目标消融。
 - `experiment19_learnable_coupling_selection_20260910/`：在相同跨绕组电容边预算下比较距离、幅值、Fisher 代理、真值 oracle 与可学习门控；由精确矩阵求解器验证端口、内部电压和位移电流率失真。
+- `experiment20_comsol_turn_matrix_teacher_20260915/`：COMSOL 逐匝高保真教师模型；先提取 4+4 匝 Maxwell 电容矩阵，再扩展至频变阻抗/电感矩阵，并回灌 EXP-015/019。
+- `experiment21_comsol_gnn_minimal_20260916/`：12 个参数化 COMSOL 几何、多窗口端口观测、五维物理合法参数化、CUDA edge-centric GNN 与物理反演最小闭环。
+- `experiment22_model_mismatch_robust_inverse_20260916/`：在频变电阻、对地寄生和测量链路失配下比较标称、GNN、纯物理及混合反演；结果显示当前 GNN 尚未超过物理基线。
+- `experiment23_edge_selection_measurement_update_20260917/`：GNN同时学习静态重要耦合边和测量条件化的稀疏$C_{ij}/M_{ij}$更新；物理矩阵/Kron求解器负责最终响应验证。
+- `experiment24_fisher_identifiable_graph_modes_20260917/`：对56维逐匝$C/M$边更新构造Fisher/SVD模态；结果显示现有两端口观测仅支持约3个强耦合组合方向。
 
 ## 最新成果入口
 
@@ -42,6 +47,16 @@
 - EXP-018 PDF：`experiments/experiment18_local_hetero_gnn_20260910/output/pdf/EXP018_report.pdf`
 - EXP-019 报告：`experiments/experiment19_learnable_coupling_selection_20260910/实验十九阶段报告.md`
 - EXP-019 关键结果：`experiments/experiment19_learnable_coupling_selection_20260910/results/`
+- EXP-021 报告：`experiments/experiment21_comsol_gnn_minimal_20260916/实验二十一阶段报告.md`
+- EXP-021 关键结果：`experiments/experiment21_comsol_gnn_minimal_20260916/results/`
+- EXP-022 报告：`experiments/experiment22_model_mismatch_robust_inverse_20260916/实验二十二阶段报告.md`
+- EXP-023 报告：`experiments/experiment23_edge_selection_measurement_update_20260917/实验二十三阶段报告.md`
+- EXP-023 关键结果：`experiments/experiment23_edge_selection_measurement_update_20260917/results/`
+- EXP-024 报告：`experiments/experiment24_fisher_identifiable_graph_modes_20260917/实验二十四阶段报告.md`
+- EXP-024 关键结果：`experiments/experiment24_fisher_identifiable_graph_modes_20260917/results/`
+- EXP-025 报告：`experiments/experiment25_dab_pwm_time_domain_observability_20260917/实验二十五阶段报告.md`
+- EXP-025 关键结果：`experiments/experiment25_dab_pwm_time_domain_observability_20260917/results/`
+- EXP-020--022 综合 PDF：`reports/exp21_22_detailed_20260916/output/pdf/EXP020_022_COMSOL_GNN_detailed_report.pdf`
 - PDF 总合集：`reports/experiment_report_pdf_collection_20260908/`
 - 任富强博士论文：`literature/source_papers/任富强4117004009博士学位论文.pdf`
 

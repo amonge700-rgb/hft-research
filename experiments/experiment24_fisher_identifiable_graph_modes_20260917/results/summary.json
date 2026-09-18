@@ -1,0 +1,54 @@
+{
+  "experiment": "EXP-024",
+  "test_geometries": [
+    10,
+    11
+  ],
+  "cases_per_seed_geometry": 60,
+  "seeds": 5,
+  "methods": [
+    "full56",
+    "group5",
+    "fisher3",
+    "fisher8",
+    "oracle8"
+  ],
+  "runtime_seconds": 3.793980836868286,
+  "noise_0p003": {
+    "full56": {
+      "response_error": 0.1253102912185773,
+      "full_parameter_rmse": 0.03128649310355346,
+      "active_parameter_mae": 0.06831622863641229,
+      "identifiable_coordinate_error": 1.2398465368971658,
+      "estimate_norm": 0.03974567900549033
+    },
+    "group5": {
+      "response_error": 0.2368663953888687,
+      "full_parameter_rmse": 0.03148753107566954,
+      "active_parameter_mae": 0.0690721425468584,
+      "identifiable_coordinate_error": 1.4023687153614224,
+      "estimate_norm": 0.037134537790767176
+    },
+    "fisher3": {
+      "response_error": 0.1302620026323805,
+      "full_parameter_rmse": 0.031335415170642825,
+      "active_parameter_mae": 0.06822530979953637,
+      "identifiable_coordinate_error": 1.3753629328470531,
+      "estimate_norm": 0.042499783245392664
+    },
+    "fisher8": {
+      "response_error": 0.13026199494455892,
+      "full_parameter_rmse": 0.031335428543848576,
+      "active_parameter_mae": 0.0682253264988888,
+      "identifiable_coordinate_error": 1.3753629328470531,
+      "estimate_norm": 0.04249978842690716
+    },
+    "oracle8": {
+      "response_error": 0.10532695410759702,
+      "full_parameter_rmse": 0.029781770737548723,
+      "active_parameter_mae": 0.06286142045912003,
+      "identifiable_coordinate_error": 0.4278941338864497,
+      "estimate_norm": 0.08588147949062006
+    }
+  }
+}

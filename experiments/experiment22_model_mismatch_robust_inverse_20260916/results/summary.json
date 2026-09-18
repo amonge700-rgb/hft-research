@@ -1,0 +1,57 @@
+{
+  "scope": "simulation-only forward/inverse mismatch pilot",
+  "device": "cuda",
+  "cuda": true,
+  "torch": "2.11.0+cu128",
+  "comsol_geometries": 12,
+  "states_per_geometry": 80,
+  "train_graphs": 8,
+  "validation_graphs": 2,
+  "test_graphs": 2,
+  "best_val_theta_mae": 0.07993453368544579,
+  "training_seconds": 334.90741991996765,
+  "mismatch_terms": [
+    "temperature-dependent R",
+    "sqrt-frequency R",
+    "asymmetric ground C",
+    "probe gain",
+    "probe delay",
+    "current noise"
+  ],
+  "results": [
+    {
+      "method": "GNN direct",
+      "graph": 10.5,
+      "theta_mae": 0.07325407862663269,
+      "response_error": 0.07678725570440292,
+      "seconds": 0.0
+    },
+    {
+      "method": "GNN regularized physics",
+      "graph": 10.5,
+      "theta_mae": 0.054774682968854904,
+      "response_error": 0.05241657793521881,
+      "seconds": 2.409001350402832
+    },
+    {
+      "method": "nominal",
+      "graph": 10.5,
+      "theta_mae": 0.07607691362500191,
+      "response_error": 0.09506041929125786,
+      "seconds": 0.0
+    },
+    {
+      "method": "physics mismatch",
+      "graph": 10.5,
+      "theta_mae": 0.05147059075534344,
+      "response_error": 0.05221273750066757,
+      "seconds": 2.4870864152908325
+    }
+  ],
+  "limitations": [
+    "synthetic nuisance distributions",
+    "12 geometries",
+    "no hardware",
+    "linear-core quasi-static COMSOL teachers"
+  ]
+}

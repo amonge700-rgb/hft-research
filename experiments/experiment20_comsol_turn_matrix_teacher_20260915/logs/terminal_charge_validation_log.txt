@@ -1,0 +1,5 @@
+source=model/revisions/terminal_charge_api_test.mph
+final_revision=model/revisions/exp20_teacher_4p4_axisym_C_LM_converged_terminal_verified.mph
+relative_frobenius_error=1.495030457099899e-14
+worst_elementwise_relative_error=6.454191376849653e-12
+method=COMSOL Voltage Terminal reaction charge es.Q0_i

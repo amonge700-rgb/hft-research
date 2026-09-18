@@ -1,0 +1,31 @@
+{
+  "scope": "minimal simulation-only feasibility pilot",
+  "teacher_audit": {
+    "samples": 12,
+    "all_finite": true,
+    "WW_gap_correlation": -0.9771410422838306,
+    "IT_gap_correlation": -0.9863325239849614,
+    "max_C_symmetry_F": 1.1309109937248425e-26,
+    "max_L_symmetry_H": 0.0
+  },
+  "cuda_available": true,
+  "device": "cuda",
+  "torch_version": "2.11.0+cu128",
+  "train_graphs": 8,
+  "validation_graphs": 2,
+  "test_graphs": 2,
+  "states_per_graph": 60,
+  "trainable_parameters": 73925,
+  "best_val_theta_mae_log_scale": 0.07856488949619234,
+  "test_theta_mae_log_scale": 0.0756887711584568,
+  "test_response_relative_error": 0.05864491075044498,
+  "nominal_response_relative_error": 0.07603128045642128,
+  "response_error_reduction_percent": 22.86739037091664,
+  "training_seconds": 260.9620294570923,
+  "limitations": [
+    "12 COMSOL geometries only",
+    "simulation-to-simulation",
+    "quasi-static C and linear-core L/M",
+    "measurement-chain and hardware validation absent"
+  ]
+}

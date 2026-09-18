@@ -1,0 +1,5 @@
+matrix,from,to,max_diagonal_relative_change,max_important_mutual_relative_change,accepted_lt_1pct
+C,coarse,medium,0.004482748487733589,0.006551351888481208,True
+L,coarse,medium,0.0008569843984009581,0.001189864383119139,True
+C,medium,fine,0.004014516035929015,0.005080530413802437,True
+L,medium,fine,0.0009959389991932577,0.0012695697870735393,True

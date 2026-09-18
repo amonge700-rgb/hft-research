@@ -1,0 +1,4 @@
+metric,value
+relative_frobenius_error,1.495030457099899e-14
+worst_elementwise_relative_error,6.454191376849653e-12
+method,COMSOL Voltage Terminal reaction charge es.Q0_i

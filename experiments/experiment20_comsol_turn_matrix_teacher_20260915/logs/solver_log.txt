@@ -1,0 +1,21 @@
+EXP-020 COMSOL solver log
+Date: 2026-09-15
+COMSOL version: 6.4.0.293
+Session: MPh client-server
+Cores: 8
+Geometry: 2D axisymmetric
+Turns: P1-P4, S1-S4
+Electrostatics: Stationary, 36 energy cases
+Magnetics: Magnetic Fields / Induction Currents, stationary linear core, 36 energy cases
+Relative permittivity: 3.5
+Core relative permeability: 2000
+Copper conductivity: 5.8e7 S/m
+Capacitance assembly: Cii=2*Wi; Cij=Wij-Wi-Wj
+Inductance assembly: Lii=2*Wi; Mij=Wij-Wi-Wj
+Electrostatic cases solved: 36/36
+Magnetic cases solved: 36/36
+Solver failures in accepted runs: 0
+Notes:
+- Frequency-domain trial was not used because the connector created an empty frequency list.
+- L/M reported here is the quasi-static linear teacher matrix.
+- Frequency-dependent resistance/impedance extraction is outside this completed L/M stage.

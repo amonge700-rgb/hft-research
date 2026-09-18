@@ -1,0 +1,5 @@
+source=D:\高频变压器\hft-worktrees\experiments\experiments\experiment20_comsol_turn_matrix_teacher_20260915\model\revisions\exp20_teacher_4p4_axisym_C_LM_converged_charge_verified.mph
+revision=D:\高频变压器\hft-worktrees\experiments\experiments\experiment20_comsol_turn_matrix_teacher_20260915\model\revisions\exp20_teacher_4p4_axisym_C_LM_converged_charge_verified_v2.mph
+relative_frobenius_error=1.329523443629611e-01
+worst_elementwise_relative_error=1.480064160331779e-01
+axisymmetric_boundary_weight=2*pi*r

@@ -1,0 +1,6 @@
+metric,value
+symmetry_relative_frobenius,0
+minimum_eigenvalue_H,1.302931105522186e-8
+maximum_eigenvalue_H,4.590278615931156e-7
+minimum_self_inductance_H,8.089605006690021e-8
+maximum_coupling_coefficient,0.780962022320

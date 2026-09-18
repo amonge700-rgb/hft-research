@@ -1,0 +1,9 @@
+node,winding,turn_index,r_center_m,z_center_m,radial_thickness_m,axial_width_m,material
+P1,primary,1,0.01125,-0.001875,0.0005,0.001,copper
+P2,primary,2,0.01125,-0.000625,0.0005,0.001,copper
+P3,primary,3,0.01125,0.000625,0.0005,0.001,copper
+P4,primary,4,0.01125,0.001875,0.0005,0.001,copper
+S1,secondary,1,0.01325,-0.001875,0.0005,0.001,copper
+S2,secondary,2,0.01325,-0.000625,0.0005,0.001,copper
+S3,secondary,3,0.01325,0.000625,0.0005,0.001,copper
+S4,secondary,4,0.01325,0.001875,0.0005,0.001,copper

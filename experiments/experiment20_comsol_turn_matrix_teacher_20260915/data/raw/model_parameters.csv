@@ -1,0 +1,13 @@
+parameter,value
+Np,4
+Ns,4
+r_core,10[mm]
+h_core,16[mm]
+t_ins_core,1[mm]
+w_turn,1[mm]
+t_turn,0.5[mm]
+g_turn,0.25[mm]
+g_ps,1.5[mm]
+epsr_ins,3.5
+r_air,35[mm]
+h_air,25[mm]

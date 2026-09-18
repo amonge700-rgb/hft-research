@@ -1,0 +1,8 @@
+started=2026-09-15 19:44:07
+source=D:\高频变压器\hft-worktrees\experiments\experiments\experiment20_comsol_turn_matrix_teacher_20260915\model\exp20_teacher_4p4_axisym_C_LM.mph
+coarse: elements=1164, vertices=609, dofC=4762, dofL=4762, mesh_s=0.044, C_s=43.824, L_s=40.100
+medium: elements=2175, vertices=1136, dofC=8892, dofL=8892, mesh_s=0.119, C_s=42.449, L_s=43.048
+fine: elements=18898, vertices=9622, dofC=76282, dofL=76282, mesh_s=0.204, C_s=63.928, L_s=60.220
+charge_relative_frobenius_error=1.027127e+01
+charge_worst_elementwise_relative_error=1.137077e+01
+finished=2026-09-15 19:49:56

@@ -1,0 +1,87 @@
+{
+  "source_model": "model/exp20_teacher_4p4_axisym_C_LM.mph",
+  "mesh_metrics": [
+    {
+      "mesh": "coarse",
+      "hauto": 5,
+      "elements": 1164,
+      "vertices": 609,
+      "dof_electrostatic": 4762,
+      "dof_magnetic": 4762,
+      "mesh_time_s": 0.04435310000553727,
+      "electrostatic_36case_time_s": 43.82416820000799,
+      "magnetic_36case_time_s": 40.100463599999784,
+      "converged": true
+    },
+    {
+      "mesh": "medium",
+      "hauto": 3,
+      "elements": 2175,
+      "vertices": 1136,
+      "dof_electrostatic": 8892,
+      "dof_magnetic": 8892,
+      "mesh_time_s": 0.11866249999729916,
+      "electrostatic_36case_time_s": 42.449390799993125,
+      "magnetic_36case_time_s": 43.04836859999341,
+      "converged": true
+    },
+    {
+      "mesh": "fine",
+      "hauto": 1,
+      "elements": 18898,
+      "vertices": 9622,
+      "dof_electrostatic": 76282,
+      "dof_magnetic": 76282,
+      "mesh_time_s": 0.20377429999643937,
+      "electrostatic_36case_time_s": 63.9275095999983,
+      "magnetic_36case_time_s": 60.21972310001729,
+      "converged": true
+    }
+  ],
+  "convergence": [
+    {
+      "matrix": "C",
+      "from": "coarse",
+      "to": "medium",
+      "max_diagonal_relative_change": 0.004482748487733589,
+      "max_important_mutual_relative_change": 0.006551351888481208,
+      "accepted_lt_1pct": true
+    },
+    {
+      "matrix": "L",
+      "from": "coarse",
+      "to": "medium",
+      "max_diagonal_relative_change": 0.0008569843984009581,
+      "max_important_mutual_relative_change": 0.001189864383119139,
+      "accepted_lt_1pct": true
+    },
+    {
+      "matrix": "C",
+      "from": "medium",
+      "to": "fine",
+      "max_diagonal_relative_change": 0.004014516035929015,
+      "max_important_mutual_relative_change": 0.005080530413802437,
+      "accepted_lt_1pct": true
+    },
+    {
+      "matrix": "L",
+      "from": "medium",
+      "to": "fine",
+      "max_diagonal_relative_change": 0.0009959389991932577,
+      "max_important_mutual_relative_change": 0.0012695697870735393,
+      "accepted_lt_1pct": true
+    }
+  ],
+  "charge_validation": {
+    "relative_frobenius_error": 1.495030457099899e-14,
+    "worst_elementwise_relative_error": 6.454191376849653e-12,
+    "method": "COMSOL Voltage Terminal reaction charge es.Q0_i",
+    "accepted": true
+  },
+  "restrictions": {
+    "DAB_added": false,
+    "thermal_added": false,
+    "GNN_added": false,
+    "nonlinear_core_added": false
+  }
+}
