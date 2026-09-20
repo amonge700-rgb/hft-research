@@ -39,6 +39,8 @@
 - `experiment22_model_mismatch_robust_inverse_20260916/`：在频变电阻、对地寄生和测量链路失配下比较标称、GNN、纯物理及混合反演；结果显示当前 GNN 尚未超过物理基线。
 - `experiment23_edge_selection_measurement_update_20260917/`：GNN同时学习静态重要耦合边和测量条件化的稀疏$C_{ij}/M_{ij}$更新；物理矩阵/Kron求解器负责最终响应验证。
 - `experiment24_fisher_identifiable_graph_modes_20260917/`：对56维逐匝$C/M$边更新构造Fisher/SVD模态；结果显示现有两端口观测仅支持约3个强耦合组合方向。
+- `experiment26a_task_preserving_graph_sparsification_20260920/`：在4+4至32+32匝矩阵物理模型上，对跨绕组电容边与互感关系进行等预算压缩；新增位移电流任务指标，证明电容图可稀疏排序，而互感矩阵必须采用保持正定性的低秩/模态压缩，不能独立二值删边。
+- `experiment27_online_modal_identification_20260920/`：将逐匝图在线更新收缩为跨绕组电容整体尺度和两个正定磁模态；使用 DAB 多窗口、宽频小信号、Spectral Mode Perceiver 与物理校正。结果证明磁模态可恢复，但当前端口观测中的电容 Fisher 信息仍不足，必须进入 Cps 定向 OED。
 
 ## 最新成果入口
 
@@ -56,6 +58,10 @@
 - EXP-024 关键结果：`experiments/experiment24_fisher_identifiable_graph_modes_20260917/results/`
 - EXP-025 报告：`experiments/experiment25_dab_pwm_time_domain_observability_20260917/实验二十五阶段报告.md`
 - EXP-025 关键结果：`experiments/experiment25_dab_pwm_time_domain_observability_20260917/results/`
+- EXP-026A 报告：`experiments/experiment26a_task_preserving_graph_sparsification_20260920/实验二十六A阶段报告.md`
+- EXP-026A 关键结果：`experiments/experiment26a_task_preserving_graph_sparsification_20260920/results/`
+- EXP-027 报告：`experiments/experiment27_online_modal_identification_20260920/实验二十七阶段报告.md`
+- EXP-027 诊断激励结果：`experiments/experiment27_online_modal_identification_20260920/results_pilot_20V/`
 - EXP-020--022 综合 PDF：`reports/exp21_22_detailed_20260916/output/pdf/EXP020_022_COMSOL_GNN_detailed_report.pdf`
 - PDF 总合集：`reports/experiment_report_pdf_collection_20260908/`
 - 任富强博士论文：`literature/source_papers/任富强4117004009博士学位论文.pdf`

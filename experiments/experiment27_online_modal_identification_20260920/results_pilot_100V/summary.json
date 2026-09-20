@@ -1,0 +1,52 @@
+{
+  "experiment": "EXP-027",
+  "scope": "simulation-only DAB multi-window online identification in 3 C groups + 2 PSD L modes",
+  "pilot_v": 100.0,
+  "device": "cuda",
+  "cuda_available": true,
+  "epochs": 3,
+  "states_per_train_graph": 4,
+  "train_graphs": 8,
+  "val_graphs": 2,
+  "test_graphs": 2,
+  "test_states": 40,
+  "parameters": 107905,
+  "runtime_seconds": 2.2168147563934326,
+  "metrics": {
+    "fisher3": {
+      "parameter_rmse": 0.18534534305017009,
+      "c_group_mae": 0.2034641981197442,
+      "m_mode_mae": 0.0096155984873075,
+      "response_error": 0.003187154901561195,
+      "estimate_norm": 0.37630579301911377
+    },
+    "gnn_physics": {
+      "parameter_rmse": 0.24935792101651436,
+      "c_group_mae": 0.29593228476978134,
+      "m_mode_mae": 0.00867207905096605,
+      "response_error": 0.0026841461977655536,
+      "estimate_norm": 0.5224730111473663
+    },
+    "nominal": {
+      "parameter_rmse": 0.09217950935654268,
+      "c_group_mae": 0.0943050637181538,
+      "m_mode_mae": 0.05554842144847498,
+      "response_error": 0.04539958275053738,
+      "estimate_norm": 0.0
+    },
+    "physics5": {
+      "parameter_rmse": 0.20246473060878153,
+      "c_group_mae": 0.23142032324224573,
+      "m_mode_mae": 0.009308520277224045,
+      "response_error": 0.0031018227771057996,
+      "estimate_norm": 0.4213160016360211
+    },
+    "spectral_gnn": {
+      "parameter_rmse": 0.09604151044040918,
+      "c_group_mae": 0.09868151172995568,
+      "m_mode_mae": 0.05587743683718145,
+      "response_error": 0.04559062581623252,
+      "estimate_norm": 0.06186627894639969
+    }
+  }
+}
